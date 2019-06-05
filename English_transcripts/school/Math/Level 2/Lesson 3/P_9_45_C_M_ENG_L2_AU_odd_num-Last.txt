@@ -1,0 +1,1 @@
+It is impossible to split 5 cubes into two equal set so of cubes.

@@ -1,0 +1,1 @@
+Which two sets have equal number of rings. Drop the two sets that are equal in number into the bucket.

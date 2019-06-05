@@ -1,0 +1,1 @@
+Which 2, 10 frames have equal number of dots? Drop the 2 frames that are equal in number into the bucket.

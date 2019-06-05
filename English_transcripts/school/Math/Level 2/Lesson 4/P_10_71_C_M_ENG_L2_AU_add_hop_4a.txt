@@ -1,0 +1,1 @@
+There is an easier way. You can add numbers in any order. So , if you start with greater number, you can make fewer hops. If you start on number 4, what number do you land on?
