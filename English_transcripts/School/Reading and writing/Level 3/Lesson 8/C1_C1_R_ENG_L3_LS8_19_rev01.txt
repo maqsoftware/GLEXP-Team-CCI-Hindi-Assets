@@ -1,0 +1,1 @@
+Suffix is the word part added to the end of a word, adding a suffix to a word changes how a word is used, for the words that ends with the silent 'e' , delete silent 'e' before adding 'ed' or 'ing'. Tap button number 1.
