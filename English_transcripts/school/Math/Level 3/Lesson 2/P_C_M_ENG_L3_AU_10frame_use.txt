@@ -1,0 +1,1 @@
+Using a 10's frame makes it easier to count. A Full 10's frame always has 10 counters. 

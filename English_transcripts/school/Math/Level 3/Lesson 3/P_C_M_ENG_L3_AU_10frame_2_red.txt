@@ -1,0 +1,1 @@
+You can use two 10's frame to help you find sums upto 20. How many red counters are in the first 10's frame?
