@@ -1,1 +1,1 @@
-  Then    That’s right
+Then That’s right
