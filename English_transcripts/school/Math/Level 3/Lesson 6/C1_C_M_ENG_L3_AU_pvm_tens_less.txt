@@ -1,1 +1,1 @@
-The number with the fewer tens is less. 45 has fewer tens than 55.Only count the ones if the number of tens is equal
+The number with the fewer tens is less. 45 has fewer tens than 55. Only count the ones if the number of tens is equal
