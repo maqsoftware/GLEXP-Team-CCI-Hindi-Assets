@@ -3,6 +3,6 @@ document.addEventListener("deviceready", function () {
     AndroidFullScreen.immersiveMode(function () {
         window.location.href = "welcome.html?firstLaunch";
     }, function (err) {
-                alert(err);
+        alert(err);
     });
 });

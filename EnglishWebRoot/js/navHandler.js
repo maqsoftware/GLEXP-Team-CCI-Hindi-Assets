@@ -33,16 +33,16 @@ navHandler();
 
 // Juuust in case we see another viewport tom-fuckery. ALSO, if still a problem in the morning, add an interval function.
 function viewportFix() {
-	windowScale = window.outerWidth / 1280;
-	viewport = document.querySelector("meta[name=viewport]");
-    viewport.setAttribute('content', 'width=device-width, initial-scale='+windowScale+', maximum-scale=1.0, user-scalable=0');
+    windowScale = window.outerWidth / 1280;
+    viewport = document.querySelector("meta[name=viewport]");
+    viewport.setAttribute('content', 'width=device-width, initial-scale=' + windowScale + ', maximum-scale=1.0, user-scalable=0');
     window.setTimeout(function () {
-		windowScale = window.outerWidth / 1280;
+        windowScale = window.outerWidth / 1280;
         viewport = document.querySelector("meta[name=viewport]");
-        viewport.setAttribute('content', 'width=device-width, initial-scale='+windowScale+', maximum-scale=1.0, user-scalable=0');
+        viewport.setAttribute('content', 'width=device-width, initial-scale=' + windowScale + ', maximum-scale=1.0, user-scalable=0');
         window.setTimeout(function () {
-			windowScale = window.outerWidth / 1280;
-            viewport.setAttribute('content', 'width=device-width, initial-scale='+windowScale+', maximum-scale=1.0, user-scalable=0');
+            windowScale = window.outerWidth / 1280;
+            viewport.setAttribute('content', 'width=device-width, initial-scale=' + windowScale + ', maximum-scale=1.0, user-scalable=0');
         }, 1);
     }, 500);
 }
