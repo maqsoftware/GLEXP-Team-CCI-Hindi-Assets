@@ -1,0 +1,1 @@
+How many of the stuffed animals are not hippos? Subtract the number of stuffed hippos from the total number of stuffed animals to find the answer.

@@ -1,0 +1,1 @@
+﻿<break time="200ms"/> उन शब्दों को लिखें जो सुनाई देरे है. <break time="200ms"/> I am Tom.<break time="200ms"/> याद रखें की नाम . capital . अक्षर से शुरू होते हैं

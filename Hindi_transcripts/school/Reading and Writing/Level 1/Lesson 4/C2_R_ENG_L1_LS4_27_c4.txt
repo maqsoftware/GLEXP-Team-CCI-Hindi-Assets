@@ -1,0 +1,1 @@
+﻿<break time="200ms"/>three, is mom mad at <break time="100ms"/>tom?<break time="100ms"/>
