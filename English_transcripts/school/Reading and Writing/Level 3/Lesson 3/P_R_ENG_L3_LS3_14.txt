@@ -1,0 +1,1 @@
+pick a letter from a top row to make the new word, don’t forget to double up. 
