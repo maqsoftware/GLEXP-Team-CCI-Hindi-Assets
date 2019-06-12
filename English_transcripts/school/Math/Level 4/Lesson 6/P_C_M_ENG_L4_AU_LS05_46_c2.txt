@@ -1,0 +1,1 @@
+How many cubes are left? Count the cubes. Then touch number that shows how many cubes remain.

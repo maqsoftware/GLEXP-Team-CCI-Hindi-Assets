@@ -1,0 +1,1 @@
+How many red counters are left outside the 10's frame?
