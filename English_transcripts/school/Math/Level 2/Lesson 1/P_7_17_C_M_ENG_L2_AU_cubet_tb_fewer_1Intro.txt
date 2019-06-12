@@ -1,0 +1,1 @@
+Count the two trains of green cubes. Which train has fewer?

@@ -1,0 +1,1 @@
+Count the cubes in both trains. Touch the cube that shows fewer.

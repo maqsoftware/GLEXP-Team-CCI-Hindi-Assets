@@ -1,0 +1,1 @@
+An even number is a number that can be made into two equal sets.
