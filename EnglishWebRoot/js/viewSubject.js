@@ -121,6 +121,10 @@ document.addEventListener("deviceready", function () {
         }
     }
     function unitHTML(level) {
+        var levelNameEng = ['Level 1','Level 2','Level 3','Level 4'];
+        var levelNamesHindi = ['पड़ाव १','पड़ाव २','पड़ाव ३','पड़ाव ४'];
+        var levelName = "";
+
         var isNext = true;
         var blankSrc = "img/empty.png";
         var unitHTML = "";
@@ -160,10 +164,20 @@ document.addEventListener("deviceready", function () {
             classes += " unlocked";
         }
 
+        for(var iCount = 0; iCount < levelNameEng.length; iCount++){
+            if(levelNameEng[iCount] === level.name){
+                levelName = levelNamesHindi[iCount];
+            }
+        }
         var ret = "<div class='blueBox " + classes + "' >";
         ret += "<div class=levelNameCont>";
         ret += "<img class='middle' src='" + blankSrc + "' />";
-        ret += "<h3>" + level.name.toUpperCase() + "</h3>";
+        if(levelName !== ""){
+            ret += "<h3>" + levelName + "</h3>";
+        }
+        else {
+            ret += "<h3>" + level.name.toUpperCase() + "</h3>";
+        }
         ret += "<img class='lock' src='img/lock.png' />";
         ret += "</div>";
         ret += "<div class='unitCont'><div class='window'><div class='scrollCont' left=0 style='width:" + (level.units.length * (unitSize + 8)) + "px;' ><img class=middle />";
@@ -224,8 +238,15 @@ document.addEventListener("deviceready", function () {
         ret.cols = [];
         ret.cols.push({gravity: 0.05});
         var attrs = "";
+        var subjectName = ['पढ़ाई और लिखाई','गणित'];
         for (var a = 0; a < additionalAttributes.length; a++) {
             attrs += " " + additionalAttributes[a][0] + "='" + additionalAttributes[a][1] + "'";
+        }
+        if (name === "Reading and Writing"){
+            name = subjectName[0];
+        }
+        else if (name === "Math") {
+            name = subjectName[1];
         }
         ret.cols.push({height: window.barHeight, template: "<div class='blueBox " + locked + "' id=subjectHeader " + attrs + "><span></span><img src='img/Button_Play.png' /><h2>" + name + "</h2></div>"});
         ret.cols.push({gravity: 0.05});
