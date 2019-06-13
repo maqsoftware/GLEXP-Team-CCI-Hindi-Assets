@@ -20,8 +20,8 @@ function ready() {
         window.userID = userID;
         parseXml(schoolXML);
     });
-    function parseXml(xml) {
-        var xmlStr = new XMLSerializer().serializeToString(xml);
+    function parseXml(xml1) {
+        var xmlStr = new XMLSerializer().serializeToString(xml1);
         var xml = $.parseXML(xmlStr);
         window.xml = xml;
 

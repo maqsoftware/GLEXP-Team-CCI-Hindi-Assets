@@ -50,7 +50,7 @@ document.addEventListener("deviceready", function () {
             var initTutorial = "";
             var tuts = schoolXML.getElementsByTagName("tutorial");
             for (var t = 0; t < tuts.length; t++) {
-                var tut = tuts[t];
+                //var tut = tuts[t];
                 if (getValByTag(tuts[t], "type") == "app") {
                     initTutorial = getValByTag(tuts[t], "name");
                 }

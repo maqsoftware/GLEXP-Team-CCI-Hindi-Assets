@@ -63,9 +63,9 @@ function updateXML(schoolXML, usersXML, unitLoc, gameLoc, callback) {
                                         book.getElementsByTagName("status")[0].childNodes[0].nodeValue = "complete";
                                     } else if (!status) {
                                         // no node, need to make
-                                        var status = this.schoolXML.createElement("status");
-                                        status.innerHTML = "complete";
-                                        book.appendChild(status);
+                                        var status2 = this.schoolXML.createElement("status");
+                                        status2.innerHTML = "complete";
+                                        book.appendChild(status2);
                                     }
                                     if (unitLoc) {
                                         finishedLesson = 1;
@@ -115,15 +115,15 @@ function updateXML(schoolXML, usersXML, unitLoc, gameLoc, callback) {
                         unitsRead++;
                     }
                     if (finishedGame === 1) {
-                        var prevVal = getValByTag(user, "gamesWon") * 1;
-                        user.getElementsByTagName("prevGamesWon")[0].childNodes[0].nodeValue = prevVal;
-                        user.getElementsByTagName("gamesWon")[0].childNodes[0].nodeValue = prevVal + 1;
+                        var prevVal2 = getValByTag(user, "gamesWon") * 1;
+                        user.getElementsByTagName("prevGamesWon")[0].childNodes[0].nodeValue = prevVal2;
+                        user.getElementsByTagName("gamesWon")[0].childNodes[0].nodeValue = prevVal2 + 1;
                         gamesWon++;
                     }
                     if (finishedLevel === 1) {
-                        var prevVal = getValByTag(user, "levelsUnlocked") * 1;
-                        user.getElementsByTagName("prevLevelsUnlocked")[0].childNodes[0].nodeValue = prevVal;
-                        user.getElementsByTagName("levelsUnlocked")[0].childNodes[0].nodeValue = prevVal + 1;
+                        var prevVal3 = getValByTag(user, "levelsUnlocked") * 1;
+                        user.getElementsByTagName("prevLevelsUnlocked")[0].childNodes[0].nodeValue = prevVal3;
+                        user.getElementsByTagName("levelsUnlocked")[0].childNodes[0].nodeValue = prevVal3 + 1;
                         levelsUnlocked++;
                     }
 
@@ -136,13 +136,13 @@ function updateXML(schoolXML, usersXML, unitLoc, gameLoc, callback) {
         }
         var userText = new XMLSerializer().serializeToString(this.usersXML);
         var schoolText = new XMLSerializer().serializeToString(this.schoolXML);
-        var bookName = "";
+        var bookName2 = "";
         if (unitLoc) {
-            bookName = this.unitName;
+            bookName2 = this.unitName;
         } else {
-            bookName = this.gameName;
+            bookName2 = this.gameName;
         }
-        var url = "school/" + this.subjectName + "/" + this.levelName + "/" + bookName + "/index.html";
+        var url = "school/" + this.subjectName + "/" + this.levelName + "/" + bookName2 + "/index.html";
 
         if (typeof overwriteFile == "undefined") {
             callback(url);
