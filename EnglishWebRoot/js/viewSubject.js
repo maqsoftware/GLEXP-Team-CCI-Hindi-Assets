@@ -121,6 +121,7 @@ document.addEventListener("deviceready", function () {
         }
     }
     function unitHTML(level) {
+        // ToDo: Add Hindi content tag in school.xml
         var levelNamesEnglish = ["Level 1","Level 2","Level 3","Level 4"];
         var levelNamesHindi = ["पड़ाव १","पड़ाव २","पड़ाव ३","पड़ाव ४"];
         var levelName = "";
@@ -165,6 +166,7 @@ document.addEventListener("deviceready", function () {
         }
 
         // Considering the English content from the EnglishWebRoot, overiding the content to the Hindi language
+        // Note: We have not updated content in school.xml file as the property is referenced elsewhere.
         for(var iCount = 0; iCount < levelNamesEnglish.length; iCount++){
             if(levelNamesEnglish[iCount] === level.name){
                 levelName = levelNamesHindi[iCount];
@@ -239,8 +241,10 @@ document.addEventListener("deviceready", function () {
         ret.cols = [];
         ret.cols.push({gravity: 0.05});
         var attrs = "";
+        // ToDo: Add Hindi content tag in school.xml
         var subjectName = ["पढ़ाई और लिखाई","गणित"];
         // Considering the English content from the EnglishWebRoot, overiding the content to the Hindi language
+        // Note: We have not updated content in school.xml file as the property is referenced elsewhere.
         for (var a = 0; a < additionalAttributes.length; a++) {
             attrs += " " + additionalAttributes[a][0] + "='" + additionalAttributes[a][1] + "'";
         }
