@@ -1,5 +1,5 @@
 function NavigationUI(buildSpecs, container) {
-    const _NavigationUI = this;
+    // const _NavigationUI = this;
 
     /* buildSpecs: 
      *  display:[composite, single]
@@ -34,8 +34,8 @@ function NavigationUI(buildSpecs, container) {
             if (this.specs.display !== "composite") {
                 return updatePage;
             } else {
-                if (updatePage == this.specs.bookLength - 1
-                        && !this.specs.lastPageSpread) {
+                if (updatePage == this.specs.bookLength - 1 && 
+                        !this.specs.lastPageSpread) {
                     return (this.specs.bookLength - 1) * 2;
                 } else {
                     let firstNum = updatePage * 2;
@@ -99,7 +99,7 @@ function NavigationUI(buildSpecs, container) {
             }
         }
         if (errMessage !== "") {
-            error("fatal", "navigationUI", errMessage + "\r\n" + "Check top of constructor for how to init");
+            error("fatal", "navigationUI", errMessage + "\r\nCheck top of constructor for how to init");
         } else {
             this.specs.display = buildSpecs.display;
             this.specs.length = buildSpecs.bookLength;

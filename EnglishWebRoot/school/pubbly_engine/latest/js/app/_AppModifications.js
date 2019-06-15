@@ -13,12 +13,13 @@ class AppModifications {
 					window.setTimeout(function () {
 						window.location.href = THIS.props.forceBack;
 					}, 2000);
-                }   else {
+                } else {
                     // Warning of data loss?
                 }
             }.bind(this));
         }
     }
+    
     constructor(props) {
         this.props = Object.assign({
             forceBack: false,
