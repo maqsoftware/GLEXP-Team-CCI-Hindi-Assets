@@ -1114,7 +1114,3 @@ function parseSequenceFrames(baseSrc, frameOrder) {
     }
     return frames;
 }
-
-
-
-
