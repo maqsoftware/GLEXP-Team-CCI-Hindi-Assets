@@ -399,12 +399,12 @@ function Events(pubblyScope) { // Scopped contstants are _InitCapsCamelCase
                 _Pubbly.drawPage_dispatch();
             } else if (["draw-chalk", "draw-eraser", "draw-marker", "draw-pen", "draw-pencil"].indexOf(this.m.action) > -1) {
                 let caught = _Pubbly.checkLocFor(loc, ["drawStarts", "clicks"])[0] || false;
-                if (caught
-                        && caught.link
-                        && ["draw-chalk", "draw-eraser", "draw-marker", "draw-pen", "draw-pencil"].indexOf(caught.action) > -1
-                        && (
-                                !_Pubbly.drawingTools.drawCtx
-                                || _Pubbly.drawingTools.drawCtx === caught.link.workspace.ctx)) {
+                if (caught && 
+                        caught.link && 
+                        ["draw-chalk", "draw-eraser", "draw-marker", "draw-pen", "draw-pencil"].indexOf(caught.action) > -1 && 
+                        (
+                                !_Pubbly.drawingTools.drawCtx || 
+                                _Pubbly.drawingTools.drawCtx === caught.link.workspace.ctx)) {
                     let curObj = caught.link;
                     let ctx = curObj.workspace.ctx;
                     // don't ask
@@ -415,8 +415,8 @@ function Events(pubblyScope) { // Scopped contstants are _InitCapsCamelCase
                     // Pencil up effect 
                     // Otherwise, draw, offscreen, move, back on screen, weird line from last good to current
                     // TODO: Generalize for chalk
-                    if (_Pubbly.drawingTools.tool.type === "pencil"
-                            && _Pubbly.drawingTools.temporaryDrawData.pencilPath[_Pubbly.drawingTools.temporaryDrawData.pencilPath.length - 1] !== false) {
+                    if (_Pubbly.drawingTools.tool.type === "pencil" && 
+                            _Pubbly.drawingTools.temporaryDrawData.pencilPath[_Pubbly.drawingTools.temporaryDrawData.pencilPath.length - 1] !== false) {
                         _Pubbly.drawingTools.temporaryDrawData.pencilPath.push(false);
                     }
                 }
@@ -508,8 +508,8 @@ function Events(pubblyScope) { // Scopped contstants are _InitCapsCamelCase
                     startLoc = centerOfPoly(caught.link.poly);
                 }
                 this.m.action = "lining";
-                if (caught.action == "single"
-                        || typeof caught.link.lines == "undefined") {
+                if (caught.action == "single" || 
+                        typeof caught.link.lines == "undefined") {
                     caught.link.lines = [];
                 }
                 caught.link.lines.push({

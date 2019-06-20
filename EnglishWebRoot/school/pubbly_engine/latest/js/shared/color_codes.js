@@ -39,12 +39,12 @@ function pubColor(name, format) {
     // Format is either RGB or HEX depending on preference, but is always something no matter what the pass
     if (format) {
         format = (format == "rgb") ? "rgb" : "hex";
-    }   else    {
+    } else {
         format = "rgb";
     }
     if (codes[name]) {
         return codes[name][format];
-    }   else    {
+    } else {
         error("warn", "colors", "Unknown color code of " + name + ", returning white " + format);
         return codes["default"][format];
     }

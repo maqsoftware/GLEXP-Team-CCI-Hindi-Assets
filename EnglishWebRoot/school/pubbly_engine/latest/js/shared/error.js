@@ -1,8 +1,8 @@
-function error(level, type, message) {
+function error(level, type, message1) {
     // level ["fatal","warn","log"] | type ~Abouts where the error happened~ | message ~anything~
     this.level = (level === true) ? "fatal" : level.toString().toLowerCase();
     this.type = type.toLowerCase();
-    this.message = message;
+    this.message = message1;
 
     var message = "";
     message += autocase(this.type);
@@ -26,6 +26,7 @@ function error(level, type, message) {
         console.log(message);
     }
 }
+
 function fatalProductionError(msg) {
     // When stuff breaks on our production platform! Display a client friendly error message page
     console.error(msg);

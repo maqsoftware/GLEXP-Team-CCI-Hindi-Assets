@@ -245,7 +245,7 @@ let Sq_Players_Child = {
         this.play_child = function () {
             this.flashInt = window.setInterval(function () {
                 let newState = _This.states.shift();
-                _This.objs.map(obj => {
+                _This.objs.map((obj) => {
                     obj.vis = newState;
                 });
                 _This._Pubbly.drawPage_dispatch(); // defaults to curPage
@@ -482,7 +482,7 @@ function Sequence(pubblyScope) {
              * To my knowledge, no other "random" requires a filter check.
              */
             if (target.type === "send") {
-                options = options.filter(linkName => _Pubbly.find(linkName, "link").enabled);
+                options = options.filter((linkName) => _Pubbly.find(linkName, "link").enabled);
             }
             if (options.length === 0) {
                 console.warn("All links in random send list are disabled");
@@ -508,9 +508,9 @@ function Sequence(pubblyScope) {
         let autoPost = true;
         let autoDraw = false;
         let obj = false;
-        if (this.show || true) {
+        //if (this.show || true) {
             console.log("" + JSON.stringify(target));
-        }
+        //}
         let targType = target.type;
         if (typeof target.run !== "undefined") {
             if (target.run >= target.runLimit) {
@@ -521,7 +521,7 @@ function Sequence(pubblyScope) {
         }
 
         switch (targType) {
-            case "drawing tool":
+            case "drawing tool":{
                 let tool = {
                     type: target.chosenDestination,
                     color: target.value,
@@ -530,7 +530,8 @@ function Sequence(pubblyScope) {
                 };
                 _Pubbly.drawingTools.change(tool);
                 break;
-            case "animation":
+            }
+            case "animation":{
                 let animation = new Sq_Player(
                         "animation",
                         [_Sequence, _Pubbly],
@@ -544,7 +545,8 @@ function Sequence(pubblyScope) {
                 this.players.animations.push(animation);
                 animation.play();
                 break;
-            case "audio":
+            }
+            case "audio":{
                 // DO NOT go to next target as soon as CALLED
                 autoPost = false;
                 // Audios have to load (half second maybs), then play(), then post
@@ -570,7 +572,8 @@ function Sequence(pubblyScope) {
                 };
                 this.players.audios.push(aud);
                 break;
-            case "video":
+            }
+            case "video":{
                 // DO NOT go to next target as soon as CALLED
                 autoPost = false;
                 // Audios have to load (half second maybs), then play(), then post
@@ -596,7 +599,8 @@ function Sequence(pubblyScope) {
                 };
                 this.players.videos.push(vid);
                 break;
-            case "flash":
+            }
+            case "flash":{
                 obj = _Pubbly.find(target.chosenDestination, "object");
                 if (obj) {
                     let flash = new Sq_Player(
@@ -614,7 +618,8 @@ function Sequence(pubblyScope) {
                     flash.play();
                 }
                 break;
-            case "log":
+            }
+            case "log":{
                 if (typeof console[target.action] == "function") {
                     console[target.action]("SEQUENCE LOG: " + target.value);
                 } else if (target.action == "alert") {
@@ -623,11 +628,12 @@ function Sequence(pubblyScope) {
                     console.log("LOG: " + target.value);
                 }
                 break;
-            case "send":
+            }
+            case "send":{
                 // IDEA: Send passive - new Sequence, or Send blocking - adds targets to same sequence
                 target.passive = false;
                 let targets = false;
-                let linkLoc = _Pubbly.data;
+                //let linkLoc = _Pubbly.data;
                 let link = _Pubbly.find(target.chosenDestination, "link");
                 if (link && link.triggers[plurals[target.action]] && link.enabled) {
                     if (target.action == "click") {
@@ -642,21 +648,22 @@ function Sequence(pubblyScope) {
                     error("log", "sequence", "No targets to add");
                 }
                 break;
-            case "point":
+            }
+            case "point":{
                 autoDraw = true;
                 let localCheck = _Pubbly.data.pages[_Pubbly.curPage].points;
                 let globalCheck = _Pubbly.data.points;
                 let pointLoc;
 
-                if (typeof localCheck[target.chosenDestination] == "undefined"
-                        && typeof globalCheck[target.chosenDestination] == "undefined") {
+                if (typeof localCheck[target.chosenDestination] == "undefined" && 
+                        typeof globalCheck[target.chosenDestination] == "undefined") {
                     // All points now created from the PointNames node in the XML.js script file.
                     console.log("warn", "sequence", "Uninitiated point value");
                     // _Pubbly.data.pages[_Pubbly.curPage].points[target.chosenDestination] = 0;
                 } else {
                     // Small scope first.
-                    pointLoc = (typeof localCheck[target.chosenDestination] == "undefined")
-                            ? globalCheck : localCheck;
+                    pointLoc = (typeof localCheck[target.chosenDestination] == "undefined") ? 
+                            globalCheck : localCheck;
                     // Don't know what we used the chaged thing for...
                     if (pointLoc.changed.indexOf(target.chosenDestination) === -1) {
                         pointLoc.changed.push(target.chosenDestination);
@@ -687,10 +694,12 @@ function Sequence(pubblyScope) {
                 }
 
                 break;
-            case "finishSequence":
+            }
+            case "finishSequence":{
                 this.finish();
                 break;
-            case "propertyChange":
+            }
+            case "propertyChange":{
                 // Might be do 1 thing to 10 links/objects
                 // Might be do 1 thing to a randomly chosen 1 lins/object
                 // Might be do 1 thing to 1 link/object.
@@ -718,7 +727,7 @@ function Sequence(pubblyScope) {
                 }
                 let foundList = [];
                 // ["ball 1"] but ball 1 has a clone...
-                things.map(thing => {
+                things.map((thing) => {
                     let things = false;
                     if (typeof thing === "object") {
                         things = _Pubbly.findAll(thing);
@@ -763,7 +772,8 @@ function Sequence(pubblyScope) {
                     autoDraw = true;
                 }
                 break;
-            case "gif":
+            }
+            case "gif":{
                 obj = _Pubbly.find(target.chosenDestination, "object");
                 if (obj) {
                     let gif = new Sq_Player(
@@ -780,7 +790,8 @@ function Sequence(pubblyScope) {
                     gif.play();
                 }
                 break;
-            case "wait":
+            }
+            case "wait":{
                 if (target.blocking == "waits") {
                     let wait = new Sq_Player(
                             "wait",
@@ -798,7 +809,8 @@ function Sequence(pubblyScope) {
                     // Simply passes player arr to wait for in the target.blocking prop
                 }
                 break;
-            case "countdown":
+            }
+            case "countdown":{
                 if (typeof _Pubbly.countdown[target.action] === "function") {
                     _Pubbly.countdown[target.action](target.value);
                 } else {
@@ -807,7 +819,8 @@ function Sequence(pubblyScope) {
                 // Redraws value, checks for > 0, starts countdown related sequence if
                 // _Pubbly.countdown.check();
                 break;
-            case "reset":
+            }
+            case "reset":{
                 autoDraw = true;
                 let resetType = target.action.split(" ")[0];
                 let searchStarts = [];
@@ -841,7 +854,7 @@ function Sequence(pubblyScope) {
                         }
                     }
                 };
-                searchStarts.map(s => reset(s));
+                searchStarts.map((s) => reset(s));
                 // Clones? {markedForDeletion: false, init: {markedForDeletion = true}};
                 // Resetting clones marks them for deletion (at start search level), and then we...
                 // Workspaces? {clear:false, init: {clear:true}}
@@ -850,7 +863,8 @@ function Sequence(pubblyScope) {
                 _Pubbly.clearClones();
 
                 break;
-            case "navigation":
+            }
+            case "navigation":{
                 if (target.action == "navigate") {
                     if (target.destination == "pubbly") {
                         if (target.attribute == "relative") {
@@ -870,10 +884,11 @@ function Sequence(pubblyScope) {
                         // target.attribute == "popup/tab/window"
                         _Pubbly.urlNav.go(target.value, target.attribute);
                     }
-                }   // else... I dunno, history clear?
+                }// else... I dunno, history clear?
                 break;
-            case "info":
-                let change = true;
+            }
+            case "info":{
+                //let change = true;
                 if (target.action == "set" && _Pubbly.data.info[target.destination]) {
                     _Pubbly.data.info[target.destination] = target.value;
                     if (target.destination == "navigation") {
@@ -888,12 +903,15 @@ function Sequence(pubblyScope) {
                     console.warn("" + JSON.stringify(target));
                 }
                 break;
-            case "skip":
+            }
+            case "skip":{
                 break;
-            default:
+            }
+            default:{
                 console.warn("Unknown target: ");
                 console.warn("" + JSON.stringify(target));
                 break;
+            }
         }
 
         if (autoDraw) {

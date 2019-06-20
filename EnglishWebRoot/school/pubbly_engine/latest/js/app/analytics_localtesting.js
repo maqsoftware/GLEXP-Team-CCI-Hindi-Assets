@@ -3,7 +3,7 @@ function retStamp() {
 }
 
 function Analytics() {
-    var self = this;
+    //var self = this;
     this.fName = false;
     this.fullObj = {};
 
@@ -106,8 +106,8 @@ function Analytics() {
         
     };
     this.check = function () {
-		if (typeof readFile === "undefined") {
-		}	else	{
+		if (!(typeof readFile === "undefined")) {
+		///////}	else	{
 			readFile(this.fName, function (file) {
 				console.log(file);
 			})

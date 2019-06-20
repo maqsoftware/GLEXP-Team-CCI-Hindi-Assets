@@ -9,7 +9,7 @@
  
  }
  */
-
+/*
 function startDownload(name, size, downloadType) {
     window.schoolName = name;
     var schoolSize = size;
@@ -20,6 +20,7 @@ function startDownload(name, size, downloadType) {
         }
     });
 }
+*/
 /*
  function showDownloadWindow() {
  webix.ui({

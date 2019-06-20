@@ -161,8 +161,8 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
             ["poly", "Points", false, messyPointsToPoly],
             ["pinned", "PinnedTo", false],
             ["enabled", "InitialStatus", true, function (status) {
-                    if (typeof status.toLowerCase !== "undefined"
-                            && status.toLowerCase() == "disabled") {
+                    if (typeof status.toLowerCase !== "undefined" && 
+                            status.toLowerCase() == "disabled") {
                         return false;
                     } else {
                         return true;
@@ -173,7 +173,7 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
             ["clickHighlightOn", false, false],
         ];
 
-        let knownTriggerTypes = ["click"];
+//        let knownTriggerTypes = ["click"];
 
         let pageNodes = xmlDoc.getElementsByTagName("Pages")[0].getElementsByTagName("Page");
         if (xml.info.display === "composite" && pageNodes.length <= 2) {
@@ -205,7 +205,7 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
 
                     if (objSets[type]) {
                         // Common props for all objects
-                        let curSet = objSets["all"];
+                        let curSet = objSets.all;
                         for (let os = 0; (os < curSet.length && curSet[os]); os++) {
                             curObj[curSet[os][0]] = quickGet(curSet[os][1], objNode, curSet[os][2], curSet[os][3]);
                         }
@@ -252,7 +252,7 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                         }
 
                         if (curObj.sequence) {
-                            curObj.frames = curObj.frameOrder.map(frame => {
+                            curObj.frames = curObj.frameOrder.map((frame) => {
                                 let ret = {};
                                 ret.dSrc = curObj.dName + "/" + frame;
                                 ret.fName = frame;
@@ -263,8 +263,8 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                         }
 
                         // Specifics for swapped assets
-                        if (curObj.swapMethod !== false) {
-                        }
+                        // if (curObj.swapMethod !== false) {
+                        // }
 
                         curPage.objs.push(curObj);
                     } else {
@@ -336,7 +336,7 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                         }[messySplit[0]];
                         let condition = messySplit[1];
 
-                        let curSequence = [];
+                        //let curSequence = [];
                         if (curLink.triggers[type] !== "undefined") {
                             let curTrigger = {
                                 type: type,
@@ -382,7 +382,7 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                         }
 
                     }
-                    let locInArray = curPage.links.push(curLink) - 1;
+                    //let locInArray = curPage.links.push(curLink) - 1;
                 }
                 xml.pages.push(curPage);
             }
@@ -413,8 +413,8 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                 let curObj = curPage.objs[o];
                 // Composite offsetting
                 // Ray hands off composite obj locations as if they were a double page width
-                if (xml.info.display == "composite"
-                        && (p == 0 ||
+                if (xml.info.display == "composite" && 
+                        (p == 0 ||
                                 (p == xml.pages.length - 1 && !xml.info.lastPageSpread))) {
                     curObj.loc = ptOffset(curObj.loc, [0, xml.info.width / -2]);
                     for (let anims in curObj.animations) {
@@ -508,6 +508,7 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
 
 function quickGet(nodeName, parent, backupVal, mod = null) {
     let ret = (parent) ? parent.getElementsByTagName(nodeName)[0] : false;
+    var val;
     if (typeof ret === "undefined" || ret.innerHTML == "") {
         if (backupVal !== null) {
             val = backupVal;

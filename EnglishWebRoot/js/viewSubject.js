@@ -27,7 +27,7 @@ document.addEventListener("deviceready", function () {
     });
 
     function parseXml(xml) {
-        var str = new XMLSerializer().serializeToString(xml);
+        //var str = new XMLSerializer().serializeToString(xml);
         window.xml = xml;
         window.translations = {};
         var translationsXML = xml.getElementsByTagName("translations")[0];
@@ -70,7 +70,7 @@ document.addEventListener("deviceready", function () {
             var tutorials = schoolXML.getElementsByTagName("tutorial");
             var subID = getValByTag(subXML, "ID");
             for (var t = 0; t < tutorials.length; t++) {
-                var cur = tutorials[t];
+                //var cur = tutorials[t];
                 var isSub = getValByTag(tutorials[t], "type") == "sub";
                 var tutSubID = getValByTag(tutorials[t], "subID");
                 if (isSub && tutSubID == subID) {
@@ -100,8 +100,8 @@ document.addEventListener("deviceready", function () {
 
                 level.games = [];
                 var gamesXML = lvlXML.getElementsByTagName("game");
-                for (var u = 0; u < gamesXML.length; u++) {
-                    var gameXML = gamesXML[u];
+                for (var u1 = 0; u1 < gamesXML.length; u1++) {
+                    var gameXML = gamesXML[u1];
                     var game = {};
                     game.name = getValByTag(gameXML, "name");
                     game.icon = getValByTag(gameXML, "icon");
@@ -121,11 +121,6 @@ document.addEventListener("deviceready", function () {
         }
     }
     function unitHTML(level) {
-        // ToDo: Add Hindi content tag in school.xml
-        var levelNamesEnglish = ["Level 1","Level 2","Level 3","Level 4"];
-        var levelNamesHindi = ["पड़ाव १","पड़ाव २","पड़ाव ३","पड़ाव ४"];
-        var levelName = "";
-
         var isNext = true;
         var blankSrc = "img/empty.png";
         var unitHTML = "";
@@ -157,30 +152,18 @@ document.addEventListener("deviceready", function () {
               "<img class=middle src=" + blankSrc + " />" +
               "</div>";
         }
-        var windowWidth = ($(document).width() - 100) * 0.75; // good
-        var scrollWidth = (unitSize + 8) * nextUnitNum; // good
+        //var windowWidth = ($(document).width() - 100) * 0.75; // good
+        //var scrollWidth = (unitSize + 8) * nextUnitNum; // good
 
         var classes = level.status;
         if (level.status == "complete") {
             classes += " unlocked";
         }
 
-        // Considering the English content from the EnglishWebRoot, overiding the content to the Hindi language
-        // Note: We have not updated content in school.xml file as the property is referenced elsewhere.
-        for(var iCount = 0; iCount < levelNamesEnglish.length; iCount++){
-            if(levelNamesEnglish[iCount] === level.name){
-                levelName = levelNamesHindi[iCount];
-            }
-        }
         var ret = "<div class='blueBox " + classes + "' >";
         ret += "<div class=levelNameCont>";
         ret += "<img class='middle' src='" + blankSrc + "' />";
-        if(levelName !== ""){
-            ret += "<h3>" + levelName + "</h3>";
-        }
-        else {
-            ret += "<h3>" + level.name.toUpperCase() + "</h3>";
-        }
+        ret += "<h3>" + level.name.toUpperCase() + "</h3>";
         ret += "<img class='lock' src='img/lock.png' />";
         ret += "</div>";
         ret += "<div class='unitCont'><div class='window'><div class='scrollCont' left=0 style='width:" + (level.units.length * (unitSize + 8)) + "px;' ><img class=middle />";
@@ -241,18 +224,8 @@ document.addEventListener("deviceready", function () {
         ret.cols = [];
         ret.cols.push({gravity: 0.05});
         var attrs = "";
-        // ToDo: Add Hindi content tag in school.xml
-        var subjectName = ["पढ़ाई और लिखाई","गणित"];
-        // Considering the English content from the EnglishWebRoot, overiding the content to the Hindi language
-        // Note: We have not updated content in school.xml file as the property is referenced elsewhere.
         for (var a = 0; a < additionalAttributes.length; a++) {
             attrs += " " + additionalAttributes[a][0] + "='" + additionalAttributes[a][1] + "'";
-        }
-        if (name === "Reading and Writing"){
-            name = subjectName[0];
-        }
-        else if (name === "Math") {
-            name = subjectName[1];
         }
         ret.cols.push({height: window.barHeight, template: "<div class='blueBox " + locked + "' id=subjectHeader " + attrs + "><span></span><img src='img/Button_Play.png' /><h2>" + name + "</h2></div>"});
         ret.cols.push({gravity: 0.05});
@@ -330,7 +303,7 @@ document.addEventListener("deviceready", function () {
             var scrollWindow = $(unitConts[u]);
             var windowWidth = scrollWindow.width();
             var scrollCont = scrollWindow.find(".scrollCont");
-            var scrollWidth = scrollCont.width();
+            //var scrollWidth = scrollCont.width();
             // Bug fix #7 3-21-18
             // var nextUnit = scrollCont.find(".unit").length - 1;
             var nextUnit = 0;
@@ -360,10 +333,10 @@ document.addEventListener("deviceready", function () {
 
 function spaceUnits(itemSize) {
     var scrolls = $(".scrollCont");
-    var windowWidth = $(".window").width();
+    //var windowWidth = $(".window").width();
     for (var s = 0; s < scrolls.length; s++) {
         var scroll = $(".scrollCont")[s];
-        var unitCount = $(scroll).find(".unit").length;
+        //var unitCount = $(scroll).find(".unit").length;
     }
 }
 
@@ -425,8 +398,8 @@ function MouseEvent(itemSize) {
         }
     }
     this.move = function (e) {
-        if ($(this).attr("ignoreMove")) {
-        } else {
+        if (!($(this).attr("ignoreMove"))) {
+        /////////////////////////////} else {
             if (THIS.mDown) {
                 if (THIS.dragDistOffsetMet) {
                     THIS.hasMoved = true;
@@ -461,12 +434,14 @@ function tutorialClick() {
     var tut = window.tutorialXML;
     var tutName = getValByTag(tut, "name");
     lvls.getElementsByTagName("status")[0].childNodes[0].nodeValue = "unlocked";
+    /*
     var previouslyLocked;
     if (getValByTag(tut, "status") == "incomplete") {
         previouslyLocked = true;
     } else {
         previouslyLocked = false;
     }
+    */
     tut.getElementsByTagName("status")[0].childNodes[0].nodeValue = "complete";
 
     var loc = $(this).attr("loc");
@@ -475,13 +450,13 @@ function tutorialClick() {
 }
 function unitClick() {
     if (window.xml) {
-        var subjectName = $(this).attr("subject");
+        //var subjectName = $(this).attr("subject");
         var levelName = $(this).attr("level");
         var unitName = $(this).attr("unit");
-        var loc = $(this).attr("loc");
-        var unlocked = $(this).hasClass("complete");
+        //var loc = $(this).attr("loc");
+        //var unlocked = $(this).hasClass("complete");
 
-        var serverLoc = window.schoolName + "_zip/" + window.subjectName + "/" + levelName + "/" + unitName + ".zip";
+        //var serverLoc = window.schoolName + "_zip/" + window.subjectName + "/" + levelName + "/" + unitName + ".zip";
         var unitLoc = [window.schoolName, window.subjectName, levelName, unitName];
         updateXML(window.xml, window.userXML, unitLoc, false, function (url) {
             checkDownloadAndGo(url);
@@ -509,7 +484,7 @@ function coverUp() {
 function gameClick(elem) {
     var gameIcon = $(this).attr("src");
     var gameNum = $(this).attr("game");
-    var partialLoc = $(this).attr("loc");
+    //var partialLoc = $(this).attr("loc");
     var curLevel = $(this).attr("level");
     var difficulties = Math.round($(this).attr("difficulties"));
     var starHTML = "<div id='starCont'>";

@@ -1,6 +1,6 @@
 function Links(pubblyScope) {
     const _Pubbly = pubblyScope;
-    const _Links = this;
+    // const _Links = this;
 
     // Functions for easy future debugging
     this.testing = {
@@ -8,8 +8,8 @@ function Links(pubblyScope) {
             if (p === null) {
                 p = _Pubbly.curPage;
             }
-            for (let l = 0; l < this.links[p].length; l++) {
-            }
+            // for (let l = 0; l < this.links[p].length; l++) {
+            // }
         }
     };
 
@@ -54,8 +54,8 @@ function Links(pubblyScope) {
         let linksMade = 0; // ALL links added from XML
         let totLinks = 0;
 
-        for (let p = 0; p < _Pubbly.data.pages.length; p++) {
-            let curPage = _Pubbly.data.pages[p];
+        //for (let p = 0; p < _Pubbly.data.pages.length; p++) {
+        //    let curPage = _Pubbly.data.pages[p];
 
             /*
              this.links[p] = [];
@@ -71,7 +71,7 @@ function Links(pubblyScope) {
              totLinks++;
              }
              */
-        }
+        //}
 
         // Another check, one in XML already
         if (linksMade !== totLinks) {

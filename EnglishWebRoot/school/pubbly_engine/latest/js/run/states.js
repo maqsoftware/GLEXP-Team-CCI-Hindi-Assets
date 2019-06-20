@@ -38,7 +38,7 @@ function States(PubblyScope) {
                 // Cleared for event
                 unblocked_cb();
             }
-        }   else    {
+        } else {
             // Cleared for event
             unblocked_cb();
         }

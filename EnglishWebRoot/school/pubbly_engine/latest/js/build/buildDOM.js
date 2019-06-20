@@ -1,5 +1,5 @@
 function buildDOM() {
-    const _buildDOM = this;
+    //const _buildDOM = this;
 
     this.dom = $("#pubbly_main").append(`
     <div id='preflight_cont' style='height:500px;width:500px;'>
