@@ -1,5 +1,5 @@
 function UrlNav(environment) {
-    var _UrlNav = this;
+    _UrlNav = this;
     this.environment = environment;
 
     // Makes sure there's an http[s]://www. in front of the URL
@@ -24,7 +24,7 @@ function UrlNav(environment) {
     // Ways to open a URL
     this.popup = function (url, error) {
         let popup = window.open(url, '_blank', 'height=page.x,width=page.y');
-        if (popup == "undefined" || !popup) {
+        if (popup == undefined || !popup) {
             // Popups are blocked
             error("popup");
         } else {
@@ -41,7 +41,7 @@ function UrlNav(environment) {
     }
     this.tab = function (url, error) {
         let tab = window.open(url, '_blank');
-        if (tab == "undefined" || !tab) {
+        if (tab == undefined || !tab) {
             // Popups are blocked
             error("tab");
         } else {
@@ -103,7 +103,7 @@ function UrlNav(environment) {
         } else {
             if (url.toLowerCase() == "homewebpage") {
                 this.url = "https://www.pubbly.com";
-                //let phpVarString = "";
+                let phpVarString = "";
             } else if (url.substring(0, 1) == "#") {
                 // Well, the current href is working (obv)
                 // So lets not fuck with it.
@@ -129,9 +129,9 @@ function UrlNav(environment) {
                 let curUrl = window.location.href.split("?");
                 if (this.environment === "app") {
                     // map nodes only.
-                    let props = url.split("?")[1].split("&").map((a) => a.split("="));
-                    if (props.find((p) => (p[0] == "t" && p[1] == "m"))) {
-                        this.url = props.find((p) => p[0] == "nn")[1] + ".html";
+                    let props = url.split("?")[1].split("&").map(a => a.split("="));
+                    if (props.find(p => (p[0] == "t" && p[1] == "m"))) {
+                        this.url = props.find(p => p[0] == "nn")[1] + ".html";
                     }
                 } else {
                     this.url = curUrl[0] + url;

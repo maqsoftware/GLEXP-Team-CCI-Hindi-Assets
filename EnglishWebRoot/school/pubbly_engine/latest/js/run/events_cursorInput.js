@@ -1,6 +1,6 @@
 function CursorInput() {
     // Do we need scope here?
-    //const _Touch = this;
+    const _Touch = this;
     this.getLoc = function (e, offsets) {
         if (e.changedTouches && e.changedTouches[0] && e.changedTouches[0].pageX) {
             return [
@@ -14,7 +14,7 @@ function CursorInput() {
                 e.offsetY + offsets.pageOffsetY,
                 now()
             ];
-        } else {
+        }   else {
             console.warn("Can't get touch or mouse loc");
             return [
                 false,

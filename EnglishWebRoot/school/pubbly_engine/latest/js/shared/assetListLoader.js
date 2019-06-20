@@ -91,8 +91,9 @@ class AssetListLoader {
                     cbs.done();
                 } else {
                     if (found + missing == total) {
-                        let wanted = assets.map((e) => e.relPath);
-                        let missing = wanted.filter((w) => typeof this.keys[w] === "undefined", this);
+                        let wanted = assets.map(e => e.relPath);
+                        let missing = wanted.filter(w =>
+                            typeof this.keys[w] === "undefined", this);
                         cbs.fail("Missing the following assets: " + missing.join(", "));
                     } else if (cbs.prog) {
                         cbs.prog((found + missing) / total);
@@ -131,7 +132,7 @@ class AssetListLoader {
             this.unloadSingle(assets);
         } else {
             // TEST
-            assets.forEach((asset) => this.unloadSingle(asset));
+            assets.forEach(asset => this.unloadSingle(asset));
         }
     }
 
@@ -173,7 +174,7 @@ class AssetListLoader {
                 // ["wav", "ogg", "mp3"]
                 let possibleExts = supportedExts[asset.type].slice();
                 // ["dog.wav", "dog.ogg", "dog.mp3"]
-                asset.possibles = possibleExts.map((e) => asset.relPath + "." + e);
+                asset.possibles = possibleExts.map(e => asset.relPath + "." + e);
                 this.searchForVagueAsset(asset, cbs);
             } else if (supportedExts[asset.type].indexOf(asset.ext) !== -1) {
                 this.download(asset, cbs);
@@ -193,7 +194,6 @@ class AssetListLoader {
         this.byFileSource[getFileSourceFromPath(asset.relPath)] = this.keys[asset.relPath];
         this.byFileName[getFileNameFromPath(asset.relPath)] = this.keys[asset.relPath];
     }
-    
     download(asset, cbs) {
         let loadEvent = "load";
         if (asset.type === "image" || asset.type === "gif") {

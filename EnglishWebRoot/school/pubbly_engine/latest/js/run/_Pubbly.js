@@ -83,12 +83,12 @@ class Pubbly {
 			let poly = link.poly;
 			let pinnedPoly = false;
 			if (link.pinned) {
-				let obj = this.data.pages[this.curPage].objs.find((o) => o.name === link.pinned);
+				let obj = this.data.pages[this.curPage].objs.find(o => o.name === link.pinned);
 				if (obj) {
 					let info = this.getRealObjDescription(obj);
 					let topDif = info.top - obj.init.loc[0];
 					let leftDif = info.left - obj.init.loc[1];
-					pinnedPoly = poly.map((pt) => {
+					pinnedPoly = poly.map(pt => {
 						return [pt[0] + leftDif, pt[1] + topDif];
 					});
 				}
@@ -96,14 +96,14 @@ class Pubbly {
 			if (link.enabled && inside(loc, pinnedPoly || poly)) {
 				for (let w = 0; w < what.length; w++) {
 					let linkType = what[w];
-					if (linkType === "clicks" || 
-						linkType === "dragStops" || 
-						linkType === "lineStops") {
+					if (linkType === "clicks"
+						|| linkType === "dragStops"
+						|| linkType === "lineStops") {
 						for (let i = 0; i < link.triggers[linkType].length; i++) {
 							let accepts = link.triggers[linkType][i].condition;
-							if (accepts == condition || 
-								accepts == "any" || // TODO: XML Any to any
-								linkType == "clicks") {
+							if (accepts == condition
+								|| accepts == "any" // TODO: XML Any to any
+								|| linkType == "clicks") {
 								found.push({
 									link: link,
 									type: "sequence",
@@ -133,10 +133,10 @@ class Pubbly {
 		if (checkDrag || checkDraw || checkEdit) {
 			for (let o = 0; o < this.data.pages[this.curPage].objs.length; o++) {
 				let obj = this.data.pages[this.curPage].objs[o];
-				if (checkDraw && 
-					obj.type === "workspace" && 
-					obj.vis && 
-					inside(loc, obj.rect)) {
+				if (checkDraw
+					&& obj.type === "workspace"
+					&& obj.vis
+					&& inside(loc, obj.rect)) {
 					found.push({
 						link: obj,
 						action: this.drawingTools.tool.cursor,
@@ -162,9 +162,9 @@ class Pubbly {
 					// TODO: This checks inside bounding rect. DOES NOT check for transparency in image.
 					// EXAMPLE: Three circles on top of eachother. You choose the one behind the one in front, but you're still in the transparent rect of the front most circle. Cursor on green, within the blue circle's bounding rect. Start dragging blue. Prob bob.
 					let action = (obj.mobility == "fixed") ? "editText" : obj.mobility;
-					if (inside(loc, rect) && 
+					if (inside(loc, rect)
 						// Invisible objects are not draggable
-						obj.vis === true) {
+						&& obj.vis === true) {
 						found.push({
 							link: obj,
 							type: "singleAction",
@@ -237,7 +237,8 @@ class Pubbly {
 								met = (realPoints !== triggerPoints);
 								break;
 							default:
-								console.error("Unknown point trigger comparison of " + trigger.condition[1]);
+								console.error("Unknown point trigger comparison of "
+									+ trigger.condition[1]);
 								break;
 						}
 						if (met) {
@@ -359,7 +360,6 @@ class Pubbly {
 		this.data.pages[this.curPage].objs.push(clone);
 		return clone;
 	}
-
 	clearClones() {
 		let objs = this.data.pages[this.curPage].objs;
 		for (let o = 0; o < objs.length; o++) {
@@ -370,7 +370,6 @@ class Pubbly {
 			}
 		}
 	}
-
 	clearLines() {
 		let lnks = this.data.pages[this.curPage].links
 		for (let l = 0; l < lnks.length; l++) {
@@ -430,11 +429,9 @@ class Pubbly {
 		let found = this.findAll(what, type, curPage);
 		return (found[0]) ? found[0] : found;
 	}
-
 	sendToTop(what, type, curPage) {
 		return this.sendTo(what, type, curPage, "top");
 	}
-
 	sendToBottom(what, type, curPage) {
 		return this.sendTo(what, type, curPage, "bottom");
 	}
@@ -449,7 +446,7 @@ class Pubbly {
 			searchStart = page.links;
 		}
 		if (searchStart) {
-			found = searchStart.filter((o) => {
+			found = searchStart.filter(o => {
 				if (typeof what === "object") {
 					// (this.data.pages[0].objs[0])
 					return (o === what);
@@ -478,7 +475,7 @@ class Pubbly {
 		}
 		if (searchStart && toSend) {
 			// searchStart is {a: 0, b:1, c:2, d:3}
-			//let origLayer = toSend.layer; // 1;
+			let origLayer = toSend.layer; // 1;
 			if (where === "top") {
 				toSend.layer = searchStart.length;
 			} else {
@@ -513,7 +510,6 @@ class Pubbly {
 		}
 		return arr;
 	}
-
 	// Do we have enough loaded to maintain a comfortable lead?? 
 	// [prev, cur, next, next+1]
 	getPageArrayNeededForBufferLead(checkPage = this.curPage) {
@@ -545,11 +541,9 @@ class Pubbly {
 			});
 		}
 	}
-
 	getLastPage() {
 		return this.data.pages.length - 1;
 	}
-
 	getLastPageSpread() {
 		return this.data.info.lastPageSpread;
 	}
@@ -632,7 +626,6 @@ class Pubbly {
 		}
 		this.analytics.add({type: "pt", page: this.curPage});
 	}
-
 	launch_dispatch(cbs) {
 		/**
 		 * Enabled navUI (if applicable)
@@ -667,8 +660,8 @@ class Pubbly {
 	drawPage_dispatch(which = this.curPage) {
 		if (typeof which === "object" && which.length) {
 			which.map(page => this.drawPage_dispatch(page));
-		} else if (Math.abs(which - this.curPage) > 1 || 
-			!this.data.pages[which]) {
+		} else if (Math.abs(which - this.curPage) > 1
+			|| !this.data.pages[which]) {
 			let start = Math.max((this.curPage - 1), 0);
 			let end = this.data.pages[this.curPage + 1] ?
 				this.curPage + 1 :
@@ -724,12 +717,12 @@ class Pubbly {
 				"gifs": "draw_gif",
 				"video": "draw_video",
 			};
-			page.objs.map((o) => {
+			page.objs.map(o => {
 				if (typeof this[key[o.type]] === "function") {
 					this[key[o.type]](btx, o, which);
 				}
 			});
-			page.links.map((l) => {
+			page.links.map(l => {
 				if (l.clickHighlightOn) {
 					this.drawLinks(ctx, l, this.data.info.HighlightLinkColorRGBA);
 				}
@@ -755,7 +748,7 @@ class Pubbly {
 			spreadClass = "SpreadRight";
 		}
 		// TODO: Save as props on turns, access quicker on draw
-		//let canCover = $("#canvases").find("div." + baseClass + spreadClass)[0];
+		let canCover = $("#canvases").find("div." + baseClass + spreadClass)[0];
 		let can = $("#canvases").find("canvas." + baseClass + spreadClass)[0];
 		let ctx = can.getContext("2d");
 		ctx.imageSmoothingEnabled = true;
@@ -764,7 +757,6 @@ class Pubbly {
 		can.width = can.width * 1;
 		return ctx;
 	}
-
 	draw_elem(ctx, elem, objDesc) {
 		if (objDesc.vis) {
 			ctx.globalAlpha = objDesc.opacity;
@@ -793,7 +785,6 @@ class Pubbly {
 			ctx.globalAlpha = 1;
 		}
 	}
-
 	draw_general(ctx, curObj, curPage) {
 		let img;
 		let relPath = (curObj.type == "sequence") ?
@@ -809,7 +800,6 @@ class Pubbly {
 			console.error("Pubbly.draw_image: Missing image elem for " + curObj.fileName);
 		}
 	}
-
 	draw_workspace(ctx, curWorkspace, curPage) {
 		if (curWorkspace.clear) {
 			curWorkspace.clear = false;
@@ -824,7 +814,6 @@ class Pubbly {
 			ctx.drawImage(this.drawingTools.effectCanvas, curWorkspace.loc[1], curWorkspace.loc[0]);
 		}
 	}
-
 	draw_field(ctx, curObj, relPage) {
 		curObj.font = "Didact";
 		if (curObj.vis) {
@@ -885,7 +874,7 @@ class Pubbly {
 						if (lastDirection !== curDirection) {
 							// Changed directions means we found the size
 							// If we overshot, undershoot
-							if (curDirection == -1) {
+							if (curDirection = -1) {
 								widthLimit--;
 							}
 							// If we undershot, then fine, that's what we want
@@ -936,9 +925,9 @@ class Pubbly {
 				}
 				let insert = {at: 0, line: 0, char: 0};
 				if (curObj.editing) {
-					// let top = curObj.loc[0];
-					// let left = curObj.loc[1] + curObj.calculated.leftMargin;
-					// let height = curObj.calculated.size;
+					let top = curObj.loc[0];
+					let left = curObj.loc[1] + curObj.calculated.leftMargin;
+					let height = curObj.calculated.size;
 					insert = {
 						at: this.events.f.insertionPoint.at,
 						line: 0,
@@ -968,9 +957,9 @@ class Pubbly {
 						drawLeft += curObj.calculated.widestLine - width;
 					}
 					drawTops.push(drawTop);
-					// let realSize = isNaN(curObj.size * 1) ?
-					// 	curObj.calculated.size :
-					// 	curObj.size;
+					let realSize = isNaN(curObj.size * 1) ?
+						curObj.calculated.size :
+						curObj.size;
 					if (curObj.font === "Didact") {
 
 
@@ -1032,12 +1021,10 @@ class Pubbly {
 			}
 		}
 	}
-
 	draw_gif(ctx, curGif) {
 		console.log("TODO: Draw gif");
 		console.log(curGif);
 	}
-
 	draw_cloneCanvasToSpread(ctx, curPage) {
 		let pUnit = this.data.info.width;
 		let ltx = this.draw_readyAndReturnCTX(curPage, "left");
@@ -1046,9 +1033,8 @@ class Pubbly {
 		rtx.drawImage(ctx.canvas, pUnit * -1, 0);
 		// TODO: Remove styles?? Because turning page flicker?
 	}
-
 	draw_texture(ctx, curTexture, rect) {
-		let image = this.presetAssets.list.find((i) => i.relPath === "pubbly_engine/shared/textures/" + curTexture);
+		let image = this.presetAssets.list.find(i => i.relPath === "pubbly_engine/shared/textures/" + curTexture);
 		if (image && image.elem) {
 			let pattern = ctx.createPattern(image.elem, 'repeat');
 			ctx.rect.apply(ctx, rect); // left top width height
@@ -1056,7 +1042,6 @@ class Pubbly {
 			ctx.fill();
 		}
 	}
-
 	draw_video(ctx, curVideo, curPage) {
 		let elem = this.pageBuffer.assetListLoaders[curPage].byFileName[curVideo.fileName].elem;
 		let objDesc = this.getRealObjDescription(curVideo);
@@ -1091,7 +1076,7 @@ class Pubbly {
 				// Artificial load time between assets in ms
 				artificialLoadTime: 0,
 				// Artificially set interrupts to "TRUE"
-				artificialInterrupt: "undefined",
+				artificialInterrupt: undefined,
 				// Hold any open page [first time] links from playing (usually nav testing)
 				holdPageLinks: false,
 				// When you get to a matching TID, halt everything (look underhood at break point);
@@ -1181,8 +1166,8 @@ class Pubbly {
 		// Since it's a dirty word for modern browsers, cleaner to keep workarounds in their own obj
 		this.urlNav = new UrlNav(this.runtimeProps.environment);
 		this.drawingTools = new PubblyDrawingTools(this, this.data.drawingTool);
-		this.data.pages.forEach((p) => {
-			p.objs.forEach((o) => {
+		this.data.pages.forEach(p => {
+			p.objs.forEach(o => {
 				if (o.type === "workspace") {
 					o.workspace = new Workspace(o, this.dom.workspaces);
 				}
@@ -1214,24 +1199,24 @@ class Pubbly {
 }
 
 
-/*
+
 function cutLink(val) {
 	switch (typeof val) {
 		case "string":
 			return val + "";
-			//break;
+			break;
 		case "number":
 			return val * 1;
-			//break;
+			break;
 		case "undefined":
-			return "undefined";
-			//break;
+			return undefined;
+			break;
 		case "null":
 			return null;
-			//break;
+			break;
 		case "array":
 			return val.slice();
-			//break;
+			break;
 		case "object":
 			// NOPE. Because typeof new Array is FUCKING OBJECT
 			if (Array.isArray(val)) {
@@ -1239,10 +1224,9 @@ function cutLink(val) {
 			} else {
 				return jQuery.extend(true, {}, val);
 			}
-			//break;
+			break;
 		case "boolean":
 			return val == true;
-			//break;
+			break;
 	}
 }
-*/

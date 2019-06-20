@@ -175,8 +175,8 @@ function Turns(pubblyScope, display = "single") {
         canTurn: function (dir) {
             let curPage = _Pubbly.curPage;
             let lastPage = _Pubbly.data.pages.length;
-            let canTurn = ((dir == "left" && curPage < lastPage - 1) || 
-                    (dir == "right" && curPage >= 1));
+            let canTurn = ((dir == "left" && curPage < lastPage - 1)
+                    || (dir == "right" && curPage >= 1));
             return canTurn;
         },
         set: function (dir, percent) {
@@ -282,7 +282,7 @@ function Turns(pubblyScope, display = "single") {
                     }
                 } else if (this.type == "spreadToSpreadRight") {
                     // console.log("PROBLEM");
-                    //let inverse = Math.abs(smoothPercent - 1);
+                    let inverse = Math.abs(smoothPercent - 1);
                     vals = {
                         current: {
                             marginLeft: 0,

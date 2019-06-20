@@ -10,7 +10,6 @@ class PubblyPageBuffer {
         }
     }
     // Unload all assets from specified page
-
     unloadPage(p) {
         if (this.checkPageExists(p)) {
             this.assetListLoaders[p].unload(this.assets[p]);
@@ -26,7 +25,7 @@ class PubblyPageBuffer {
         // cbs.prog() >>> Will call back with calculated order (prog/pages.length)
         let totalPages = pages.length;
         let totalAssets = 0;
-        pages.map((p) => {
+        pages.map(p => {
             let pCount = this.getPageUnloadedAssetCount(p);
             totalAssets += pCount;
         });
@@ -72,16 +71,13 @@ class PubblyPageBuffer {
         // utility/findDifferenceBetweenTwoArrays.js
         return findDifferenceBetweenTwoArrays(assetsOnPage, assetsLoaded).length;
     }
-
     checkPageLoaded(p) {
         return false;
     }
     // Checks to see if the page references has assets, and an AssetListLoader
-
     checkPageExists(p) {
         return (this.assetListLoaders[p] && this.assets[p]);
     }
-
     constructor(data) {
         this.loadPage = this.loadPage.bind(this);
         this.unloadPage = this.unloadPage.bind(this);
@@ -94,13 +90,13 @@ class PubblyPageBuffer {
 
         for (let p = 0; p < data.pages.length; p++) {
             // Add audios
-            let audLoads = data.pages[p].auds.map((aud) => {
+            let audLoads = data.pages[p].auds.map(aud => {
                 if (aud.relPath) {
                     // Audio has been found by previous run
                     return {type: "audio", relPath: aud.relPath};
-                } else if (aud.relPathNoExt) {
+                }   else if (aud.relPathNoExt) {
                     return {type: "audio", relPath: aud.relPathNoExt};
-                } else {
+                }   else {
                     console.error("PubblyPageBuffer.constructor: Cannot load audio, does not have relPath or relPathNoExt");
                 }
             });

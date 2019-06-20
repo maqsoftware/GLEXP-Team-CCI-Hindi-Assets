@@ -24,8 +24,8 @@ function Build(props) {
 
     window.preflight = new buildDOM();
     updateJsonFromXML(window.preflight.progress, this.bookLoc + "/" + this.xmlName, function (xml) {
-        xml.pages.map((page) => {
-            page.objs.map((obj) => {
+        xml.pages.map(page => {
+            page.objs.map(obj => {
                 if (obj.type == "image") {
                     obj.relPath = bLoc + "/images/" + obj.fSrc;
                 } else if (obj.type == "gif") {
@@ -33,12 +33,12 @@ function Build(props) {
                 } else if (obj.type == "video") {
                     obj.relPath = bLoc + "/videos/" + obj.fileName + "." + obj.ext;
                 } else if (obj.type == "sequence") {
-                    obj.frames.map((frame) => {
+                    obj.frames.map(frame => {
                         frame.relPath = bLoc + "/images/" + frame.dSrc;
                     });
                 }
             });
-            page.auds.map((aud) => {
+            page.auds.map(aud => {
                 aud.relPathNoExt = bLoc + "/audio/" + aud.fName;
             });
         });

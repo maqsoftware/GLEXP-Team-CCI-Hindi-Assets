@@ -69,7 +69,7 @@ function Countdown(pubblyScope) {
 
     // Make sure it's going to work and all
     this.mod_check = function (what, from) {
-        if (typeof(what * 1) === "number") {
+        if (typeof (what * 1) === "number") {
             return (what * 1);
         } else {
             console.error("Cannot set to " + what + ", only numbers allowed");

@@ -21,7 +21,7 @@ document.addEventListener("deviceready", function () {
                             $("#avatar")[0].src = userPic + "?" + Math.random(); // prevent cache?
                             $("#avatar")[0].onload = function () {
                                 // set level width to picture width. Why not a set width for both? Different sized pictures on different sized tablets.
-                                // var imgWidth = $("#avatar").width();
+                                var imgWidth = $("#avatar").width();
                                 // $(".level").css("width", imgWidth + "px");
                                 // actually, forget all that, because 100% works just fine.
                             };
@@ -56,7 +56,7 @@ document.addEventListener("deviceready", function () {
         window.location.href = "login.html";
     })
 
-/*
+
 
     function failXML(err, xhr) {
         var errStr = JSON.stringify(err, null, 4);
@@ -64,7 +64,6 @@ document.addEventListener("deviceready", function () {
         var xhrStr = JSON.stringify(xhr, null, 4);
         console.log(xhrStr);
     }
-*/
     function parseXml(xml) {
         if (xml) {
             var totCols = getValByTag(xml, "colCount");
@@ -74,7 +73,7 @@ document.addEventListener("deviceready", function () {
                 $(".tabletBG").css({"background-image": "url(" + window.schoolLoc + "/icons/" + bgSrc + ")"});
             }
             var tutorialXML = xml.getElementsByTagName("tutorial")[0];
-            //var tutorialActive = getValByTag(tutorialXML, "active");
+            var tutorialActive = getValByTag(tutorialXML, "active");
             $("#tutorialSchoolElem").css({"display": "block"});
             $("#tutorialSchoolElem").find("img").attr("src", "img/openTutorials.png");
             $("#tutorialSchoolElem").addClass("picture");
@@ -113,7 +112,7 @@ document.addEventListener("deviceready", function () {
             for (var c = subjectColNum; c > 1; c--) {
                 modifySubjectGrid(0, 0, 1);
             }
-            for (var z = 1; z < totCols; z++) {
+            for (var c = 1; c < totCols; c++) {
                 modifySubjectGrid(1, 0, 1);
             }
             for (var t = 1; t < totRows; t++) {
@@ -144,13 +143,13 @@ document.addEventListener("deviceready", function () {
                     $(elem).addClass("text");
                 }
             }
-        }// else {
+        } else {
 
-//        }
+        }
     }
 
-//    var tabletBorderMarginRatioVert = 0.1;
-//    var tabletBorderMarginRatioHori = 0.07143;
+    var tabletBorderMarginRatioVert = 0.1;
+    var tabletBorderMarginRatioHori = 0.07143;
 
     var gridTemplate = "<div class='grid' subject='' onClick=gotoSubject(this)><h2></h2><img /></div>";
     var subjectRowNum = 3; //TODO: get this from XML
@@ -199,8 +198,8 @@ document.addEventListener("deviceready", function () {
                 if (subjectColNum < 2) {
                     webix.message("You have to have at least one, guy");
                 } else {
-                    for (var r1 = 1; r1 <= subjectRowNum; r1++) {
-                        $$("subjectGridRow" + r1).removeView("grid_r" + r1 + "c" + subjectColNum);
+                    for (var r = 1; r <= subjectRowNum; r++) {
+                        $$("subjectGridRow" + r).removeView("grid_r" + r + "c" + subjectColNum);
                     }
                     subjectColNum--;
                 }
@@ -360,7 +359,6 @@ function gotoTutorial() {
     checkDownloadAndGo(loc, serverLoc);
 }
 
-
 function gotoSubject(elem) {
     var sub = $(elem).attr("subject");
     var iconDown = $(elem).attr("iconDown");
@@ -383,14 +381,12 @@ function gotoSubject(elem) {
             }
             if (sub === "Epic Quest") {
 				window.location.href = "school/Epic Quest/index.html";
-			} else {
-				window.location.href = "subject.html?" + sub;
+			}	else	{
+				 window.location.href = "subject.html?" + sub;
 			}
         }, 100);
     }
 }
-
-
 function retakePicture() {
     if (!window.retakingPicture) {
         window.retakingPicture = true;
@@ -468,7 +464,7 @@ function MouseEvent(itemSize) {
     this.up = function (e) {
         // Only needed for browser development;
         // if (e.type !== "mouseout" || e.target.classList[0] !== "tutorial") {
-        /////--/////////--/////if (true) {
+        if (true) {
             THIS.mDown = false;
             var clickedUnit = false;
             var curX = THIS.latestLoc;
@@ -493,12 +489,12 @@ function MouseEvent(itemSize) {
             if (clickedUnit) {
                 gotoTutorial.call(clickedUnit);
             }
-        //////--/////////--////}
+        }
 
     }
     this.move = function (e) {
-        if (!($(this).attr("ignoreMove"))) {
-        //////--////// } else {
+        if ($(this).attr("ignoreMove")) {
+        } else {
             if (THIS.mDown) {
                 if (THIS.dragDistOffsetMet) {
                     THIS.hasMoved = true;

@@ -173,12 +173,12 @@ function messyTargetToPretty(mess, curPage) {
                 }
 
                 break;
-            case "propertyChange":{
+            case "propertyChange":
                 let potentialActions = ["move", "hide", "show", "draggable", "clonable", "static", "disable", "enable"];
                 let splitAction = mess.action.split("|");
                 if (
-                        lowerType === "object" &&
-                        (
+                        lowerType === "object"
+                        && (
                                 potentialActions.includes(mess.action) ||
                                 (splitAction[0] && potentialActions.includes(splitAction[0].toLowerCase()))
                                 )
@@ -195,8 +195,8 @@ function messyTargetToPretty(mess, curPage) {
                     if (lowerAction == "show" || lowerAction == "hide") {
                         curAttr = "vis";
                         curVal = lowerAction === "show";
-                    } else if (lowerAction == "move" ||
-                            (splitAction[0] && splitAction[0].toLowerCase() == "move")) {
+                    } else if (lowerAction == "move"
+                            || (splitAction[0] && splitAction[0].toLowerCase() == "move")) {
                         curAttr = "center";
                         let messyLoc = mess.destination.toLowerCase().split("x");
                         // NOT a top left, therefore an X,Y
@@ -213,7 +213,7 @@ function messyTargetToPretty(mess, curPage) {
                     } else if (['enable', 'disable'].indexOf(lowerAction) !== -1) {
                         destType = "link";
                         curAttr = "enabled";
-                        curVal = (lowerAction != "disable");
+                        curVal = (lowerAction == "disable") ? false : true;
                     }
 
                     if (curAttr !== null && curVal !== null) {
@@ -235,7 +235,6 @@ function messyTargetToPretty(mess, curPage) {
                     }
                 }
                 break;
-            }
             case "point":
                 if (lowerType === "points") {
                     if (reservedWords.points.indexOf(mess.destination) >= 0) {
@@ -268,12 +267,12 @@ function messyTargetToPretty(mess, curPage) {
                     }
                 }
                 break;
-            case "flash":{
+            case "flash":
                 let split = mess.action.split("|");
                 if (
-                        lowerType === "object" && 
-                        (split.length > 1) && 
-                        split[0].toLowerCase() === "flash"
+                        lowerType === "object"
+                        && split.length > 1
+                        && split[0].toLowerCase() === "flash"
                         ) {
                     ret = {
                         blocking: forceType("bool")(split[3]),
@@ -290,7 +289,6 @@ function messyTargetToPretty(mess, curPage) {
                     }
                 }
                 break;
-            }
             case "countdown":
                 if (lowerType === "countdown") {
                     let timeValue = false;
@@ -351,7 +349,7 @@ function messyTargetToPretty(mess, curPage) {
                         if (!color[3]) {
                             color.push(100);
                         }
-                        color = color.map((c) => c * 1);
+                        color = color.map(c => c * 1);
                         let defaultWidths = {"pencil": 5, "chalk": 10, "eraser": 40};
                         let width = attrs[0] * 1 || defaultWidths[tool];
 
@@ -487,11 +485,11 @@ function messyTargetToPretty(mess, curPage) {
                     let animObj = dest.split("|")[0];
                     let animName = dest.split("|")[1];
                     let animBlocking;
-                    if (lowerAction.split(" ")[1] == "blocking" || 
+                    if (lowerAction.split(" ")[1] == "blocking"
                             // Yeah really, check above.
-                            lowerAction.split("|")[1] == "passive" || 
+                            || lowerAction.split("|")[1] == "passive"
                             // Also yes really, > 2016
-                            lowerAction === "play") {
+                            || lowerAction === "play") {
                         animBlocking = ["self"];
                     } else {
                         animBlocking = false;
@@ -618,7 +616,7 @@ function messyTargetToPretty(mess, curPage) {
                     };
                 }
                 break;
-            case "send":{
+            case "send":
                 // send drop|icon ball to OR send click to
                 let actionPhrase = lowerAction.split("|")[0];
                 let actionWord = actionPhrase.split(" ")[1]
@@ -644,7 +642,6 @@ function messyTargetToPretty(mess, curPage) {
                     }
                 }
                 break;
-            }
             case "reset":
                 /*
                  We have a [reset] target. It will [object reset] the [beachball]
@@ -692,7 +689,6 @@ function messyTargetToPretty(mess, curPage) {
                         value: lowerAction == "enable page navigation"
                     }
                 }
-                break;
             default:
                 break;
         }
@@ -702,9 +698,9 @@ function messyTargetToPretty(mess, curPage) {
         //  Randomality: Only for choice destinations (everything except audio and anim)
         //  -- Should work for any destination in the ?choose(item,item,item)? shit
         if (lowerDestination.substring(0, 7) == "?choose") {
-            let removeChoice = (lowerDestination.substring(1, 16) == "chooseandremove");
-                //    true :
-                //    false;
+            let removeChoice = (lowerDestination.substring(1, 16) == "chooseandremove") ?
+                    true :
+                    false;
             let options = mess.destination.substring((removeChoice) ? 17 : 8);
             options = options.substring(0, options.length - 2);
             if (options.substring(options.length - 1) == ",") {
@@ -724,10 +720,15 @@ function messyTargetToPretty(mess, curPage) {
             ret.random = random;
         }
     } else {
-        if (typeof mess.type === "undefined" || 
-                typeof mess.action === "undefined" || 
-                typeof mess.destination === "undefined"
-                ) {
+        if (typeof mess.type === "undefined"
+                || typeof mess.action === "undefined"
+                || typeof mess.destination === "undefined"
+                || typeof mess.type === ""
+                || typeof mess.action === ""
+                || typeof mess.destination === ""
+                || typeof mess.type === ""
+                || typeof mess.action === ""
+                || typeof mess.destination === "") {
             console.log("Blank mess probably, please check");
             console.log(mess);
         } else {
@@ -738,7 +739,7 @@ function messyTargetToPretty(mess, curPage) {
                 hold: false,
                 type: "log",
                 // what:"Could not interpret target: " + mess.type + " " + mess.action + " " + mess.destination + ". Skipping",
-                value: "Could not interpret target in XML.js.\n" + JSON.stringify(mess),
+                value: "Could not interpret target in XML.js." + '\n' + JSON.stringify(mess),
             }
         }
     }
@@ -884,10 +885,10 @@ function pointNamesFormatter(pointNames) {
 }
 
 // Not used?
-function mod(operation1, value) {
+function mod(operation, value) {
     // (*10, 5) -> 50 | (!, true) -> false;
     // For quick flips and subtracts and ticks to minutes and whatever
-    var operation = operation1.toString();
+    var operation = operation.toString();
     var ret;
     // TODO: one liner I know there's one but I can't figure it out and I'm TIRED
     var sign = operation.charAt(0);
@@ -927,7 +928,7 @@ function forceType(type) {
                 } else {
                     return false;
                 }
-                //break;
+                break;
             case "int":
                 if (isNaN(parseInt(what))) {
                     if (what !== false) {
@@ -937,48 +938,48 @@ function forceType(type) {
                 } else {
                     return parseInt(what);
                 }
-                //break;
+                break;
             case "commaSplit":
                 if (what.split(",").length > 1) {
                     return what.split(",");
                 } else {
                     return what;
                 }
-                //break;
+                break;
             case "barSplit":
                 if (what.split("|").length > 1) {
                     return what.split("|");
                 } else {
                     return what;
                 }
-                //break;
+                break;
             case "commaSplitNum":
                 if (what.split(",").length > 1) {
                     let tmp = what.split(",");
-                    let pt = [];
+                    let pt = new Array();
                     pt.push(tmp[0] * 1);
                     pt.push(tmp[1] * 1);
                     return pt;
                 } else {
                     return what;
                 }
-                //break;
+                break;
             case "XSplitNum":
                 if (what.toLowerCase().split("x").length > 1) {
                     let tmp = what.toLowerCase().split("x");
-                    let pt = [];
+                    let pt = new Array();
                     pt.push(tmp[0] * 1);
                     pt.push(tmp[1] * 1);
                     return pt;
                 } else {
                     return what;
                 }
-                //break;
+                break;
             default:
                 console.log(type);
                 error("log", "forceType", "Unknown type of " + type);
                 return what;
-                //break;
+                break;
         }
     }
     return funcRet;
@@ -1043,15 +1044,15 @@ function fieldContentsFormatter(contents) {
     }
 }
 
-function hex(x) {
-            return ("0" + parseInt(x).toString(16)).slice(-2);
-        }
-
 function rgb2hex(rgb) {
     if (rgb) {
         if (typeof rgb == "string") {
             rgb = rgb.split(",");
         }
+        function hex(x) {
+            return ("0" + parseInt(x).toString(16)).slice(-2);
+        }
+
         return "#" + hex(rgb[0]) + hex(rgb[1]) + hex(rgb[2]);
     } else {
         return false;
@@ -1090,7 +1091,7 @@ function parseObjAnims(partial) {
                         time: legTime * 1,
                     }
                     jsProps.angle = prevAngle;
-                    prevAngle = (typeof(leg[4] * 1) == "number") ? leg[4] * 1 : 0;
+                    prevAngle = (typeof (leg[4] * 1) == "number") ? leg[4] * 1 : 0;
                     jsAnim.totTime += legTime;
                     jsAnim.data.push(jsProps);
                 }

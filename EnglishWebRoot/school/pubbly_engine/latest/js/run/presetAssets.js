@@ -1,6 +1,6 @@
 class PubblyPresetAssets {
 	add(asset) {
-		let already = this.list.find((a) => a.src === asset.src);
+		let already = this.list.find(a => a.src === asset.src);
 		if (!already) {
 			this.list.push(asset);
 		}
