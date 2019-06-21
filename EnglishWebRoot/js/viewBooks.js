@@ -20,9 +20,9 @@ function ready() {
         window.userID = userID;
         parseXml(schoolXML);
     });
-    function parseXml(xml1) {
-        var xmlStr = new XMLSerializer().serializeToString(xml1);
-        var xml = $.parseXML(xmlStr);
+    function parseXml(xml) {
+        var xmlStr = new XMLSerializer().serializeToString(xml);
+        xml = $.parseXML(xmlStr);
         window.xml = xml;
 
         var bookRoot = xml.getElementsByTagName("Books")[0];
@@ -76,7 +76,7 @@ function ready() {
             moveEvt = "mousemove";
             upEvt = "mouseup";
             clickEvt = "click"; // alts?
-            outEvt = "mouseout";
+            //outEvt = "mouseout";
         }
 
         $("#main").addClass("loaded");
