@@ -14,37 +14,37 @@ function loader(placement) {
 
 
     placement.innerHTML =
-            '<div id=loadContVertCenter>' +
-            '<div id=loadCont>' +
-            '<div id=cansCont>' +
-            '<canvas class="loadCan" id="canP" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
-            '<canvas class="loadCan" id="canU" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
-            '<canvas class="loadCan" id="canB1" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
-            '<canvas class="loadCan" id="canB2" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
-            '<canvas class="loadCan" id="canL" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
-            '<canvas class="loadCan" id="canY" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
-            '</div>' +
-            '<div id="load-letters-cont">' +
-            '<img id="load-logo"/>' +
-            /*
-             '<img class="load-letter" id="load-letter-p" letter="p" src="' + dependenciesLoc + 'presets/letters/p_plain.png" />' +
-             '<img class="load-letter" id="load-letter-u" letter="u" src="' + dependenciesLoc + 'presets/letters/u_plain.png" />' +
-             '<img class="load-letter" id="load-letter-b1" letter="b1" src="' + dependenciesLoc + 'presets/letters/b1_plain.png" />' +
-             '<img class="load-letter" id="load-letter-b2" letter="b2" src="' + dependenciesLoc + 'presets/letters/b2_plain.png" />' +
-             '<img class="load-letter" id="load-letter-l" letter="l" src="' + dependenciesLoc + 'presets/letters/l_plain.png" />' +
-             '<img class="load-letter" id="load-letter-y" letter="y" src="' + dependenciesLoc + 'presets/letters/y_plain.png" />' +
-             */
-            '</div>' +
-            '</div>' +
-            '<p id=loadText>0%</p>' +
-            '</div>';
+        '<div id=loadContVertCenter>' +
+        '<div id=loadCont>' +
+        '<div id=cansCont>' +
+        '<canvas class="loadCan" id="canP" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
+        '<canvas class="loadCan" id="canU" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
+        '<canvas class="loadCan" id="canB1" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
+        '<canvas class="loadCan" id="canB2" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
+        '<canvas class="loadCan" id="canL" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
+        '<canvas class="loadCan" id="canY" height=' + (this.canDim[0]) + ' width=' + this.canDim[1] + '></canvas>' +
+        '</div>' +
+        '<div id="load-letters-cont">' +
+        '<img id="load-logo"/>' +
+        /*
+         '<img class="load-letter" id="load-letter-p" letter="p" src="' + dependenciesLoc + 'presets/letters/p_plain.png" />' +
+         '<img class="load-letter" id="load-letter-u" letter="u" src="' + dependenciesLoc + 'presets/letters/u_plain.png" />' +
+         '<img class="load-letter" id="load-letter-b1" letter="b1" src="' + dependenciesLoc + 'presets/letters/b1_plain.png" />' +
+         '<img class="load-letter" id="load-letter-b2" letter="b2" src="' + dependenciesLoc + 'presets/letters/b2_plain.png" />' +
+         '<img class="load-letter" id="load-letter-l" letter="l" src="' + dependenciesLoc + 'presets/letters/l_plain.png" />' +
+         '<img class="load-letter" id="load-letter-y" letter="y" src="' + dependenciesLoc + 'presets/letters/y_plain.png" />' +
+         */
+        '</div>' +
+        '</div>' +
+        '<p id=loadText>0%</p>' +
+        '</div>';
 
     document.getElementById("load-logo").onload = function () {
         $("#cansCont").css("visibility", "visible");
     };
     document.getElementById("load-logo").src = dependenciesLoc + 'presets/logos/logoEmptyColors.png';
 
-    $(".loadCan").css({"width": letterWidth});
+    $(".loadCan").css({ "width": letterWidth });
     /*
      if (maxDim[0] > 350) {
      $("#cansCont").css({"height":this.canDim[0] - 2,"width": workWidth,"left":"50%","margin-left":workWidth / -2,"margin-top":1});
@@ -60,8 +60,8 @@ function loader(placement) {
         "margin-left": workWidth / -2,
         "margin-top": 1
     });
-    $("#load-logo").css({"width": workWidth, "left": workWidth / -2});
-    $("#loadCont").css({"margin-top": ((workWidth * ratio) / -2) - 15, "height": workWidth * ratio});
+    $("#load-logo").css({ "width": workWidth, "left": workWidth / -2 });
+    $("#loadCont").css({ "margin-top": ((workWidth * ratio) / -2) - 15, "height": workWidth * ratio });
 
     $(".load-letter").hover(function () {
         var curSrc = $(this).attr("src");
@@ -87,7 +87,7 @@ function loader(placement) {
         var curCtx = cur.getContext('2d');
         curCtx.fillStyle = canColors[c];
         curCtx.fillRect(0, 50, this.canDim[1], this.canDim[0]);
-        this.cans.push({elem: cur, ctx: curCtx});
+        this.cans.push({ elem: cur, ctx: curCtx });
     }
     // fillRect(left,top,right,bottom)
     this.averageLoads = function () {
@@ -163,14 +163,13 @@ function loader(placement) {
 
 
 function spinner(placement) {
-    var THIS = this;
     this.contID = placement;
     placement.innerHTML =
-            '<div id=loadContVertCenter>' +
-            '<div id=loadCont>' +
-            '<img class="load-spinner" src =' + dependenciesLoc + 'presets/spinner.png></img>' +
-            '</div>' +
-            '</div>';
+        '<div id=loadContVertCenter>' +
+        '<div id=loadCont>' +
+        '<img class="load-spinner" src =' + dependenciesLoc + 'presets/spinner.png></img>' +
+        '</div>' +
+        '</div>';
     this.spinner = this.contID.getElementsByClassName('load-spinner')[0];
     this.kill = function () {
         this.contID.innerHTML = '';

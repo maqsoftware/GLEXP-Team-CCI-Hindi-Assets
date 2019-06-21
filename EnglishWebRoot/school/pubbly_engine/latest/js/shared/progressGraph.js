@@ -5,7 +5,7 @@ function ProgressGraph(type, container, enginePathPrefix) {
     // Need a way to set TOTAL load count, not page specific
     this.globalAt = false;
     this.globalLeft = false;
-	this.enginePathPrefix = (enginePathPrefix) ? enginePathPrefix : "";
+    this.enginePathPrefix = (enginePathPrefix) ? enginePathPrefix : "";
     this.messyLoader = {
         vertical_letters: {
             // Actual HTML to echo into the container
@@ -139,15 +139,15 @@ function ProgressGraph(type, container, enginePathPrefix) {
                     to: 100,
                     valTypeChar: "%", // or "px" or "". Whatever the value type is.
                 },
-                        /*
-                         {
-                         cssSelector: ".loadColor",
-                         attr:"opacity",
-                         from:0,
-                         to:1,
-                         valTypeChar:"",
-                         },
-                         */
+                /*
+                 {
+                 cssSelector: ".loadColor",
+                 attr:"opacity",
+                 from:0,
+                 to:1,
+                 valTypeChar:"",
+                 },
+                 */
             ],
             textElem: ".loader_text",
             confirmElem: ".loader_confirm"
@@ -199,10 +199,10 @@ function ProgressGraph(type, container, enginePathPrefix) {
         $(".loadColor").addClass("errored");
     };
     this.show = function () {
-        this.elem.css({"display": "block"});
+        this.elem.css({ "display": "block" });
     }
     this.hide = function () {
-        this.elem.css({"display": "none"});
+        this.elem.css({ "display": "none" });
     }
     this.loadTimers = [];
 

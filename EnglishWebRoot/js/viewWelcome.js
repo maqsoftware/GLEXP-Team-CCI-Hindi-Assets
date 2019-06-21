@@ -38,11 +38,9 @@ document.addEventListener("deviceready", function () {
             dataType: "xml",
             success: function (xml) {
                 window.schoolXML = xml;
-                var bgSrc = getValByTag(xml, "schoolBG");
                 var initTutorial = "";
                 var tuts = schoolXML.getElementsByTagName("tutorial");
                 for (var t = 0; t < tuts.length; t++) {
-                    var tut = tuts[t];
                     if (getValByTag(tuts[t], "type") == "app") {
                         initTutorial = getValByTag(tuts[t], "name");
                     }

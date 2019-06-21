@@ -33,16 +33,16 @@ class fieldText {
             return false;
         }
         return (missingRequired) ?
-                false :
-                Object.assign(
-                        {
-                            pt: false,
-                            color: "FFF",
-                            boldCoor: "00F",
-                            align: "left",
-                            font: "Didact",
-                            insertionAt: false,
-                        }, props);
+            false :
+            Object.assign(
+                {
+                    pt: false,
+                    color: "FFF",
+                    boldCoor: "00F",
+                    align: "left",
+                    font: "Didact",
+                    insertionAt: false,
+                }, props);
     }
 
     drawTextFromDescriptiveLineList(ctx, lines, props) {
@@ -77,7 +77,7 @@ class fieldText {
          * }
          */
     }
-   
+
     // public
     drawText(ctx, content, props) {
         /*
@@ -95,7 +95,7 @@ class fieldText {
          *  color: HEX,
          *  
          */
-        let props = this.checkDrawTextPropsAndSetDefaults(props);
+        props = this.checkDrawTextPropsAndSetDefaults(props);
         if (!props) {
             console.error("BAD draw text call, not enough props, or some of them wrong or something");
             console.error(props);

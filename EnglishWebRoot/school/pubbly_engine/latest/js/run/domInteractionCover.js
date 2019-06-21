@@ -24,7 +24,7 @@ class DomInteractionCover {
     constructor(container) {
         this.container = container;
         this.clicked = this.clicked.bind(this);
-        
+
         this.cb = false;
         this.available = [
             "Bee_exit2.gif",
@@ -33,7 +33,7 @@ class DomInteractionCover {
             "bird_jump_loop2.gif",
             "word_pup_screen_gif_03.gif",
             "wordtopia5.gif",
-        ].map(e => {
+        ].map((e) => {
             return {
                 type: "gif",
                 relPath: "pubbly_engine/shared/domInteractionCover/" + e

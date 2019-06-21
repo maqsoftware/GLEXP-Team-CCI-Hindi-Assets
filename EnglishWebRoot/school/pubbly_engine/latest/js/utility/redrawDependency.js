@@ -16,10 +16,11 @@ class RedrawDependency {
             this.interval = window.setInterval(this.redrawCallback, this.options.frameRate);
         }
     }
+
     remove(what) {
         // Remove element from deplist (even if elem is complext json obj)
         let origL = this.depList.lengh;
-        this.depList = this.depList.filter(elem => elem !== what);
+        this.depList = this.depList.filter((elem) => elem !== what);
         if (origL === this.depList.length) {
             console.warn("RedrawDependency.remove: Argument passed is not in depedency list... Nothing removed");
         }
@@ -30,6 +31,7 @@ class RedrawDependency {
             this.redrawCallback();
         }
     }
+
     constructor(redrawCallback, options) {
         if (typeof redrawCallback !== "function") {
             console.error("RedrawDependency.constructor (fatal): redrawCallback argument is NOT a function...");
@@ -41,7 +43,7 @@ class RedrawDependency {
             // redrawCallback >> Bounded function to call on every framerate interval
             this.redrawCallback = redrawCallback;
             // options.frameRate >> the frameRate
-            this.options = Object.assign({frameRate: 1}, options);
+            this.options = Object.assign({ frameRate: 1 }, options);
 
             // List of stuff causing the whatever to need a redraw.
             this.depList = [];

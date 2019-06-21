@@ -4,6 +4,6 @@ window.setTimeout(function () {
         viewport.setAttribute('content', 'width=device-width, initial-scale=1.1, maximum-scale=1.0, user-scalable=0');
         window.setTimeout(function () {
             viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
-        },100);
+        }, 100);
     }
 }, 500);

@@ -27,22 +27,22 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
             ["navigation", "DisallowPageNavigation", false, booleanFlip],
             ["snapDrops", "SnapDroppedImagesIntoLocation", true, forceType("bool")],
             ["lastPageSpread", "LastPageSingleOrDouble", false, function (isDouble) {
-                    if (typeof isDouble !== "string") {
-                        // Predates explicitly spelling this out in XML...
-                        // I need to make an educated guess afterwards.
-                        // Search for "LastPageDoubleEducatedGuess";
-                        return undefined;
-                    } else {
-                        return forceType("bool")(isDouble.toLowerCase() === "double");
-                    }
-                }],
+                if (typeof isDouble !== "string") {
+                    // Predates explicitly spelling this out in XML...
+                    // I need to make an educated guess afterwards.
+                    // Search for "LastPageDoubleEducatedGuess";
+                    return undefined;
+                } else {
+                    return forceType("bool")(isDouble.toLowerCase() === "double");
+                }
+            }],
             ["assetLocationPrefix", "associateName", window.xmlFileName, function (name) {
-                    if (name !== "MainXML") {
-                        return decodeURI(name) + "_";
-                    } else {
-                        return "";
-                    }
-                }],
+                if (name !== "MainXML") {
+                    return decodeURI(name) + "_";
+                } else {
+                    return "";
+                }
+            }],
             ["HighlightLinkColor", "linkHighlightColor", "128,255,255"],
             ["HighlightLinkTransparency", "linkHighlightAlpha", "50", forceType("int")],
             ["HighlightLinkTime", false, 500],
@@ -68,9 +68,9 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
         }
 
         let pageSet = [["points", "PointNames", [], pointNamesFormatter],
-            ["reloadOnLeave", "ResetWhenLeaving", "false", forceType("bool")],
-            ["name", "PageName"],
-            ["countdown", null, 0], // No XML node for it yet, but maybe one day we'll add a default
+        ["reloadOnLeave", "ResetWhenLeaving", "false", forceType("bool")],
+        ["name", "PageName"],
+        ["countdown", null, 0], // No XML node for it yet, but maybe one day we'll add a default
         ];
 
         let objSets = {
@@ -79,14 +79,14 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                 ["name", "ObjName"],
                 ["layer", "ObjLayer", false, forceType("int")],
                 ["vis", "ObjInitVis", true, function (vis) {
-                        return vis == "show"
-                    }],
+                    return vis == "show"
+                }],
                 ["loc", "ObjInitTopLeft", false, forceType("commaSplitNum")],
                 ["width", "ObjInitWidth", false, forceType("int")],
                 ["height", "ObjInitHeight", false, forceType("int")],
                 ["opacity", false, 1],
                 ["mobility", "ObjMobility", "fixed",
-                    translate({"draggable": "drag", "clonable": "clone", "static": "fixed"}, "fixed")
+                    translate({ "draggable": "drag", "clonable": "clone", "static": "fixed" }, "fixed")
                 ],
                 ["frontDrag", "ObjMoveForwardAfterDragging", false, forceType("bool")],
                 ["animations", "ObjAnimations", false, parseObjAnims], // LOC: xmlFormattingFunctions.js
@@ -134,17 +134,17 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                 ["color", "TextColor", "0,0,0", rgb2hex],
                 ["contents", "FldContentsEncoded", "", fieldContentsFormatter], // default empty for user text
 
-                        // OHH what do we have here a teachable moment?
-                        //
-                        // ["calculated", null, {}, null],
-                        //
-                        // DOESN'T WORK because Javascript is kind of the fuck-you-it's-linked
-                        //
-                        // Doin it this way means that all field calculated props are linked to the SAME object, linked to this object right here. Isn't that freaking great?????
-                        // ISN"T IT?????
+                // OHH what do we have here a teachable moment?
+                //
+                // ["calculated", null, {}, null],
+                //
+                // DOESN'T WORK because Javascript is kind of the fuck-you-it's-linked
+                //
+                // Doin it this way means that all field calculated props are linked to the SAME object, linked to this object right here. Isn't that freaking great?????
+                // ISN"T IT?????
             ],
             "workspace": [
-                ["bgTexture", "BackgroundTransparency", false, translate({"false": "blackBoardBG.png"}, false)],
+                ["bgTexture", "BackgroundTransparency", false, translate({ "false": "blackBoardBG.png" }, false)],
                 // Workspaces always visible in design, so hard code here
                 ["vis", "", true],
                 // Height, width, top and left ALL WRONG. Based off rectangle points ONLY
@@ -161,19 +161,17 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
             ["poly", "Points", false, messyPointsToPoly],
             ["pinned", "PinnedTo", false],
             ["enabled", "InitialStatus", true, function (status) {
-                    if (typeof status.toLowerCase !== "undefined"
-                            && status.toLowerCase() == "disabled") {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                if (typeof status.toLowerCase !== "undefined" &&
+                    status.toLowerCase() == "disabled") {
+                    return false;
+                } else {
+                    return true;
+                }
 
-                }],
+            }],
             ["clickHighlight", "AutoHighlightLink", false, forceType("bool")],
             ["clickHighlightOn", false, false],
         ];
-
-        let knownTriggerTypes = ["click"];
 
         let pageNodes = xmlDoc.getElementsByTagName("Pages")[0].getElementsByTagName("Page");
         if (xml.info.display === "composite" && pageNodes.length <= 2) {
@@ -205,7 +203,7 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
 
                     if (objSets[type]) {
                         // Common props for all objects
-                        let curSet = objSets["all"];
+                        let curSet = objSets.all;
                         for (let os = 0; (os < curSet.length && curSet[os]); os++) {
                             curObj[curSet[os][0]] = quickGet(curSet[os][1], objNode, curSet[os][2], curSet[os][3]);
                         }
@@ -234,9 +232,9 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                             if (!curObj.fName) {
                                 curObj.fName = curObj.name;
                                 curObj.fileName = curObj.name;
-                            }	else	{
+                            } else {
                                 curObj.fileName = curObj.fName;
-							}
+                            }
                         }
                         if (curObj.type == "workspace") {
                             // Workspace top left height and width are all WRONG.
@@ -252,7 +250,7 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                         }
 
                         if (curObj.sequence) {
-                            curObj.frames = curObj.frameOrder.map(frame => {
+                            curObj.frames = curObj.frameOrder.map((frame) => {
                                 let ret = {};
                                 ret.dSrc = curObj.dName + "/" + frame;
                                 ret.fName = frame;
@@ -260,10 +258,6 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                             });
                             curObj.at = 0;
                             // error("update", "New Engine Update Required", "");
-                        }
-
-                        // Specifics for swapped assets
-                        if (curObj.swapMethod !== false) {
                         }
 
                         curPage.objs.push(curObj);
@@ -335,8 +329,6 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                             "point": "point",
                         }[messySplit[0]];
                         let condition = messySplit[1];
-
-                        let curSequence = [];
                         if (curLink.triggers[type] !== "undefined") {
                             let curTrigger = {
                                 type: type,
@@ -382,7 +374,6 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                         }
 
                     }
-                    let locInArray = curPage.links.push(curLink) - 1;
                 }
                 xml.pages.push(curPage);
             }
@@ -413,9 +404,9 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
                 let curObj = curPage.objs[o];
                 // Composite offsetting
                 // Ray hands off composite obj locations as if they were a double page width
-                if (xml.info.display == "composite"
-                        && (p == 0 ||
-                                (p == xml.pages.length - 1 && !xml.info.lastPageSpread))) {
+                if (xml.info.display == "composite" &&
+                    (p == 0 ||
+                        (p == xml.pages.length - 1 && !xml.info.lastPageSpread))) {
                     curObj.loc = ptOffset(curObj.loc, [0, xml.info.width / -2]);
                     for (let anims in curObj.animations) {
                         let anim = curObj.animations[anims];
@@ -484,7 +475,7 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
             let orderedLayers = [];
             for (let o = 0; o < xml.pages[p].objs.length; o++) {
                 let obj = xml.pages[p].objs[o];
-                orderedLayers.push({locInObjs: o, layer: obj.layer});
+                orderedLayers.push({ locInObjs: o, layer: obj.layer });
             }
             orderedLayers.sort(function (a, b) {
                 return a.layer - b.layer;
@@ -508,6 +499,7 @@ function updateJsonFromXML(progressGraph, xmlLoc, cb) {
 
 function quickGet(nodeName, parent, backupVal, mod = null) {
     let ret = (parent) ? parent.getElementsByTagName(nodeName)[0] : false;
+    var val;
     if (typeof ret === "undefined" || ret.innerHTML == "") {
         if (backupVal !== null) {
             val = backupVal;
@@ -522,7 +514,7 @@ function quickGet(nodeName, parent, backupVal, mod = null) {
             val = mod.call(window, val);
         }
         return val;
-}
+    }
 }
 
 

@@ -37,7 +37,7 @@ function saveState(at) {
             }
         }
         if (showsequence) {
-            console.log("Sequence log: " + "State saved");
+            console.log("Sequence log: State saved");
         }
     }
 }
@@ -79,7 +79,7 @@ function loadState(at) {
             // book[at].redraw();
         }
         if (showsequence) {
-            console.log("Sequence log: " + "State loaded");
+            console.log("Sequence log: State loaded");
         }
     }
 }

@@ -26,6 +26,7 @@ function error(level, type, message) {
         console.log(message);
     }
 }
+
 function fatalProductionError(msg) {
     // When stuff breaks on our production platform! Display a client friendly error message page
     console.error(msg);

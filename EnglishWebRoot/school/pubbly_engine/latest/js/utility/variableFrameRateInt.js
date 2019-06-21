@@ -23,15 +23,16 @@ class VariableInt {
             this.cbs.next(percentDone);
         }
     }
+
     constructor(time, cbs) {
         this.next = this.next.bind(this);
-        
+
         // time >> miliseconds until the end of the animation
         this.time = time;
         // cbs.next >> Cb for every tick, to be called back with the percentage till the end
         // cbs.end >> CB for the end of the sequence.
         this.cbs = cbs;
-        
+
         this.endStamp = Date.now() + this.time;
         this.int = window.setInterval(this.next, 10);
     }

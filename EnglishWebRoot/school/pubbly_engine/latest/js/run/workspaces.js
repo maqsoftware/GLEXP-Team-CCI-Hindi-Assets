@@ -6,7 +6,7 @@ class Workspace {
         this.elem.style.backgroundColor = "white";
         workspaceDom.append(this.elem);
         this.ctx = this.elem.getContext("2d");
-        
+
         this.data = false;
         /*
         if (curObj.name == "Workspace 1") {
@@ -14,7 +14,7 @@ class Workspace {
             $(this.elem).css({"top": "183px", "right": 0, "position": "absolute", "background-color": "grey"});
         }
         */
-        
+
         // Tester
         // this.ctx.fillRect(0,0,curObj.width,curObj.height);
     }

@@ -11,11 +11,11 @@ function assignDefaultCallbacks(cbs) {
      * 
      * AS A STANDARD FROM NOW ON, callbacks are 4 letters.
      * [done, fail, prog]
-     */ 
-    
+     */
+
     return Object.assign({
-        done: function () {},
-        fail: function () {},
-        prog: function () {}
+        done: function () { },
+        fail: function () { },
+        prog: function () { }
     }, cbs);
 }

@@ -1,6 +1,4 @@
 var mxVel = ["", "", "", "", "", ""];
-var mxVelOverride = false;
-var mxVelOverrideTimeout;
 var viewVelocity = false;
 var startX = 0;
 var origX = 0;
@@ -16,12 +14,12 @@ var mxStr, myStr;
 var lineStartPos = [];
 var lineFrom = false;
 var lastLinePage = false;
-var mMode = false;  // nav, down, line, draw-pencil, draw-pen, draw-high, draw-erase
+var mMode = false;
 var absPos = [0, 0];
 var drawCTX = false;
 var lineCTX = false;
 var drawingPoints = [];
-var startTime, firstMoveTime = false, lastMoveTime, endTime, prevStr, nextStr;
+var prevStr, nextStr;
 var clickInCont = false;
 var buttonHoverName = false;
 
@@ -54,31 +52,31 @@ function animPlate(mod) {
                     "-o-transform": rightVal
                 });
                 if (dir == 'down') {
-                    $(".arrowStick").css({"background-color": "RGB(20," + (3 * step) + ",20)"});
+                    $(".arrowStick").css({ "background-color": "RGB(20," + (3 * step) + ",20)" });
                 } else {
-                    $(".arrowStick").css({"background-color": "RGB(20," + (135 - (3 * step)) + ",20)"});
+                    $(".arrowStick").css({ "background-color": "RGB(20," + (135 - (3 * step)) + ",20)" });
                 }
             }
         }, animTime / 45);
     };
     if (mod == 'half' || mod == 'full') {
         $("#bookDisabled").css("width", "100%");
-        $("#bookDisabled").animate({"opacity": 0.3}, animTime / 2);
+        $("#bookDisabled").animate({ "opacity": 0.3 }, animTime / 2);
         if (mod == 'half') {
             arrows('up');
-            $(plateCont).animate({"height": 150}, animTime);
+            $(plateCont).animate({ "height": 150 }, animTime);
         } else if (mod == 'full') {
-            $(plateCont).animate({"height": 300}, animTime);
+            $(plateCont).animate({ "height": 300 }, animTime);
         }
     } else if (mod == 'close') {
         arrows('down');
-        $(plateCont).animate({"height": 50}, animTime);
-        $("#bookDisabled").animate({"opacity": 0.3}, animTime);
+        $(plateCont).animate({ "height": 50 }, animTime);
+        $("#bookDisabled").animate({ "opacity": 0.3 }, animTime);
         window.setTimeout(function () {
             $("#bookDisabled").css("width", "0");
         }, animTime);
     } else {
-        console.warn("Bug: " + 'Unknown mod of <b>' + mod + '</b> in animPlate function call');
+        console.warn("Bug: Unknown mod of <b>" + mod + '</b> in animPlate function call');
     }
 }
 
@@ -120,7 +118,7 @@ function debug() {
 
 function lineCheck(page, pos) {
     var lineHit = false;
-    var pt = {x: pos[0], y: pos[1]};
+    var pt = { x: pos[0], y: pos[1] };
     for (var i = 0; i < page.lineStarts.length; i++) {
         var curLineStart = page.lineStarts[i];
         var poly = curLineStart.pts;
@@ -133,7 +131,7 @@ function lineCheck(page, pos) {
 }
 function workspaceCheck(page, pos) {
     var ret = false;
-    var pt = {x: pos[0], y: pos[1]};
+    var pt = { x: pos[0], y: pos[1] };
     var workspaces = page.workspaces;
     for (var w = 0; w < workspaces.length; w++) {
         var cur = workspaces[w];
@@ -144,7 +142,7 @@ function workspaceCheck(page, pos) {
     return ret;
 }
 function addUserControl() {
-    book.analytics.add({type: "fl"});
+    book.analytics.add({ type: "fl" });
 
     mxStr = "clientX";
     myStr = "clientY";
@@ -206,7 +204,6 @@ function addUserControl() {
                 pos = [event[mxStr] + scrollOffsets[1], event[myStr] + scrollOffsets[0] - vertCenteredOffset];
             }
             var page = selectFnc(event);
-            var noDrop = false;
             var curInterruptTime = book[curPage - 1].interruptTime;
             if (!curInterruptTime) {
                 curInterruptTime = book.interruptTime;
@@ -221,8 +218,8 @@ function addUserControl() {
             }
             if (page) {
                 var absPos = offsetCalc(page, pos[0], pos[1]);
-                var pts = {x: Math.round(absPos[0]), y: Math.round(absPos[1])};
-                book.analytics.add({type: "ut", page: curPage, pt: pts});
+                var pts = { x: Math.round(absPos[0]), y: Math.round(absPos[1]) };
+                book.analytics.add({ type: "ut", page: curPage, pt: pts });
                 var lineRet = lineCheck(page, absPos);
                 var dragRet = dragCheck(page, pos[0], pos[1], true);
                 var workspaceRet = workspaceCheck(page, absPos);
@@ -264,7 +261,7 @@ function addUserControl() {
         }
         return false;
     };
-// working on ipads (slowly)
+    // working on ipads (slowly)
     var moveFnc = function (event) {
         // event.preventDefault();
         if (mMode) {
@@ -276,7 +273,7 @@ function addUserControl() {
             }
             var page = selectFnc(event);
             absPos = offsetCalc(page, pos[0], pos[1]);
-            var pts = {x: absPos[0], y: absPos[1]};
+            var pts = { x: absPos[0], y: absPos[1] };
             mxVelPop(pos[0]);
             if (!pageAnimInt && !curSequence) {
                 if (mMode == "down") {
@@ -369,13 +366,13 @@ function addUserControl() {
                     // page is not animating to an already dropped turn
                     var page, posX, posY;
                     if (isPad) {
-                        var page = selectFnc(event);
-                        var posX = event.changedTouches[0][mxStr];
-                        var posY = event.changedTouches[0][myStr];
+                        page = selectFnc(event);
+                        posX = event.changedTouches[0][mxStr];
+                        posY = event.changedTouches[0][myStr];
                     } else {
-                        var page = selectFnc(event);
-                        var posX = event[mxStr];
-                        var posY = event[myStr];
+                        page = selectFnc(event);
+                        posX = event[mxStr];
+                        posY = event[myStr];
                     }
                     if (page && !pageDir && !curSequence) {
                         actionCheck(page, posX + scrollOffsets[1], posY + scrollOffsets[0] - vertCenteredOffset, false, curDrag);
@@ -428,8 +425,6 @@ function addUserControl() {
 
 
     }
-    var closeGoto = function () {
-    };
     $(window).blur(function () {
         if (curSequence) {
             curSequence.end();
@@ -497,9 +492,6 @@ function addUserControl() {
                 if (clickInCont) {
                     clickInCont = false;
                 }
-            };
-            var noExit = function () {
-                clickInCont = true;
             };
             document.body.addEventListener('mousedown', exitLogin);
             // book.drawingTools.selector.addEventListener("mouseup", book.drawingTools.toggleTool);
@@ -628,7 +620,6 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
         var hit = false;
         var actionArr = false;
         if (isDrag) {
-            var dragThresh = 25;
             var dragThreshMet = dragThreshCheck(isDrag, pt);
             if (dragThreshMet) {
                 actionArr = page.drops;
@@ -666,7 +657,7 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
 
 
         var orig = JSON.parse(JSON.stringify(actionArr));
-        var textFields = JSON.parse(JSON.stringify(textFields));
+        textFields = JSON.parse(JSON.stringify(textFields));
         var workspaces = JSON.parse(JSON.stringify(page.workspaces));
         actionArr = workspaces.concat(textFields, orig);
         // Now we have [workspace 1, workspace 2, field 1, field 2, link 1, link 2, ]
@@ -719,17 +710,13 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
             }
         }
 
-        // if any click, and in sequence, clear sequence
-        if (!isHover && curSequence) {
-            // curSequence.end();
-        }
         if (book.drawingTools.curWorkspace && !isHover) {
             book.drawingTools.curWorkspace = false;
             book.drawingTools.lastPos = false;
             mMode = "nav";
         }
         if (actionArr[hit]) {
-            book.analytics.add({type: "lt", linkname: actionArr[hit].name});
+            book.analytics.add({ type: "lt", linkname: actionArr[hit].name });
 
             if (actionArr[hit].name !== "Keypad" && page.objs.Keypad) {
                 page.objs.Keypad.hover = false;
@@ -770,7 +757,7 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
                         mMode = "nav";
                         // linkName is the link accepting the line, NOT the link that started the line
                         lineAccept(page, lineStartPos, pos, lineFrom);
-                    } else if (isDrag && actionArr[hit].action.substr(0,4).toLowerCase() == "drop") {
+                    } else if (isDrag && actionArr[hit].action.substr(0, 4).toLowerCase() == "drop") {
                         // It's a mouse up, it's a drag.
                         if (!curSequence) {
                             hoverMouse(false);
@@ -912,8 +899,6 @@ function setCaretToPos(input, pos) {
 
 
 function keypadEvent(x, y, keypad, page, eventType) {
-    var leftOffset = 15;
-    var topOffset = 19;
     var hit = false;
     var dimMod = keypad.dimMod;
     for (var n in keypad.keys) {
@@ -923,7 +908,7 @@ function keypadEvent(x, y, keypad, page, eventType) {
         var height = cur.height * dimMod.height;
         var width = cur.width * dimMod.width;
         if (x > left && x < left + width &&
-                y > top && y < top + height) {
+            y > top && y < top + height) {
             hit = cur;
         }
     }
@@ -960,7 +945,7 @@ function keypadEvent(x, y, keypad, page, eventType) {
                     } else if (o == "/") {
                         answer = n1 / n2;
                     } else {
-                        console.warn("Bug: " + "Unknown math question.");
+                        console.warn("Bug: Unknown math question.");
                     }
                     // ugh
                     var mathRight, mathWrong;
@@ -975,20 +960,20 @@ function keypadEvent(x, y, keypad, page, eventType) {
                         if (mathRight) {
                             curSequence = new sequence(mathRight.targets, page, "Page", [maxDim[0] / 2, maxDim[1] / 2], "math right");
                         } else {
-                            console.warn("Bug: " + "Answer right, but no events!");
+                            console.warn("Bug: Answer right, but no events!");
                         }
                     } else {
                         if (mathWrong) {
                             curSequence = new sequence(mathWrong.targets, page, "Page", [maxDim[0] / 2, maxDim[1] / 2], "math wrong");
                         } else {
-                            console.warn("Bug: " + "Answer wrong, but no events!");
+                            console.warn("Bug: Answer wrong, but no events!");
                         }
                     }
                     if (curSequence) {
                         curSequence.start();
                     }
                 } else {
-                    console.warn("Bug: " + "Keypad entry before question asked");
+                    console.warn("Bug: Keypad entry before question asked");
                 }
             } else if (hit.val == "back") { // Delete last number
                 if (curVal == "-0") {
@@ -1052,7 +1037,6 @@ function workspaceDraw(which, where) {
         if (tool == "chalk") {
             if (book.drawingTools.curColor.length == 4)
                 book.drawingTools.curColor.pop();
-            var color = book.drawingTools.curColor.join(",");
             ctx.fillStyle = "rgba(" + book.drawingTools.curColor.join(",") + ",0.5)";
             ctx.strokeStyle = 'rgba(' + book.drawingTools.curColor.join(",") + ',' + (0.4 + Math.random() * 0.2) + ')';
             ctx.lineWidth = book.drawingTools.chalk.diameter;
@@ -1105,11 +1089,10 @@ function drawChalk(x, y, page) {
         var yRandom = yCurrent + (Math.random() - 0.5) * brushDiameter * 1.2;
         ctx.clearRect(xRandom, yRandom, Math.random() * 2 + 2, Math.random() + 1);
     }
-    book.drawingTools.lastPos = {x: x, y: y};
+    book.drawingTools.lastPos = { x: x, y: y };
     book[page].redraw();
 }
 function drawPencil(x, y, page) {
-    var brushDiameter = book.drawingTools.chalk.diameter;
     var last = book.drawingTools.lastPos;
     var ctx = book[page].DRAW.getContext('2d');
 
@@ -1121,7 +1104,7 @@ function drawPencil(x, y, page) {
     ctx.moveTo(last.x, last.y);
     ctx.lineTo(x, y);
     ctx.stroke();
-    book.drawingTools.lastPos = {x: x, y: y};
+    book.drawingTools.lastPos = { x: x, y: y };
     book[page].redraw();
 }
 
@@ -1143,7 +1126,7 @@ function checkOpenPageLinks() {
                         curSequence = new sequence(linkHit.targets, book[tPage], linkHit.name, [maxDim[0] / 2, maxDim[1] / 2], "openPage");
                         curSequence.start();
                     } else {
-                        console.warn("Bug: " + "Open page link has no targets.");
+                        console.warn("Bug: Open page link has no targets.");
                     }
                     if (linkHit.action == "Open Page First Time") {
                         book[tPage].pageOpens.splice(i, i + 1);
@@ -1173,7 +1156,6 @@ function checkLogicLinks() {
 
             var q = Number(action.split(comparitor)[1]);
 
-            var pts = book[curPage - 1].points;
             for (var point in book[curPage - 1].points) {
                 if (p == book[curPage - 1].points[point].name) {
                     var pt = book[curPage - 1].points[point];
@@ -1186,11 +1168,11 @@ function checkLogicLinks() {
                 }
             }
         } else {
-            console.warn("Bug: " + "Unknown conditional of <b>" + action + "</b>. For the time, only '=' is supported");
+            console.warn("Bug: Unknown conditional of <b>" + action + "</b>. For the time, only '=' is supported");
         }
     }
     if (matchedArr.length > 1) {
-        console.log("Bug: " + "Number of conditions met are more than one. We haven't talked about this yet");
+        console.log("Bug: Number of conditions met are more than one. We haven't talked about this yet");
         // Ray is combining targets from both and playing at once. THIS WON'T WORK. We have to somehow determine which sequence takes precedence.
     } else if (matchedArr.length > 0) {
         var ref = book[curPage - 1].logics[matchedArr[0]];
@@ -1337,10 +1319,10 @@ function dragCheck(page, mX, mY, create) {
                 dragOffset[1] = dragObj.top - pos[1] + (dragObj.height / 2);
                 dragOffset[0] = dragObj.left - pos[0] + (dragObj.width / 2);
                 var objName = dragObj.name;
-                if (mMode == "nav" && dragObj.mobility == "clone" && dragObj.cloneID == undefined) {
+                if (mMode == "nav" && dragObj.mobility == "clone" && dragObj.cloneID == "undefined") {
                     page.activeClones++;
                     var cloneNum = page.activeClones;
-                    var tmpObj = {};
+                    tmpObj = {};
                     for (prop in dragObj) {
                         tmpObj[prop] = dragObj[prop];
                     }
@@ -1369,11 +1351,6 @@ function dragCheck(page, mX, mY, create) {
                     var curLeft = lastDragPos[1];
                     // interval repeat time;
                     var animSpeed = 10;
-                    var animTopDif = curTop - targTop;
-                    var animLeftDif = curLeft - targLeft;
-                    // Time for animation to complete - interval time
-                    var animLegCount = 20;
-                    var animAt = 0;
                     if (curTop && curLeft) {
                         /*
                          objSelf.dragAnim = window.setInterval(function () {
@@ -1401,7 +1378,6 @@ function dragCheck(page, mX, mY, create) {
                          }, animSpeed);
                          */
                         console.log(animSpeed);
-                        percentDone = 1;
                         objSelf.top = this.initTop;
                         objSelf.left = this.initLeft;
 
@@ -1429,7 +1405,6 @@ function dragCheck(page, mX, mY, create) {
         } else {
             curDrag = false;
         }
-    } else {
     }
     return tmpReturn;
 }
@@ -1442,8 +1417,7 @@ function dragObj(obj, startPos, curPos, page, offset) {
     page.redraw();
 }
 function dragEnd() {
-    if (curDrag[0].initTop == curDrag[0].top && curDrag[0].initLeft == curDrag[0].left) {
-    } else {
+    if (!(curDrag[0].initTop == curDrag[0].top && curDrag[0].initLeft == curDrag[0].left)) {
         curDrag[0].dropped();
         lastDragPos = false;
     }
@@ -1467,7 +1441,6 @@ function leaveFnc() {
                 if (book[curPage]) {
                     book[curPage].redraw();
                 }
-            } else if (pDisplay == 'BlockSpread') {
             }
             lineDeny();
         }
@@ -1542,7 +1515,7 @@ function mxVelPop(mX) {
 }
 function mxVelCalc() {
     var dif = 0;
-    for (i = 1; i < mxVel.length; i++) {
+    for (var i = 1; i < mxVel.length; i++) {
         if (typeof (mxVel[i]) == "number" && typeof (mxVel[i - 1]) == "number") {
             dif += mxVel[i] - mxVel[i - 1];
         }
@@ -1611,10 +1584,9 @@ function uDrag(curX) {
 }
 function uDragStop() {
     mMode = 'nav';
-    lastX = toBookPercent();
+    var lastX = toBookPercent();
     if (!pageAnimInt) {
         var vel = mxVelCalc();
-        var turnVelocityThreshold = 50;
         /* dealing mostly with location of last drag, not direction of drag
          if (origX > 0.5) {
          // started from right
@@ -1690,7 +1662,7 @@ function setPageAnimInt(lastX, start, end, speedNumMult) {
                 book[curPage - 1].reload();
             }
             curPage += pageManip;
-            book.analytics.add({type: "pt", page: curPage});
+            book.analytics.add({ type: "pt", page: curPage });
             if (curSequence) {
                 curSequence.end();
             }
@@ -1713,7 +1685,7 @@ function setPageAnimInt(lastX, start, end, speedNumMult) {
             if (pDisplay != 'Single') {
                 while (page < endPage) {
                     if (page !== curPage - 1 && page !== curPage - 2) {
-                        $(book[page].DIV).css({"z-index": 1, "width": 0});
+                        $(book[page].DIV).css({ "z-index": 1, "width": 0 });
                     }
                     page++;
                 }
@@ -1739,7 +1711,7 @@ function setPageAnimInt(lastX, start, end, speedNumMult) {
         if (speedNumMult) {
             speedNum /= speedNumMult
         }
-        var curRevert, curPageManip, pageAnimTarg;
+        var pageAnimTarg;
         pageAnimAt = parseInt(lastX * speedNum);
         if (start == "right" && curPage < bookLength + 1) {
             if (end == "left") {
@@ -1831,8 +1803,8 @@ function turnSingle(direction, percent) {
 
 
     var pUnitPlus = pUnit + 10;
-    $(book[curPage - 1 + pageSelectMod].DIV).css({"left": (pUnitPlus * percent) - pUnitPlus});
-    $(book[curPage + pageSelectMod].DIV).css({"left": ((pUnitPlus * percent) - pUnitPlus) + pUnitPlus});
+    $(book[curPage - 1 + pageSelectMod].DIV).css({ "left": (pUnitPlus * percent) - pUnitPlus });
+    $(book[curPage + pageSelectMod].DIV).css({ "left": ((pUnitPlus * percent) - pUnitPlus) + pUnitPlus });
 }
 function turnSingleSpread(direction, percent) {
     // set percent relative to start of click, NOT position on page.
@@ -1876,8 +1848,8 @@ function turnSingleSpread(direction, percent) {
             tmpWidth[0] = (stretch - 0.5) * 2 * pUnit;
             tmpWidth[1] = (1 - stretch) * pUnit;
         }
-        for (i = 0; i < 3; i++) {
-            $(book[i].DIV).css({"width": parseInt(tmpWidth[i]), "left": tmpLeft[i], "z-index": tmpIndex[i]});
+        for (var i = 0; i < 3; i++) {
+            $(book[i].DIV).css({ "width": parseInt(tmpWidth[i]), "left": tmpLeft[i], "z-index": tmpIndex[i] });
         }
     } else if ((direction == "left" && curPage + 1 < bookLength) || (direction == "right" && curPage <= bookLength)) {
         // ANY other normal page turn.
@@ -1893,9 +1865,9 @@ function turnSingleSpread(direction, percent) {
         tmpWidth[0] = pUnit * percent;
         tmpWidth[1] = (1 - percent) * pUnit;
         tmpWidth[2] = pUnit;
-        for (i = -1; i < 3; i++) {
+        for (var i = -1; i < 3; i++) {
             var tmpPage = curPage + i + pageSelectMod;
-            $(book[tmpPage].DIV).css({"width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i]});
+            $(book[tmpPage].DIV).css({ "width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i] });
         }
     } else if ((direction == "left" && curPage + 1 == bookLength) || (direction == "right" && curPage == bookLength + 1)) {
         // LAST page turn anim-wrapper book center
@@ -1919,9 +1891,9 @@ function turnSingleSpread(direction, percent) {
             tmpWidth[0] = 0;
             tmpWidth[1] = pUnit;
         }
-        for (i = -1; i < 2; i++) {
+        for (var i = -1; i < 2; i++) {
             var tmpPage = curPage + i + pageSelectMod;
-            $(book[tmpPage].DIV).css({"width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i]});
+            $(book[tmpPage].DIV).css({ "width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i] });
         }
     } else if (direction == "left" && !isEven(bookLength) && curPage == bookLength) {
         // odd number of pages in book, last page is a double, communicate that it is the last page
@@ -1934,9 +1906,9 @@ function turnSingleSpread(direction, percent) {
         tmpIndex[1] = 3;
         tmpWidth[0] = pUnit;
         tmpWidth[1] = pUnit;
-        for (i = 0; i < 2; i++) {
+        for (var i = 0; i < 2; i++) {
             var tmpPage = bookLength - 2 + i;
-            $(book[tmpPage].DIV).css({"width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i]});
+            $(book[tmpPage].DIV).css({ "width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i] });
         }
     }
 }
@@ -2055,9 +2027,9 @@ function turnBlockSpread(direction, percent) {
 }
 function pointInPoly(poly, pt) {
     for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
-        ((poly[i].y <= pt.y && pt.y < poly[j].y) || (poly[j].y <= pt.y && pt.y < poly[i].y))
-                && (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x)
-                && (c = !c);
+        ((poly[i].y <= pt.y && pt.y < poly[j].y) || (poly[j].y <= pt.y && pt.y < poly[i].y)) &&
+            (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x) &&
+            (c = !c);
     return c;
 }
 function hoverMouse(type) {
@@ -2079,7 +2051,6 @@ function hoverMouse(type) {
             tmpStyle = "pointer";
         } else if (type == "drawingTool") {
             tmpStyle = "url('" + dependenciesLoc + "presets/icons/" + book.drawingTools.cur + "-cursor.png'), auto";
-        } else if (type == false) {
         }
         $("body").css("cursor", tmpStyle);
     }
@@ -2169,9 +2140,9 @@ function gotoChange(page, ident) {
     }
     var performanceSwitch = false;
     if (typeof urlVars !== "undefined") {
-        if (gotoPage > urlVars["end"] && gotoPage <= book.length) {
+        if (gotoPage > urlVars.end && gotoPage <= book.length) {
             performanceSwitch = true;
-        } else if (gotoPage < urlVars["start"] && gotoPage >= 1) {
+        } else if (gotoPage < urlVars.start && gotoPage >= 1) {
             performanceSwitch = true;
         }
     }
@@ -2179,9 +2150,9 @@ function gotoChange(page, ident) {
     if (gameSwitch) {
         window.location.href = "game.html";
     } else if (performanceSwitch) {
-        urlVars["cur"];
-		var breakLoc = (typeof defaultPageLoadBreak == "undefined") ? 
-			8 : defaultPageLoadBreak
+        urlVars.cur;
+        var breakLoc = (typeof defaultPageLoadBreak == "undefined") ?
+            8 : defaultPageLoadBreak
         var newVars = "";
         var newStart = 1;
         while (newStart + breakLoc <= gotoPage) {
@@ -2221,16 +2192,15 @@ function showNav() {
 }
 
 function vertCenterBook() {
-    var workHeight = window.innerHeight;
     var middle = $('#screen-middle').offset().top;
     var workHeight = (middle * 2) - deviceTopBar;
     if (isPad && !isAndroid) {
         if (window.orientation == 90 || window.orientation == -90) {
-//workHeight = (screenWidth - deviceTopBar) / viewportScale;
-        } else if (window.orientation != undefined) {
-//workHeight = (screenHeight - deviceTopBar) / viewportScale;
+            //workHeight = (screenWidth - deviceTopBar) / viewportScale;
+        } else if (window.orientation != "undefined") {
+            //workHeight = (screenHeight - deviceTopBar) / viewportScale;
         } else {
-//workHeight = 0;
+            //workHeight = 0;
         }
     }
     if (workHeight > bookHeight) {

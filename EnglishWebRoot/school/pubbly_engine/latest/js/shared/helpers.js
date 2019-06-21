@@ -76,22 +76,11 @@ function rand(n1, n2) {
 
 // Cause I just want to see the first level props and I don't want to MOVE MY HAND TO THE MOUSE CAUSE THAT"S FAILURE
 console.open = function (what) {
-    console.log(JSON.stringify(what, undefined, 2));
+    console.log(JSON.stringify(what, "undefined", 2));
 }
 
-
-
-// function now()
-if (false /*Turns out Date.now is waay fater */
-        /*window.performance && window.performance.now*/) {
-    // TODO: Fix this to get a smaller less accurate number. If book stays open for an hour, timestamps will be yuge. Maybe an interval function to reset the counter to 0?
-    function now() {
-        return window.performance.now()
-    }
-} else {
-    function now() {
-        return Date.now();
-    }
+function now() {
+    return Date.now();
 }
 
 
@@ -99,8 +88,8 @@ function useTouch() {
     // TODO: probably needs to be better
     // BUG: Doesn't work for laptops with touch screen!! Thanks Cristina
     return (('ontouchstart' in window) || // html5 browsers
-            (navigator.maxTouchPoints > 0) || // future IE
-            (navigator.msMaxTouchPoints > 0))
+        (navigator.maxTouchPoints > 0) || // future IE
+        (navigator.msMaxTouchPoints > 0))
 }
 
 
@@ -120,24 +109,6 @@ function autocase(text) {
     });
 }
 
-// MIT © Dawson Botsford
-function arrayToHuman(arr) {
-    // ["a","b","c"] -> "a, b and c"
-    var outStr = "";
-    if (arr.length === 1) {
-        outStr = arr[0];
-    } else if (arr.length === 2) {
-        //joins all with "and" but no commas
-        //example: "bob and sam"
-        outStr = arr.join(' and ');
-    } else if (arr.length > 2) {
-        //joins all with commas, but last one gets ", and" (oxford comma!)
-        //example: "bob, joe, and sam"
-        outStr = arr.slice(0, -1).join(', ') + ', and ' + arr.slice(-1);
-    }
-    return outStr;
-}
-
 // MIT - github.com/substack/point-in-polygon
 function inside(point, vs) {
     // USAGE
@@ -153,8 +124,8 @@ function inside(point, vs) {
         var xi = vs[i][0], yi = vs[i][1];
         var xj = vs[j][0], yj = vs[j][1];
 
-        var intersect = ((yi > y) != (yj > y))
-                && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        var intersect = ((yi > y) != (yj > y)) &&
+            (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
         if (intersect)
             inside = !inside;
     }

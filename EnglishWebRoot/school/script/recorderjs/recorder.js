@@ -38,7 +38,7 @@ function recorderAct() {
             }
         });
         var recording = false,
-          currCallback;
+            currCallback;
 
         this.node.onaudioprocess = function (e) {
             if (!recording)
@@ -69,12 +69,12 @@ function recorderAct() {
         }
 
         this.clear = function () {
-            worker.postMessage({command: 'clear'});
+            worker.postMessage({ command: 'clear' });
         }
 
         this.getBuffers = function (cb) {
             currCallback = cb || config.callback;
-            worker.postMessage({command: 'getBuffers'})
+            worker.postMessage({ command: 'getBuffers' })
         }
 
         this.exportWAV = function (cb, type) {
@@ -105,7 +105,7 @@ function recorderAct() {
         }
 
         source.connect(this.node);
-        this.node.connect(this.context.destination);   // if the script node is not connected to an output the "onaudioprocess" event is not triggered in chrome.
+        this.node.connect(this.context.destination);// if the script node is not connected to an output the "onaudioprocess" event is not triggered in chrome.
     };
 
     Recorder.setupDownload = function (blob, filename) {
@@ -134,4 +134,4 @@ function recorderAct() {
     window.Recorder = Recorder;
 
 }
-;
+

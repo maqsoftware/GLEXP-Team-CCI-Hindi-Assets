@@ -19,11 +19,11 @@ window.plurals = {
     "lineStop": "lineStops",
     "countdown": "countdowns",
     "openPage": "openPages",
-    "sequence":"sequences",
+    "sequence": "sequences",
 
-    "draft":"drafts",
-    "book":"books",
-    "point":"points",
+    "draft": "drafts",
+    "book": "books",
+    "point": "points",
 }
 
 // LAAAAZy boy

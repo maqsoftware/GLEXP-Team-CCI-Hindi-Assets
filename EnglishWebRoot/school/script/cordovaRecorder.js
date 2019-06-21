@@ -46,35 +46,15 @@ function Recorder() {
     return this;
 }
 
-function readshit(fn) {
-    dirEntry.getFile(fn, {create: false}, function (fileEntry) {
-        fileEntry.file(function (file) {
-            var reader = new FileReader();
-
-            reader.onloadend = function () {
-                console.log("Successful file read: " + this.result);
-                displayFileData(fileEntry.fullPath + ": " + this.result);
-            };
-
-            reader.readAsText(file);
-
-        }, onErrorReadFile);
-        function onErrorReadFile(err, mesg) {
-            console.log(err);
-            console.log(mesg);
-        }
-    }, onErrorCreateFile);
-
-}
 /*
  window.setTimeout(function () {
  var src = "myrecording.amr";
  var mediaRec = new Media(src);
- 
+
  // Record audio
  mediaRec.startRecord();
  console.log("started");
- 
+
  // Stop recording after 10 sec
  var recTime = 0;
  var recInterval = setInterval(function () {
@@ -88,7 +68,3 @@ function readshit(fn) {
  }, 1000);
  }, 1000)
  */
-function testSrc(src) {
-    var myMedia = new Media(src);
-    myMedia.play();
-}

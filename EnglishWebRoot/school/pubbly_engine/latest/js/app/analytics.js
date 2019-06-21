@@ -1,19 +1,18 @@
 function retStamp() {
-    return parseInt(Date.now()).toString();
+	return parseInt(Date.now()).toString();
 }
 
 function Analytics() {
-    var self = this;
-    this.fName = false;
-    this.fullObj = {};
+	this.fName = false;
+	this.fullObj = {};
 
-    this.retStamp = function () {
-        var now = parseInt(Date.now()).toString();
-        return now;
-    }
-    this.init = function (cb) {
+	this.retStamp = function () {
+		var now = parseInt(Date.now()).toString();
+		return now;
+	}
+	this.init = function (cb) {
 		if (cb)
-					cb();
+			cb();
 		/*
         var url = window.location.pathname.split("/");
         var book = url.pop().split(".")[0];
@@ -63,11 +62,11 @@ function Analytics() {
 		}
         */
 
-    };
+	};
 
-    this.add = function (what, cb) {
+	this.add = function (what, cb) {
 		if (cb)
-					cb();
+			cb();
 		/*
         var stamp = self.retStamp();
         if (this.fullObj[stamp]) {
@@ -85,10 +84,10 @@ function Analytics() {
                 cb();
         });
 		*/
-    };
-    this.save = function (cb) {
+	};
+	this.save = function (cb) {
 		if (cb)
-					cb();
+			cb();
 		/*
         // maybe use overwrite?
         // console.log("writting");
@@ -103,20 +102,18 @@ function Analytics() {
 			});
 		}
 		*/
-        
-    };
-    this.check = function () {
-		if (typeof readFile === "undefined") {
-		}	else	{
+	};
+	this.check = function () {
+		if (!(typeof readFile === "undefined")) {
 			readFile(this.fName, function (file) {
 				console.log(file);
 			})
 		}
-        
-    }
+
+	}
 
 
-    this.init();
+	this.init();
 }
 
 

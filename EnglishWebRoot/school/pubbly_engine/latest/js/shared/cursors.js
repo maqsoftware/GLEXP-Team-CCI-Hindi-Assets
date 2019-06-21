@@ -11,13 +11,14 @@ class Cursors {
         // garbage
         let cursor = cursors[pubblyAction] || this.library["default"][pubblyAction];
         // Remove all cursor based classes
-        this.elem[0].classList.forEach(c => {
+        this.elem[0].classList.forEach((c) => {
             if (c.split("cursor-")[1])
                 this.elem.removeClass(c);
         });
         // Add cursor class specific to what we actually want to display
         this.elem.addClass("cursor-" + cursor);
     }
+
     construct_library() {
         this.library = {
             // Reference sheet: https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
@@ -82,6 +83,7 @@ class Cursors {
             }
         };
     }
+
     constructor(elem) {
         this.elem = elem;
 

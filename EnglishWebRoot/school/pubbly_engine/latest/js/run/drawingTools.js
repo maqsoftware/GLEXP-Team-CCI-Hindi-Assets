@@ -9,6 +9,7 @@ class DrawingTools {
             this.drawCtx = false;
         }
     }
+
     draw(ctx, loc) {
         if (typeof this["draw_" + this.tool.type] === "function") {
             if (!this.lastLoc) {
@@ -20,11 +21,14 @@ class DrawingTools {
             console.error("PubblyDrawingTools.draw: Unknown tool " + this.tool.type);
         }
     }
-    draw_none() {}
+
+    draw_none() { }
+
     draw_eraser(ctx, loc) {
         let eraserDims = [50, 40];
         ctx.clearRect(loc[0], loc[1], eraserDims[1] + 5, eraserDims[0] + 2);
     }
+
     init_chalk(ctx, loc) {
         this.drawCtx = ctx;
         this.effectCanvas.width = ctx.canvas.width;
@@ -35,6 +39,7 @@ class DrawingTools {
         this.ectx.strokeStyle = 'rgba(' + this.tool.color.slice(0, 3).join(",") + ',' + (0.4 + Math.random() * 0.2) + ')';
         this.ectx.hasBeenInitialized = true;
     }
+
     draw_chalk(ctx, loc) {
         if (!this.drawCtx) {
             this.init_chalk(ctx, loc);
@@ -61,11 +66,13 @@ class DrawingTools {
             this.ectx.clearRect(xRandom, yRandom, Math.random() * 2 + 2, Math.random() + 1);
         }
     }
+
     init_pencil(ctx, loc) {
         this.drawCtx = ctx;
         this.effectCanvas.width = ctx.canvas.width;
         this.effectCanvas.height = ctx.canvas.height;
     }
+
     draw_pencil(ctx, loc) {
         if (!this.drawCtx) {
             this.init_pencil(ctx, loc);
@@ -83,7 +90,7 @@ class DrawingTools {
         this.ectx.beginPath();
         this.ectx.moveTo.apply(this.ectx, this.temporaryDrawData.pencilPath[0]);
         let moveOrLine = "line";
-        this.temporaryDrawData.pencilPath.map(pt => {
+        this.temporaryDrawData.pencilPath.map((pt) => {
             if (!pt) {
                 moveOrLine = "move";
             } else {
@@ -132,13 +139,14 @@ class DrawingTools {
             if (to.color[3] && to.color[3] > 1) {
                 // Is opacity a percentage or a decimal? who cares.
                 to.color[3] /= 100;
-                to.color[3] = Math.min(to.color[3]*3, 1);
+                to.color[3] = Math.min(to.color[3] * 3, 1);
             }
             this.tool = Object.assign(defaults[to.type], to);
             return true;
         }
         return false;
     }
+
     constructor(defaultTool) {
         this.tool = {
             type: "none",

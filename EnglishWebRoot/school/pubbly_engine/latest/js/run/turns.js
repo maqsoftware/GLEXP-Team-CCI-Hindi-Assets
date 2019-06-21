@@ -76,33 +76,33 @@ function Turns(pubblyScope, display = "single") {
             this.cans.all.css("display", "none");
             switch (this.type) {
                 case "frontToSpread":
-                    this.cans.current.css({"z-index": 2, "display": "block"});
-                    this.cans.nextSpreadLeft.css({"z-index": 3, "display": "block"});
-                    this.cans.nextSpreadRight.css({"z-index": 1, "display": "block"});
+                    this.cans.current.css({ "z-index": 2, "display": "block" });
+                    this.cans.nextSpreadLeft.css({ "z-index": 3, "display": "block" });
+                    this.cans.nextSpreadRight.css({ "z-index": 1, "display": "block" });
                     break;
                 case "spreadToFront":
-                    this.cans.previous.css({"z-index": 2, "display": "block"});
-                    this.cans.currentSpreadLeft.css({"z-index": 3, "display": "block", "margin-left": "0%"});
-                    this.cans.currentSpreadRight.css({"z-index": 1, "display": "block", "margin-left": "50%"});
+                    this.cans.previous.css({ "z-index": 2, "display": "block" });
+                    this.cans.currentSpreadLeft.css({ "z-index": 3, "display": "block", "margin-left": "0%" });
+                    this.cans.currentSpreadRight.css({ "z-index": 1, "display": "block", "margin-left": "50%" });
                     break;
                 case "backToSpread":
-                    this.cans.current.css({"z-index": 1, "display": "block"});
-                    this.cans.previousSpreadLeft.css({"z-index": 2, "display": "block"});
-                    this.cans.previousSpreadRight.css({"z-index": 3, "display": "block"});
+                    this.cans.current.css({ "z-index": 1, "display": "block" });
+                    this.cans.previousSpreadLeft.css({ "z-index": 2, "display": "block" });
+                    this.cans.previousSpreadRight.css({ "z-index": 3, "display": "block" });
                     break;
                 case "spreadToBack":
-                    this.cans.current.css({"z-index": 1, "display": "block"});
-                    this.cans.next.css({"z-index": 2, "display": "block"});
+                    this.cans.current.css({ "z-index": 1, "display": "block" });
+                    this.cans.next.css({ "z-index": 2, "display": "block" });
                     break;
                 case "spreadToSpreadLeft":
-                    this.cans.current.css({"z-index": 2, "display": "block"});
-                    this.cans.nextSpreadLeft.css({"z-index": 3, "display": "block"});
-                    this.cans.nextSpreadRight.css({"z-index": 1, "display": "block"});
+                    this.cans.current.css({ "z-index": 2, "display": "block" });
+                    this.cans.nextSpreadLeft.css({ "z-index": 3, "display": "block" });
+                    this.cans.nextSpreadRight.css({ "z-index": 1, "display": "block" });
                     break;
                 case "spreadToSpreadRight":
-                    this.cans.current.css({"z-index": 1, "display": "block"});
-                    this.cans.previousSpreadLeft.css({"z-index": 3, "display": "block"});
-                    this.cans.previousSpreadRight.css({"z-index": 2, "display": "block"});
+                    this.cans.current.css({ "z-index": 1, "display": "block" });
+                    this.cans.previousSpreadLeft.css({ "z-index": 3, "display": "block" });
+                    this.cans.previousSpreadRight.css({ "z-index": 2, "display": "block" });
                     // TODO: Make a better fix
                     // -- Explanation... For the left turn spread to spread revert, the canvas NEEDS to be right justified.
                     // Since the parent container is block but the canvas isn't, it doesn't get the % value from the parent previousSpreadRight div... Rather the cancover...
@@ -110,7 +110,7 @@ function Turns(pubblyScope, display = "single") {
                     $(".previousSpreadRight canvas").css("margin-left", "calc(100% - " + _Pubbly.data.info.width + "px)");
                     break;
             }
-    }
+        }
     };
     this.manualAnimate = function (speed, revert) {
         // lastPercent gets set in the handler.set function, therefore
@@ -175,8 +175,8 @@ function Turns(pubblyScope, display = "single") {
         canTurn: function (dir) {
             let curPage = _Pubbly.curPage;
             let lastPage = _Pubbly.data.pages.length;
-            let canTurn = ((dir == "left" && curPage < lastPage - 1)
-                    || (dir == "right" && curPage >= 1));
+            let canTurn = ((dir == "left" && curPage < lastPage - 1) ||
+                (dir == "right" && curPage >= 1));
             return canTurn;
         },
         set: function (dir, percent) {
@@ -282,7 +282,6 @@ function Turns(pubblyScope, display = "single") {
                     }
                 } else if (this.type == "spreadToSpreadRight") {
                     // console.log("PROBLEM");
-                    let inverse = Math.abs(smoothPercent - 1);
                     vals = {
                         current: {
                             marginLeft: 0,
@@ -311,9 +310,9 @@ function Turns(pubblyScope, display = "single") {
                         next: {
                             // 100-0 until 0.66, then 0-25
                             marginLeft: Math.max(
-                                    Math.abs(tp1 - 1) * 100,
-                                    tp2 * 25
-                                    ),
+                                Math.abs(tp1 - 1) * 100,
+                                tp2 * 25
+                            ),
                             width: tp1 * 50,
                         }
                     }
@@ -367,14 +366,14 @@ function Turns(pubblyScope, display = "single") {
                 }
             } else {
                 // IDEA: Bump to signify end
-        }
+            }
         },
         reset: function (speed = 0.5) {
             if (this.prepped) {
                 this.manualAnimate.call(this, speed, true);
             } else {
                 // Never prepped? Pages never moves, indexs are all fine, do nothing
-        }
+            }
         }
     }
     this.endTurn = function () {
