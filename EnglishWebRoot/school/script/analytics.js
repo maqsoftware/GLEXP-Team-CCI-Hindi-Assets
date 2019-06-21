@@ -41,7 +41,7 @@ function Analytics() {
             });
         }, function (err) {
             console.log(err);
-            var name = "anon" + "-" + window.location.pathname + "-analytics-" + self.retStamp() + "";
+            var name = "anon-" + window.location.pathname + "-analytics-" + self.retStamp() + "";
             self.fName = "users/" + btoa(name) + ".json";
             self.add({
                 type: "book open",

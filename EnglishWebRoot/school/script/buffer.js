@@ -71,12 +71,12 @@ function loadAssets() {
         if (spriteKey) {
             // emergency timeout.
             spriteFail = window.setTimeout(function () {
-                console.warn("Warning: " + "sprite did not load in time, skipping...");
+                console.warn("Warning: sprite did not load in time, skipping...");
                 startBuffer();
             }, 2000);
             // sprite errors
             book.sprite.onerror = function (e) {
-                console.warn("Warning: " + "Audio sprite error, using individual files instead.");
+                console.warn("Warning: Audio sprite error, using individual files instead.");
                 console.warn(e);
                 startBuffer();
             };
@@ -217,7 +217,7 @@ function buffer() {
                         book[location].objs[name].frames.push(new Image());
                         var frame = book[location].objs[name].frames[book[location].objs[name].frames.length - 1];
                         frame.onerror = function (e) {
-                            console.warn("Warning: " + "Problem loading gif/sequence frames with object <b>" + objLoc.name + "</b>.");
+                            console.warn("Warning: Problem loading gif/sequence frames with object <b>" + objLoc.name + "</b>.");
                             framesLoaded++;
                             if (framesLoaded == objLoc.length) {
                                 nextBuffer(bufNum);
@@ -243,7 +243,7 @@ function buffer() {
                         if (img.errorNum == 0) {
                             img.src = window.assetsLoc + objLoc.src
                         } else {
-                            console.warn("Bug: " + "Image <b>" + objLoc.src + "</b> did not load");
+                            console.warn("Bug: Image <b>" + objLoc.src + "</b> did not load");
                             nextBuffer(bufNum);
 
                         }
@@ -295,16 +295,16 @@ function buffer() {
                             } else if (typeof book[location].linkKey['play button'] !== "undefined") {
                                 linkName = 'play button';
                             }
-                            var objCheck = book[location].objs['play_button_stroke2'];
+                            var objCheck = book[location].objs.play_button_stroke2;
                             if (typeof objCheck !== "undefined" && linkName) {
-                                book[location].objs['play_button_stroke2'].vis = "hide";
+                                book[location].objs.play_button_stroke2.vis = "hide";
                                 book[location].clicks[book[location].linkKey[linkName].pos].enabled = false;
                             }
                             book[location].redraw(); // why not?
 
 
                             book[location].recordings[aud.name] = false;
-                            console.log("Log: " + "Recording <b>" + aud.src + "</b> did not load");
+                            console.log("Log: Recording <b>" + aud.src + "</b> did not load");
                             nextBuffer(bufNum);
                         } else {
                             aud.errorNum++;
@@ -328,7 +328,7 @@ function buffer() {
                         aud.src = 'audio/' + name + '.wav';
                         dry = src;
                     } else {
-                        console.warn("Bug: " + "Audio <b>" + aud.src + "</b> did not load");
+                        console.warn("Bug: Audio <b>" + aud.src + "</b> did not load");
                         nextBuffer(bufNum);
                     }
                 }
@@ -341,9 +341,9 @@ function buffer() {
                     } else if (typeof book[location].linkKey['play button'] !== "undefined") {
                         linkName = 'play button';
                     }
-                    var objCheck = book[location].objs['play_button_stroke2'];
+                    var objCheck = book[location].objs.play_button_stroke2;
                     if (typeof objCheck !== "undefined" && linkName) {
-                        book[location].objs['play_button_stroke2'].vis = "show";
+                        book[location].objs.play_button_stroke2.vis = "show";
                         book[location].clicks[book[location].linkKey[linkName].pos].enabled = true;
                     }
                 }
@@ -388,7 +388,7 @@ function buffer() {
                     curObj.elem.src = curObj.src;
                     nextBuffer(bufNum);
                     curObj.elem.onError = function () {
-                        console.warn("Warning: " + "Video " + curObj.name + " did not load.");
+                        console.warn("Warning: Video " + curObj.name + " did not load.");
                         console.warn(e);
                         nextBuffer(bufNum);
                     }
@@ -401,7 +401,7 @@ function buffer() {
         } else if (type == "page") {
             if (firstLoad) {
                 if (testWait && testWait > 0) {
-                    console.log("Info: " + "TestWait enabled, load halted");
+                    console.log("Info: TestWait enabled, load halted");
                 } else {
                     firstLoad = false;
                     // draw video elements if any
@@ -414,8 +414,8 @@ function buffer() {
                 try {
                     book[0].CAN.getContext('2d').getImageData(0, 0, 1, 1);
                 } catch (e) {
-                    if (e.code = 18) {
-                        console.warn("Warning: " + 'drag locations are set to bounding rect for local export');
+                    if (e.code == 18) {
+                        console.warn("Warning: drag locations are set to bounding rect for local export");
                         dragDropRect = true;
                     } else {
                         window.alert('Pubbly requires HTML5 canvases, please update your browser');
@@ -423,8 +423,8 @@ function buffer() {
                     }
                 }
             }
-            buf = pageLoc.BUF;
-            canCtx = pageLoc.CAN.getContext('2d');
+            var buf = pageLoc.BUF;
+            var canCtx = pageLoc.CAN.getContext('2d');
             canCtx.drawImage(buf, 0, 0);
             bufArr[location + "load"] = true;
             book[location].loaded = true;
@@ -442,7 +442,7 @@ function buffer() {
             // Ray keeps putting Snap fields in the XML!, ignore.
             nextBuffer(bufNum);
         } else {
-            console.warn("Warning: " + 'Unknown buffer type <b>' + type + '</b>, asset skipped.');
+            console.warn("Warning: Unknown buffer type <b>" + type + '</b>, asset skipped.');
             nextBuffer(bufNum);
         }
     }
@@ -532,21 +532,21 @@ function arrangePages() {
                 }
             } else if (curPage == bookLength + 1) {
                 switch (rNum) {
-                    case - 3:
+                    case -3:
                         pLeft = pUnit / 2;
                         pIndex = 3;
                         pWidth = 0;
                         pVis = 'visible';
                         pDis = 'block';
                         break;
-                    case - 2:
+                    case -2:
                         pLeft = pUnit / 2;
                         pIndex = 4;
                         pWidth = 0;
                         pVis = 'visible';
                         pDis = 'block';
                         break;
-                    case - 1:
+                    case -1:
                         pLeft = pUnit / 2;
                         pIndex = 5;
                         pWidth = pUnit;
@@ -561,21 +561,21 @@ function arrangePages() {
                 }
             } else {
                 switch (rNum) {
-                    case - 3:
+                    case -3:
                         pLeft = 0;
                         pIndex = 1;
                         pWidth = pUnit;
                         pVis = 'visible';
                         pDis = 'block';
                         break;
-                    case - 2:
+                    case -2:
                         pLeft = -pUnit;
                         pIndex = 1;
                         pWidth = pUnit;
                         pVis = 'visible';
                         pDis = 'block';
                         break;
-                    case - 1:
+                    case -1:
                         pLeft = 0;
                         pIndex = 2;
                         pWidth = pUnit;
@@ -637,7 +637,7 @@ function arrangePages() {
             } else if (curPage == bookLength && !book.lastPageDouble) {
                 // Last page to cover
                 switch (rNum) {
-                    case - 1:
+                    case -1:
                         pLeft = 0;
                         pIndex = 1;
                         pWidth = pUnit * 2;
@@ -655,7 +655,7 @@ function arrangePages() {
             } else {
                 // Normal turn
                 switch (rNum) {
-                    case - 1:
+                    case -1:
                         pLeft = -pUnit * 2;
                         pIndex = 2;
                         if (pNum == 0) {
@@ -752,10 +752,10 @@ function createGoto() {
             inner.push('<option value=' + i + '>' + leftPage + '</option>');
         }
     } else if (pDisplay == 'SingleSpread') {
-        var endOfPageLoop = bookLength;
+        //var endOfPageLoop = bookLength;
         var lastItem = false;
         if (isEven(bookLength)) {
-            endOfPageLoop--;
+            //endOfPageLoop--;
             lastItem = bookLength;
         }
         for (var i = 2; i < bookLength; i += 2) {
@@ -787,7 +787,7 @@ function createGoto() {
     gotoAct.innerHTML = inner.join("");
 }
 
-var coverWhiteLineRoundingStrength = 2; // "White line" problem explained
+// var coverWhiteLineRoundingStrength = 2; // "White line" problem explained
 /*
  PREVIOUSLY, ON "40 HOURS IN FRONT OF LEDs",
 

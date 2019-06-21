@@ -6,24 +6,24 @@ function drawLink(obj) {
 
     var tmpDrawLine = function (obj, colors) {
 	if (!colors) {
-	    colors = [];
-	    colors.push("#000000");
-	    colors.push("#C0C0C0");
+		colors = [];
+		colors.push("#000000");
+		colors.push("#C0C0C0");
 	}
 	ctx.fillStyle = colors[0];
 	var pts = obj.pts;
 	if (pts) {
-	    ctx.beginPath();
-	    ctx.moveTo(pts[0].x, pts[0].y);
-	    for (var p = 1; p < pts.length; p++) {
+		ctx.beginPath();
+		ctx.moveTo(pts[0].x, pts[0].y);
+		for (var p = 1; p < pts.length; p++) {
 		ctx.lineTo(pts[p].x, pts[p].y);
-	    }
-	    ctx.fillStyle = colors[1];
-	    ctx.fill();
-	    ctx.closePath();
-	    ctx.stroke();
+		}
+		ctx.fillStyle = colors[1];
+		ctx.fill();
+		ctx.closePath();
+		ctx.stroke();
 	} else {
-	    console.warn("Warning: " + "Link had no points, moving on...");
+		console.warn("Warning: " + "Link had no points, moving on...");
 	}
 
     };
@@ -32,7 +32,7 @@ function drawLink(obj) {
 	tmpDrawLine(obj);
     } else {
 
-	var totLinks = 0;
+	//var totLinks = 0;
 
 	var clickColor = ["#000000", "#C0C0C0"];
 	var dropColor = ["#800000", "#FF0000"];
@@ -41,24 +41,24 @@ function drawLink(obj) {
 	var lineStartsColor = ["#808000", "#FFFF00"];
 
 	for (var c = 0; c < page.clicks.length; c++) {
-	    tmpDrawLine(page.clicks[c], clickColor);
-	    totLinks++;
+		tmpDrawLine(page.clicks[c], clickColor);
+		//totLinks++;
 	}
 	for (var d = 0; d < page.drops.length; d++) {
-	    tmpDrawLine(page.drops[d], dropColor);
-	    totLinks++;
+		tmpDrawLine(page.drops[d], dropColor);
+		//totLinks++;
 	}
 	for (var o = 0; o < page.pageOpens.length; o++) {
-	    tmpDrawLine(page.pageOpens[o], pageOpensColor);
-	    totLinks++;
+		tmpDrawLine(page.pageOpens[o], pageOpensColor);
+		//totLinks++;
 	}
 	for (var le = 0; le < page.lineEnds.length; le++) {
-	    tmpDrawLine(page.lineEnds[le], lineEndsColor);
-	    totLinks++;
+		tmpDrawLine(page.lineEnds[le], lineEndsColor);
+		//totLinks++;
 	}
 	for (var ls = 0; ls < page.lineStarts.length; ls++) {
-	    tmpDrawLine(page.lineStarts[ls], lineStartsColor);
-	    totLinks++;
+		tmpDrawLine(page.lineStarts[ls], lineStartsColor);
+		//totLinks++;
 	}
-    }
+	}
 }

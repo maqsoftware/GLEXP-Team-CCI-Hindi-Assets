@@ -27,51 +27,51 @@ function FileUploader() {
 	e.preventDefault();
 	var file = this.fileChooser.files[0];
 	if (file.type == "image/png" || file.type == "image/jpg" || file.type == "image/jpeg") {
-	    var url = '../../ajax/bookCalls/uploadImage.php?';
-	    var imgUrl = window.location.pathname.split('/');
-	    imgUrl.shift();
-	    imgUrl.pop();
-	    imgUrl.push("images");
-	    url += "imgUrl=" + imgUrl.join("/");
-	    var formData = new FormData(this);
-	    formData.append("section", "general");
-	    formData.append('action', 'previewImg');
-	    formData.append('image', file);
-	    $.ajax({
+		var url = '../../ajax/bookCalls/uploadImage.php?';
+		var imgUrl = window.location.pathname.split('/');
+		imgUrl.shift();
+		imgUrl.pop();
+		imgUrl.push("images");
+		url += "imgUrl=" + imgUrl.join("/");
+		var formData = new FormData(this);
+		formData.append("section", "general");
+		formData.append('action', 'previewImg');
+		formData.append('image', file);
+		$.ajax({
 		type: "POST",
 		url: url,
 		data: formData,
 		contentType: false,
 		processData: false,
 		success: function (imgName) {
-		    FORM.reset(); // Clear file input, now the "change" event listener will actually listen for a duplicate file name upload.
-		    delete THIS.refreshObj.elem.onload;
+			FORM.reset(); // Clear file input, now the "change" event listener will actually listen for a duplicate file name upload.
+			delete THIS.refreshObj.elem.onload;
 
-		    THIS.refreshObj.elem.src = "images/tmp/" + imgName + noCacheExt();
-		    THIS.refreshObj.elem.onerror = function (e, meg) {
-			console.warn("Bug: " + "Snapshot did not load, please try again");
-		    }
-		    THIS.refreshObj.elem.onload = function () {
+			THIS.refreshObj.elem.src = "images/tmp/" + imgName + noCacheExt();
+			THIS.refreshObj.elem.onerror = function (e, meg) {
+			console.warn("Bug: Snapshot did not load, please try again");
+			}
+			THIS.refreshObj.elem.onload = function () {
 			book[curPage - 1].redraw();
 			if (curSequence) {
-			    curSequence.next();
+				curSequence.next();
 			}
-		    }
+			}
 		}
-	    });
+		});
 	} else {
-	    console.warn("Error: " + "only JPGs and PNGs allowed");
+		console.warn("Error: only JPGs and PNGs allowed");
 	}
     });
 
-    this.choose.addEventListener("change", function () {
+	this.choose.addEventListener("change", function () {
 	$(THIS.submit).trigger("click");
-    }, false);
+	}, false);
 
-    this.uploadImage = function (obj) {
+	this.uploadImage = function (obj) {
 	this.refreshObj = obj;
 	$(this.choose).trigger("click");
-    }
+	}
 
     return this;
 }

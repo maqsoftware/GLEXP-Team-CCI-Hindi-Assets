@@ -46,26 +46,26 @@ function Recorder() {
     return this;
 }
 
-function readshit(fn) {
-    dirEntry.getFile(fn, {create: false}, function (fileEntry) {
-        fileEntry.file(function (file) {
-            var reader = new FileReader();
+// function readshit(fn) {
+//     dirEntry.getFile(fn, {create: false}, function (fileEntry) {
+//         fileEntry.file(function (file) {
+//             var reader = new FileReader();
 
-            reader.onloadend = function () {
-                console.log("Successful file read: " + this.result);
-                displayFileData(fileEntry.fullPath + ": " + this.result);
-            };
+//             reader.onloadend = function () {
+//                 console.log("Successful file read: " + this.result);
+//                 displayFileData(fileEntry.fullPath + ": " + this.result);
+//             };
 
-            reader.readAsText(file);
+//             reader.readAsText(file);
 
-        }, onErrorReadFile);
-        function onErrorReadFile(err, mesg) {
-            console.log(err);
-            console.log(mesg);
-        }
-    }, onErrorCreateFile);
+//         }, onErrorReadFile);
+//         function onErrorReadFile(err, mesg) {
+//             console.log(err);
+//             console.log(mesg);
+//         }
+//     }, onErrorCreateFile);
 
-}
+// }
 /*
  window.setTimeout(function () {
  var src = "myrecording.amr";
@@ -88,7 +88,7 @@ function readshit(fn) {
  }, 1000);
  }, 1000)
  */
-function testSrc(src) {
-    var myMedia = new Media(src);
-    myMedia.play();
-}
+// function testSrc(src) {
+//     var myMedia = new Media(src);
+//     myMedia.play();
+// }

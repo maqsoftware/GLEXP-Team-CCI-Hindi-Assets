@@ -23,6 +23,7 @@ class VariableInt {
             this.cbs.next(percentDone);
         }
     }
+    
     constructor(time, cbs) {
         this.next = this.next.bind(this);
         

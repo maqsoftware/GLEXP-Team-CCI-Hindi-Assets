@@ -163,7 +163,7 @@ function loader(placement) {
 
 
 function spinner(placement) {
-    var THIS = this;
+    //var THIS = this;
     this.contID = placement;
     placement.innerHTML =
             '<div id=loadContVertCenter>' +
