@@ -161,7 +161,7 @@ function overwriteFileSafe(fileName, what, callback) {
         }
     });
 }
-function checkDirectory(folderPath, callback) {
+/* function checkDirectory(folderPath, callback) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
         fileSystem.root.getDirectory(folderPath, {create: false}, function () {
             callback(false);
@@ -169,7 +169,7 @@ function checkDirectory(folderPath, callback) {
             callback(true);
         });
     });
-}
+} */
 
 document.addEventListener("deviceready", function () {
     /*
