@@ -95,7 +95,7 @@ class fieldText {
          *  color: HEX,
          *  
          */
-        let props = this.checkDrawTextPropsAndSetDefaults(props);
+        props = this.checkDrawTextPropsAndSetDefaults(props);
         if (!props) {
             console.error("BAD draw text call, not enough props, or some of them wrong or something");
             console.error(props);
