@@ -1,5 +1,4 @@
 function buildDOM() {
-    //const _buildDOM = this;
 
     this.dom = $("#pubbly_main").append(`
     <div id='preflight_cont' style='height:500px;width:500px;'>
@@ -9,13 +8,13 @@ function buildDOM() {
         </div>
     </div>
     `);
-	if ($("#pubbly_main")) {
-		$("#pubbly_main").css("opacity",1);
-	}
+    if ($("#pubbly_main")) {
+        $("#pubbly_main").css("opacity", 1);
+    }
     this.progress = new ProgressGraph("vertical_letters", $("#preflight_load_cont"));
     this.progress.say("Starting checks");
 
-    this.kill = function() {
+    this.kill = function () {
         $("#preflight_cont").remove();
     }
 

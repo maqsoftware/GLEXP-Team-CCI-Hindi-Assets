@@ -17,9 +17,9 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var audioContext = new AudioContext();
 var audioInput = null,
-        realAudioInput = null,
-        inputPoint = null,
-        audioRecorder = null;
+    realAudioInput = null,
+    inputPoint = null,
+    audioRecorder = null;
 var rafID = null;
 var analyserContext = null;
 var canvasWidth, canvasHeight;
@@ -59,9 +59,9 @@ function stopRecording() {
     audioRecorder.stop();
     $("#record").removeClass("recording");
     audioRecorder.getBuffers(gotBuffers);
-    $("#audioRecorderCont").css({"opacity": 0});
+    $("#audioRecorderCont").css({ "opacity": 0 });
     window.setTimeout(function () {
-        $("#audioRecorderCont").css({"display": "none"});
+        $("#audioRecorderCont").css({ "display": "none" });
         window.recorderAnimating = false;
         if (curSequence) {
             curSequence.next();
@@ -69,7 +69,7 @@ function stopRecording() {
     }, 500);
 }
 function startRecording() {
-    $("#audioRecorderCont").css({"display": "block", "opacity": 1});
+    $("#audioRecorderCont").css({ "display": "block", "opacity": 1 });
     // start recording
     if (!audioRecorder)
         return;
@@ -167,7 +167,7 @@ function gotStream(stream) {
     audioInput = realAudioInput;
     audioInput.connect(inputPoint);
 
-//    audioInput = convertToMono( input );
+    //    audioInput = convertToMono( input );
 
     analyserNode = audioContext.createAnalyser();
     analyserNode.fftSize = 2048;
@@ -191,25 +191,25 @@ function initAudio(cb) {
         navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
 
     navigator.getUserMedia(
-            {
-                "audio": {
-                    "mandatory": {
-                        "googEchoCancellation": "false",
-                        "googAutoGainControl": "false",
-                        "googNoiseSuppression": "false",
-                        "googHighpassFilter": "false"
-                    },
-                    "optional": []
+        {
+            "audio": {
+                "mandatory": {
+                    "googEchoCancellation": "false",
+                    "googAutoGainControl": "false",
+                    "googNoiseSuppression": "false",
+                    "googHighpassFilter": "false"
                 },
-            }, function (e) {
-        gotStream(e);
-        cb();
-    }, function (e, mesg) {
-        alert('Could not access mic. Either none are installed, permissions were denied, or you are viewing this page through an insecure http portal.');
-        curSequence.clear();
-        console.log(e);
-        console.log(mesg);
-    });
+                "optional": []
+            },
+        }, function (e) {
+            gotStream(e);
+            cb();
+        }, function (e, mesg) {
+            alert('Could not access mic. Either none are installed, permissions were denied, or you are viewing this page through an insecure http portal.');
+            curSequence.clear();
+            console.log(e);
+            console.log(mesg);
+        });
 }
 
 window.recorderReady = false;

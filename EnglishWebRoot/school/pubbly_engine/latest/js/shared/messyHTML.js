@@ -3,10 +3,8 @@ function messyHTML(which) {
     switch (which) {
         case "killDraft":
             return "<div class=fatal><p>Page couldn't load</p><p>Check console for error log</p></div>";
-            //break;
         case "killPublication":
             return "";
-            //break;
         case "newEngineUpdate":
             return "<div id=fatal><h2>Warning</h2><p>This book was created for the old pubbly engine and needs to be manually updated. Please follow <a href='../update.php?bookID=" + window.bookID + "'>this link</a>. Allow the script to fully execute; You will return to this draft once finished.</p></div>"
         case "nav":
@@ -15,7 +13,6 @@ function messyHTML(which) {
                 </select>
                 </div>
                 <img class="next" />`;
-            //break;
         case "fatalProductionError":
             return `
         <style>
@@ -45,9 +42,7 @@ function messyHTML(which) {
                 </video>
             </div>
         </a>`;
-            //break;
         default:
             return "";
-            //break;
     }
 }

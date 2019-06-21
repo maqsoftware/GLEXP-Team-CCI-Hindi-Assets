@@ -1,8 +1,8 @@
-function error(level, type, message1) {
+function error(level, type, message) {
     // level ["fatal","warn","log"] | type ~Abouts where the error happened~ | message ~anything~
     this.level = (level === true) ? "fatal" : level.toString().toLowerCase();
     this.type = type.toLowerCase();
-    this.message = message1;
+    this.message = message;
 
     var message = "";
     message += autocase(this.type);

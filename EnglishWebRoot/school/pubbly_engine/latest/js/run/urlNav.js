@@ -7,7 +7,7 @@ function UrlNav(environment) {
         let ret;
 
         if (url.substring(0, 7) == "http://" ||
-                url.substring(0, 8) == "https://") {
+            url.substring(0, 8) == "https://") {
             // Nothing, perfect
             // ret = ret;
         } else if (url.substring(0, 4) == "www.") {
@@ -103,7 +103,6 @@ function UrlNav(environment) {
         } else {
             if (url.toLowerCase() == "homewebpage") {
                 this.url = "https://www.pubbly.com";
-                //let phpVarString = "";
             } else if (url.substring(0, 1) == "#") {
                 // Well, the current href is working (obv)
                 // So lets not fuck with it.

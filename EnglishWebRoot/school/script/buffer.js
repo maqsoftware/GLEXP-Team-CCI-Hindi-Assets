@@ -118,13 +118,13 @@ function buffer() {
         slot += (absSwitch * slotAddNum);
         slotAddNum++;
     }
-//    if (pDisplay == "Single") {
-//        bufPageOrder = [];
-//        bufPageOrder[0] = curPage;
-//        if (book[curPage]) {
-//            bufPageOrder[1] = curPage+1;
-//        }
-//    }
+    //    if (pDisplay == "Single") {
+    //        bufPageOrder = [];
+    //        bufPageOrder[0] = curPage;
+    //        if (book[curPage]) {
+    //            bufPageOrder[1] = curPage+1;
+    //        }
+    //    }
     for (key in bufPageOrder) {
         for (elem in bufArr[bufPageOrder[key] - 1]) {
             var elem = bufArr[bufPageOrder[key] - 1][elem];
@@ -695,9 +695,9 @@ function arrangePages() {
             }
         }
 
-        $(PAGE).css({"left": pLeft, "z-index": pIndex, "width": pWidth, 'display': pDis});
+        $(PAGE).css({ "left": pLeft, "z-index": pIndex, "width": pWidth, 'display': pDis });
         var can = $(PAGE).find("canvas.can");
-        can.css({'display': pDis});
+        can.css({ 'display': pDis });
         if (pDis == "none") {
             book[pNum].CAN.width = book[pNum].CAN.width;
         } else {
@@ -705,7 +705,7 @@ function arrangePages() {
         }
 
         if (DUP) {
-            $(DUP).css({'display': 'none'});
+            $(DUP).css({ 'display': 'none' });
         }
     }
     // double wide first page problem fix here
@@ -752,10 +752,8 @@ function createGoto() {
             inner.push('<option value=' + i + '>' + leftPage + '</option>');
         }
     } else if (pDisplay == 'SingleSpread') {
-        //var endOfPageLoop = bookLength;
         var lastItem = false;
         if (isEven(bookLength)) {
-            //endOfPageLoop--;
             lastItem = bookLength;
         }
         for (var i = 2; i < bookLength; i += 2) {

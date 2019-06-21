@@ -33,16 +33,16 @@ class fieldText {
             return false;
         }
         return (missingRequired) ?
-                false :
-                Object.assign(
-                        {
-                            pt: false,
-                            color: "FFF",
-                            boldCoor: "00F",
-                            align: "left",
-                            font: "Didact",
-                            insertionAt: false,
-                        }, props);
+            false :
+            Object.assign(
+                {
+                    pt: false,
+                    color: "FFF",
+                    boldCoor: "00F",
+                    align: "left",
+                    font: "Didact",
+                    insertionAt: false,
+                }, props);
     }
 
     drawTextFromDescriptiveLineList(ctx, lines, props) {
@@ -77,7 +77,7 @@ class fieldText {
          * }
          */
     }
-   
+
     // public
     drawText(ctx, content, props) {
         /*

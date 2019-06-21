@@ -30,12 +30,12 @@ function ready() {
         var rabbitTut = getValByTag(bookRoot, "rabbitLoc");
         var shelves = bookRoot.getElementsByTagName("level");
         var shelvesHTML = "<div id='leftFog'></div>" +
-          "<div id='leftStop'></div>" +
-          "<div id='rightFog'></div>" +
-          "<div id='rightStop'></div>" +
-          "<img id='rabbit' src='" + window.schoolLoc + "/icons/" + rabbitPic + "' loc='" + window.schoolLoc + "/tutorials/" + rabbitTut + "/index.html' />" +
-          "<div class='spacer' ></div>" +
-          "<div class='spacer' ></div>";
+            "<div id='leftStop'></div>" +
+            "<div id='rightFog'></div>" +
+            "<div id='rightStop'></div>" +
+            "<img id='rabbit' src='" + window.schoolLoc + "/icons/" + rabbitPic + "' loc='" + window.schoolLoc + "/tutorials/" + rabbitTut + "/index.html' />" +
+            "<div class='spacer' ></div>" +
+            "<div class='spacer' ></div>";
         for (var s = 0; s < shelves.length; s++) {
             var shelf = shelves[s];
             var shelfName = getValByTag(shelf, "name");
@@ -80,7 +80,7 @@ function ready() {
         }
 
         $("#main").addClass("loaded");
-        $("#main").animate({"opacity": 1}, 1000, function () {
+        $("#main").animate({ "opacity": 1 }, 1000, function () {
             console.log("done");
         })
         var mDown = false;
@@ -116,9 +116,9 @@ function ready() {
                 last = this;
                 width += $(this).width() + 25;
             });
-            $(last).css({"margin-right": 0});
+            $(last).css({ "margin-right": 0 });
             width -= 25;
-            $(this).css({"width": width + "px"});
+            $(this).css({ "width": width + "px" });
         });
         var scrollMax = 1;
         var mainMax = 1;
@@ -138,11 +138,11 @@ function ready() {
                 var lastMod = $("#main").attr("modLeft") || 0;
                 mod += 1 * lastMod; // cast to num
                 if (mod >= 0) {
-                    $("#main").css({"left": 0});
+                    $("#main").css({ "left": 0 });
                 } else if (mod <= scrollMax) {
-                    $("#main").css({"left": scrollMax});
+                    $("#main").css({ "left": scrollMax });
                 } else {
-                    $("#main").css({"left": mod});
+                    $("#main").css({ "left": mod });
                 }
                 if (ex < 25 || ex > $(window).width() - 50) {
                     mouseUpFnc(e);

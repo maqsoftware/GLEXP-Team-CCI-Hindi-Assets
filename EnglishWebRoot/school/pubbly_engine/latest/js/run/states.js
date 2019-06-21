@@ -24,7 +24,7 @@ function States(PubblyScope) {
             console.error("Cannot find relative state to load");
         }
     };
-    this.checkInterruptionsAndSave = function(unblocked_cb) {
+    this.checkInterruptionsAndSave = function (unblocked_cb) {
         // Callback if and when a new event interaction is allowed (a click, a turn, whatever);
         if (_Pubbly.sequence.running) {
             if (_Pubbly.data.info.interrupt === true) {

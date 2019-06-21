@@ -53,7 +53,7 @@ function updateXML(schoolXML, usersXML, unitLoc, gameLoc, callback) {
                             var bookName = getValByTag(book, "name");
 
                             if (this.unitName && this.unitName == bookName ||
-                              this.gameName && this.gameName == bookName) {
+                                this.gameName && this.gameName == bookName) {
                                 var status = getValByTag(book, "status");
                                 if (status == "complete") {
                                     // rereading, no change
@@ -63,9 +63,9 @@ function updateXML(schoolXML, usersXML, unitLoc, gameLoc, callback) {
                                         book.getElementsByTagName("status")[0].childNodes[0].nodeValue = "complete";
                                     } else if (!status) {
                                         // no node, need to make
-                                        var status2 = this.schoolXML.createElement("status");
-                                        status2.innerHTML = "complete";
-                                        book.appendChild(status2);
+                                        var complete_status = this.schoolXML.createElement("status");
+                                        complete_status.innerHTML = "complete";
+                                        book.appendChild(complete_status);
                                     }
                                     if (unitLoc) {
                                         finishedLesson = 1;
@@ -107,23 +107,24 @@ function updateXML(schoolXML, usersXML, unitLoc, gameLoc, callback) {
                     var unitsRead = getValByTag(users[u], "unitsRead") * 1;
                     var gamesWon = getValByTag(users[u], "gamesWon") * 1;
                     var levelsUnlocked = getValByTag(users[u], "levelsUnlocked") * 1;
+                    var prevVal;
 
                     if (finishedLesson === 1) {
-                        var prevVal = getValByTag(user, "unitsRead") * 1;
+                        prevVal = getValByTag(user, "unitsRead") * 1;
                         user.getElementsByTagName("prevUnitsRead")[0].childNodes[0].nodeValue = prevVal;
                         user.getElementsByTagName("unitsRead")[0].childNodes[0].nodeValue = prevVal + 1;
                         unitsRead++;
                     }
                     if (finishedGame === 1) {
-                        var prevVal2 = getValByTag(user, "gamesWon") * 1;
-                        user.getElementsByTagName("prevGamesWon")[0].childNodes[0].nodeValue = prevVal2;
-                        user.getElementsByTagName("gamesWon")[0].childNodes[0].nodeValue = prevVal2 + 1;
+                        prevVal = getValByTag(user, "gamesWon") * 1;
+                        user.getElementsByTagName("prevGamesWon")[0].childNodes[0].nodeValue = prevVal;
+                        user.getElementsByTagName("gamesWon")[0].childNodes[0].nodeValue = prevVal + 1;
                         gamesWon++;
                     }
                     if (finishedLevel === 1) {
-                        var prevVal3 = getValByTag(user, "levelsUnlocked") * 1;
-                        user.getElementsByTagName("prevLevelsUnlocked")[0].childNodes[0].nodeValue = prevVal3;
-                        user.getElementsByTagName("levelsUnlocked")[0].childNodes[0].nodeValue = prevVal3 + 1;
+                        prevVal = getValByTag(user, "levelsUnlocked") * 1;
+                        user.getElementsByTagName("prevLevelsUnlocked")[0].childNodes[0].nodeValue = prevVal;
+                        user.getElementsByTagName("levelsUnlocked")[0].childNodes[0].nodeValue = prevVal + 1;
                         levelsUnlocked++;
                     }
 
@@ -215,7 +216,7 @@ function User(schoolXML, usersXML) {
     }
     this.show = function (callback) {
         if ($("#avatar")[0]) {
-// make shit for school page
+            // make shit for school page
         } else {
             var prevLevel = this.prevLevel.toString().split(".");
             if (!prevLevel[1]) {
@@ -223,35 +224,35 @@ function User(schoolXML, usersXML) {
             }
 
             var html = "" +
-              "<div id=userClose style='display:none'>" +
-              "<div id=userCover>" +
-              "<div id=badgeCont>" +
-              "<div id=gameBadgeCover></div>" +
-              "<div id=levelBadgeCover></div>" +
-              "</div>" +
-              "<img id=avatar src='" + this.picture + "?" + Math.random() + "' />" +
-              '<div class="levelCont" style="display: block;">' +
-              '<div class="level" level=' + prevLevel[0] + '>' +
-              '<div class="percentToNext" style="width: ' + (("." + prevLevel[1]) * 100) + '%;"></div>' +
-              '</div>' +
-              '<h4 class="levelAt">' + prevLevel[0] + '</h4>' +
-              '</div>' +
-              '</div>' +
-              '<div id=audioCont style="display:none">' +
-              "<audio id=sparkleShort src='" + window.schoolLoc + "/fx/sparkle_short.ogg' />" +
-              "<audio id=iceChimes src='" + window.schoolLoc + "/fx/ice chimes.ogg' />" +
-              "<audio id=harpUp src='" + window.schoolLoc + "/fx/harp up.ogg' />" +
-              "<audio id=harpUpD src='" + window.schoolLoc + "/fx/harp up d.ogg' />" +
-              '</div>' +
-              '</div>';
+                "<div id=userClose style='display:none'>" +
+                "<div id=userCover>" +
+                "<div id=badgeCont>" +
+                "<div id=gameBadgeCover></div>" +
+                "<div id=levelBadgeCover></div>" +
+                "</div>" +
+                "<img id=avatar src='" + this.picture + "?" + Math.random() + "' />" +
+                '<div class="levelCont" style="display: block;">' +
+                '<div class="level" level=' + prevLevel[0] + '>' +
+                '<div class="percentToNext" style="width: ' + (("." + prevLevel[1]) * 100) + '%;"></div>' +
+                '</div>' +
+                '<h4 class="levelAt">' + prevLevel[0] + '</h4>' +
+                '</div>' +
+                '</div>' +
+                '<div id=audioCont style="display:none">' +
+                "<audio id=sparkleShort src='" + window.schoolLoc + "/fx/sparkle_short.ogg' />" +
+                "<audio id=iceChimes src='" + window.schoolLoc + "/fx/ice chimes.ogg' />" +
+                "<audio id=harpUp src='" + window.schoolLoc + "/fx/harp up.ogg' />" +
+                "<audio id=harpUpD src='" + window.schoolLoc + "/fx/harp up d.ogg' />" +
+                '</div>' +
+                '</div>';
             $(html).appendTo(document.body);
-            $("#userClose").css({height: "100%", width: "100%", position: "absolute", "z-index": 999, "background-color": "RGBA(20,20,20,0.5)"});
+            $("#userClose").css({ height: "100%", width: "100%", position: "absolute", "z-index": 999, "background-color": "RGBA(20,20,20,0.5)" });
             var eventName = "touchend";
             if (typeof device == "undefined" || device.platform == "browser") {
                 eventName = "click";
             }
             $("#userClose").on(eventName, function () {
-                $(this).animate({"opacity": 0}, 100, function () {
+                $(this).animate({ "opacity": 0 }, 100, function () {
                     $(this).remove();
                 });
             });
@@ -264,10 +265,11 @@ function User(schoolXML, usersXML) {
                 width: coverWidth,
                 "margin-top": (height - coverHeight) / 2,
                 "margin-left": (width - coverWidth) / 2,
-                padding: 7.5});
-            $("#avatar").css({height: 315, width: 555, opacity: 0});
-            $("#badgeCont").css({height: 330, width: 570, opacity: 0});
-            $(".levelCont").css({"margin-top": -170, "padding-left": 0, "padding-right": 0, width: "80%", "margin-left": "10%", opacity: 0});
+                padding: 7.5
+            });
+            $("#avatar").css({ height: 315, width: 555, opacity: 0 });
+            $("#badgeCont").css({ height: 330, width: 570, opacity: 0 });
+            $(".levelCont").css({ "margin-top": -170, "padding-left": 0, "padding-right": 0, width: "80%", "margin-left": "10%", opacity: 0 });
             for (var g = 0; g < this.prevGamesWon; g++) {
                 $("<div class=gameBadgeAbsFix ><img class=gameBadge src='" + window.schoolLoc + "/icons/gameBadge.png' /></div>").appendTo("#gameBadgeCover");
             }
@@ -275,20 +277,20 @@ function User(schoolXML, usersXML) {
                 $("<div class=levelBadgeAbsFix ><img class=levelBadge src='" + window.schoolLoc + "/icons/levelBadge.png' /></div>").appendTo("#levelBadgeCover");
             }
             if (this.gamesWon == 0) {
-                $("#gameBadgeCover").css({"display": "none"});
+                $("#gameBadgeCover").css({ "display": "none" });
             }
             if (this.levelsUnlocked == 0) {
-                $("#levelBadgeCover").css({"display": "none"});
+                $("#levelBadgeCover").css({ "display": "none" });
             }
             if (this.level == 1) {
-                $(".levelCont").css({"margin-top": 15, width: 100 + "%", "margin-left": 0 + "%"});
+                $(".levelCont").css({ "margin-top": 15, width: 100 + "%", "margin-left": 0 + "%" });
             }
 
             $("#avatar").one("load", function () {
                 $("#userClose").css("display", "block");
-                $("#avatar").animate({"opacity": 1}, 500, function () {
-                    $("#badgeCont").animate({opacity: 1}, 500, function () {
-                        $(".levelCont").animate({opacity: 1}, 500, function () {
+                $("#avatar").animate({ "opacity": 1 }, 500, function () {
+                    $("#badgeCont").animate({ opacity: 1 }, 500, function () {
+                        $(".levelCont").animate({ opacity: 1 }, 500, function () {
                             callback();
                         });
                     });
@@ -332,16 +334,16 @@ function User(schoolXML, usersXML) {
             $("#harpUp")[0].play();
             if (endInt * 1 > startInt * 1) {
                 // full level grow
-                $(".percentToNext").animate({width: "100%"}, 750, function () {
+                $(".percentToNext").animate({ width: "100%" }, 750, function () {
                     if (endDec == 0) {
-                        $(".levelAt").animate({opacity: 0}, 200, function () {
+                        $(".levelAt").animate({ opacity: 0 }, 200, function () {
                             $(".levelAt").html(endInt);
-                            $(".levelAt").animate({opacity: 1}, 200, function () {
-                                $(".levelAt").animate({opacity: 0}, 100, function () {
-                                    $(".levelAt").animate({opacity: 1}, 100, function () {
-                                        $(".levelAt").animate({opacity: 0}, 100, function () {
-                                            $(".levelAt").animate({opacity: 1}, 100, function () {
-                                                $(".levelCont").animate({"margin-top": 15, width: 100 + "%", "margin-left": 0 + "%"}, 750, function () {
+                            $(".levelAt").animate({ opacity: 1 }, 200, function () {
+                                $(".levelAt").animate({ opacity: 0 }, 100, function () {
+                                    $(".levelAt").animate({ opacity: 1 }, 100, function () {
+                                        $(".levelAt").animate({ opacity: 0 }, 100, function () {
+                                            $(".levelAt").animate({ opacity: 1 }, 100, function () {
+                                                $(".levelCont").animate({ "margin-top": 15, width: 100 + "%", "margin-left": 0 + "%" }, 750, function () {
                                                     next();
                                                 })
                                             });
@@ -351,15 +353,15 @@ function User(schoolXML, usersXML) {
                             });
                         });
                     } else {
-                        $(".levelAt").animate({opacity: 0}, 150, function () {
+                        $(".levelAt").animate({ opacity: 0 }, 150, function () {
                             $(".levelAt").html(endInt);
-                            $(".levelAt").animate({opacity: 1}, 150);
+                            $(".levelAt").animate({ opacity: 1 }, 150);
                         });
-                        $(".percentToNext").animate({opacity: 0}, 500, function () {
+                        $(".percentToNext").animate({ opacity: 0 }, 500, function () {
                             $("#harpUpD")[0].play();
-                            $(".percentToNext").css({opacity: 1, width: "0%"});
-                            $(".percentToNext").animate({width: endDec + "%"}, 750, function () {
-                                $(".levelCont").animate({"margin-top": 15, width: 100 + "%", "margin-left": 0 + "%"}, 750, function () {
+                            $(".percentToNext").css({ opacity: 1, width: "0%" });
+                            $(".percentToNext").animate({ width: endDec + "%" }, 750, function () {
+                                $(".levelCont").animate({ "margin-top": 15, width: 100 + "%", "margin-left": 0 + "%" }, 750, function () {
                                     next();
                                 })
                             });
@@ -367,8 +369,8 @@ function User(schoolXML, usersXML) {
                     }
                 });
             } else {
-                $(".percentToNext").animate({width: endDec + "%"}, 1250, function () {
-                    $(".levelCont").animate({"margin-top": 15, width: 100 + "%", "margin-left": 0 + "%"}, 750, function () {
+                $(".percentToNext").animate({ width: endDec + "%" }, 1250, function () {
+                    $(".levelCont").animate({ "margin-top": 15, width: 100 + "%", "margin-left": 0 + "%" }, 750, function () {
                         next();
                     })
                 });
@@ -379,9 +381,9 @@ function User(schoolXML, usersXML) {
             $("<div class=gameBadgeAbsFix ><img class=gameBadge style='opacity:0;' src='" + window.schoolLoc + "/icons/gameBadge.png' /></div>").appendTo("#gameBadgeCover");
             var marginLeft = 255 - ((THIS.prevGamesWon % 9) * 15) + 25;
             $("#sparkleShort")[0].play();
-            $(".gameBadge").last().css({"margin-top": 50, "margin-left": marginLeft, height: 50, width: 50});
-            $(".gameBadge").last().animate({"opacity": 1}, 500, function () {
-                $(".gameBadge").last().animate({"margin-top": 0, "margin-left": 0, height: 15, width: 15}, 1000, function () {
+            $(".gameBadge").last().css({ "margin-top": 50, "margin-left": marginLeft, height: 50, width: 50 });
+            $(".gameBadge").last().animate({ "opacity": 1 }, 500, function () {
+                $(".gameBadge").last().animate({ "margin-top": 0, "margin-left": 0, height: 15, width: 15 }, 1000, function () {
                     next();
                 });
             });
@@ -390,9 +392,9 @@ function User(schoolXML, usersXML) {
             $("<div class=levelBadgeAbsFix ><img class=levelBadge style='opacity:0;' src='" + window.schoolLoc + "/icons/levelBadge.png' /></div>").appendTo("#levelBadgeCover");
             var marginLeft = -1 * (255 - ((THIS.prevGamesWon % 4) * 33.33)) + 25;
             $("#iceChimes")[0].play();
-            $(".levelBadge").last().css({"margin-top": 50, "margin-left": marginLeft, height: 50, width: 50});
-            $(".levelBadge").last().animate({"opacity": 1}, 500, function () {
-                $(".levelBadge").last().animate({"margin-top": 0, "margin-left": 0, height: 30, width: 30}, 1000, function () {
+            $(".levelBadge").last().css({ "margin-top": 50, "margin-left": marginLeft, height: 50, width: 50 });
+            $(".levelBadge").last().animate({ "opacity": 1 }, 500, function () {
+                $(".levelBadge").last().animate({ "margin-top": 0, "margin-left": 0, height: 30, width: 30 }, 1000, function () {
                     next();
                 });
             });

@@ -14,7 +14,7 @@ document.addEventListener("deviceready", function () {
                     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onRequestFileSystemSuccess, null);
                     function onRequestFileSystemSuccess(fileSystem) {
                         var entry = fileSystem.root;
-                        entry.getDirectory("users", {create: true, exclusive: false}, onGetDirectorySuccess, onGetDirectoryFail);
+                        entry.getDirectory("users", { create: true, exclusive: false }, onGetDirectorySuccess, onGetDirectoryFail);
                     }
                     function onGetDirectorySuccess(dir) {
                         // console.log("Created dir " + dir.name);
@@ -50,7 +50,6 @@ document.addEventListener("deviceready", function () {
             var initTutorial = "";
             var tuts = schoolXML.getElementsByTagName("tutorial");
             for (var t = 0; t < tuts.length; t++) {
-                //var tut = tuts[t];
                 if (getValByTag(tuts[t], "type") == "app") {
                     initTutorial = getValByTag(tuts[t], "name");
                 }
@@ -118,8 +117,8 @@ document.addEventListener("deviceready", function () {
                     writeFile("users/" + newID + "/school.xml", xmlText, function () {
                         createFile("users/" + newID + "/analytics-post.json", function () {
                             createFile("users/" + newID + "/analytics.json", function () {
-                                var firstRecord = {type: "uc"};
-                                var analyticsMain = {userID: newID, records: {}};
+                                var firstRecord = { type: "uc" };
+                                var analyticsMain = { userID: newID, records: {} };
                                 analyticsMain.records[retStamp()] = firstRecord;
                                 writeFile("users/" + newID + "/analytics.json", JSON.stringify(analyticsMain), function () {
                                     login(newID);
@@ -135,7 +134,7 @@ document.addEventListener("deviceready", function () {
     function login(id) {
         overwriteFile("loggedIn.txt", id, function (ret) {
             readFile("users/" + id + "/analytics.json", function (ret) {
-                var loginRecord = {type: "li"};
+                var loginRecord = { type: "li" };
                 var analyticsMain = JSON.parse(ret);
                 analyticsMain.records[retStamp()] = loginRecord;
                 writeFile("users/" + id + "/analytics.json", JSON.stringify(analyticsMain), function () {
@@ -161,8 +160,8 @@ document.addEventListener("deviceready", function () {
             if (user.picture == "default") {
                 user.picture = "img/defaultAvatar.png";
             }
-            ret = {id: "userBlock_" + user.id, css: "userBlock", rows: []};
-            ret.rows.push({maxHeight: 125, template: "<div class=center><span class=middle></span><img id='" + avatarID + "' src='" + user.picture + "' /></div>"});
+            ret = { id: "userBlock_" + user.id, css: "userBlock", rows: [] };
+            ret.rows.push({ maxHeight: 125, template: "<div class=center><span class=middle></span><img id='" + avatarID + "' src='" + user.picture + "' /></div>" });
             var curLevel = user.level.split(".")[0];
             var nextPercent = user.level.split(".")[1];
             if (isNaN(nextPercent)) {
@@ -179,12 +178,12 @@ document.addEventListener("deviceready", function () {
                 userStats += "<h4 class='levelAt'>" + curLevel + "</h4>";
             }
 
-            ret.rows.push({height: 35, maxWidth: 200, template: userStats, css: "stat"});
+            ret.rows.push({ height: 35, maxWidth: 200, template: userStats, css: "stat" });
             return ret;
         }
         for (var u = 0; u < userList.length; u++) {
             users.push(userObj(userList[u]));
-            users.push({width: 10});
+            users.push({ width: 10 });
         }
         if (userList.length < 5) {
             users.push(userObj());
@@ -192,15 +191,17 @@ document.addEventListener("deviceready", function () {
         webix.ui({
             css: "schoolBG",
             rows: [
-                {gravity: 0.2},
-                {cols: [
-                        {gravity: 0.2},
+                { gravity: 0.2 },
+                {
+                    cols: [
+                        { gravity: 0.2 },
                         {
                             cols: users,
                         },
-                        {gravity: 0.2},
-                    ]},
-                {gravity: 0.2},
+                        { gravity: 0.2 },
+                    ]
+                },
+                { gravity: 0.2 },
             ]
         });
         $('.userBlock').click(function () {

@@ -16,7 +16,7 @@ function PubblyDom(xml, environment) {
         //  -- Because no navigation, no UI
         //  Also because we disable/enable nav during loads and turns and such.
         // $("#pubbly_main #header").append(messyHTML("nav"));
-        $("#pubbly_main #header").css({"width": spreadWidth});
+        $("#pubbly_main #header").css({ "width": spreadWidth });
 
 
         // Place to append video elements so they actually redraw on canvas at frame
@@ -50,7 +50,7 @@ function PubblyDom(xml, environment) {
             "position": "absolute",
             "z-index": -1,
             "top": "50%",
-            "display":"none",
+            "display": "none",
         });
 
         // Why in two ident blocks? Easier than appendBefore
@@ -127,8 +127,8 @@ function PubblyDom(xml, environment) {
         $("#pubbly_main #footer").append("<div class='clearfix'></div>");
 
         // Styling
-        $("#pubbly_main #canvases #cancover").css({"height": info.height, "width": spreadWidth});
-        $("#pubbly_main #canvases").css({"height": info.height, "width": spreadWidth});
+        $("#pubbly_main #canvases #cancover").css({ "height": info.height, "width": spreadWidth });
+        $("#pubbly_main #canvases").css({ "height": info.height, "width": spreadWidth });
 
         // Viewport sizing for mobiles
         // TODO: Do this on every viewport size change.

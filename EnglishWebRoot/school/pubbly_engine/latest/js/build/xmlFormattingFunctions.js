@@ -151,8 +151,8 @@ function messyTargetToPretty(mess, curPage) {
                         action: "log", // warn, error
                         destination: "console",
                         value: mess.destination
-                                // We have a [log].
-                                // It will [log] the [console] with ["test"]
+                        // We have a [log].
+                        // It will [log] the [console] with ["test"]
                     }
                 }
                 break;
@@ -173,16 +173,16 @@ function messyTargetToPretty(mess, curPage) {
                 }
 
                 break;
-            case "propertyChange":{
+            case "propertyChange": {
                 let potentialActions = ["move", "hide", "show", "draggable", "clonable", "static", "disable", "enable"];
                 let splitAction = mess.action.split("|");
                 if (
-                        lowerType === "object" &&
-                        (
-                                potentialActions.includes(mess.action) ||
-                                (splitAction[0] && potentialActions.includes(splitAction[0].toLowerCase()))
-                                )
-                        ) {
+                    lowerType === "object" &&
+                    (
+                        potentialActions.includes(mess.action) ||
+                        (splitAction[0] && potentialActions.includes(splitAction[0].toLowerCase()))
+                    )
+                ) {
                     let curAttr = null;
                     let curVal = null;
                     let destType = "object";
@@ -196,7 +196,7 @@ function messyTargetToPretty(mess, curPage) {
                         curAttr = "vis";
                         curVal = lowerAction === "show";
                     } else if (lowerAction == "move" ||
-                            (splitAction[0] && splitAction[0].toLowerCase() == "move")) {
+                        (splitAction[0] && splitAction[0].toLowerCase() == "move")) {
                         curAttr = "center";
                         let messyLoc = mess.destination.toLowerCase().split("x");
                         // NOT a top left, therefore an X,Y
@@ -207,9 +207,11 @@ function messyTargetToPretty(mess, curPage) {
                         curDest = splitAction[1];
                     } else if (['draggable', 'clonable', 'static'].indexOf(lowerAction) !== -1) {
                         curAttr = "mobility";
-                        curVal = {"draggable": "drag",
+                        curVal = {
+                            "draggable": "drag",
                             "clonable": "clone",
-                            "static": "fixed"}[lowerAction];
+                            "static": "fixed"
+                        }[lowerAction];
                     } else if (['enable', 'disable'].indexOf(lowerAction) !== -1) {
                         destType = "link";
                         curAttr = "enabled";
@@ -268,13 +270,13 @@ function messyTargetToPretty(mess, curPage) {
                     }
                 }
                 break;
-            case "flash":{
+            case "flash": {
                 let split = mess.action.split("|");
                 if (
-                        lowerType === "object" && 
-                        (split.length > 1) && 
-                        split[0].toLowerCase() === "flash"
-                        ) {
+                    lowerType === "object" &&
+                    (split.length > 1) &&
+                    split[0].toLowerCase() === "flash"
+                ) {
                     ret = {
                         blocking: forceType("bool")(split[3]),
                         hold: false,
@@ -352,7 +354,7 @@ function messyTargetToPretty(mess, curPage) {
                             color.push(100);
                         }
                         color = color.map((c) => c * 1);
-                        let defaultWidths = {"pencil": 5, "chalk": 10, "eraser": 40};
+                        let defaultWidths = { "pencil": 5, "chalk": 10, "eraser": 40 };
                         let width = attrs[0] * 1 || defaultWidths[tool];
 
                         // Special hacky case
@@ -472,26 +474,26 @@ function messyTargetToPretty(mess, curPage) {
                  */
                 // Why? Who knows, just deal with it.
                 if (lowerType === "object" && (
-                        // Normal single sentence action
-                                (lowerAction === "play passive" || lowerAction === "play blocking") ||
-                                // Weird piped action
-                                        (lowerAction.split("|").length >= 2 &&
-                                                (
-                                                        lowerAction.split("|")[0] === "play" &&
-                                                        (lowerAction.split("|")[1] === "passive" || lowerAction.split("|")[1] === "blocking")
-                                                        )
-                                                ) ||
-                                        (lowerAction === "play" && mess.destination.split("|").length >= 2)
-                                        )) {
+                    // Normal single sentence action
+                    (lowerAction === "play passive" || lowerAction === "play blocking") ||
+                    // Weird piped action
+                    (lowerAction.split("|").length >= 2 &&
+                        (
+                            lowerAction.split("|")[0] === "play" &&
+                            (lowerAction.split("|")[1] === "passive" || lowerAction.split("|")[1] === "blocking")
+                        )
+                    ) ||
+                    (lowerAction === "play" && mess.destination.split("|").length >= 2)
+                )) {
                     let dest = mess.destination;
                     let animObj = dest.split("|")[0];
                     let animName = dest.split("|")[1];
                     let animBlocking;
-                    if (lowerAction.split(" ")[1] == "blocking" || 
-                            // Yeah really, check above.
-                            lowerAction.split("|")[1] == "passive" || 
-                            // Also yes really, > 2016
-                            lowerAction === "play") {
+                    if (lowerAction.split(" ")[1] == "blocking" ||
+                        // Yeah really, check above.
+                        lowerAction.split("|")[1] == "passive" ||
+                        // Also yes really, > 2016
+                        lowerAction === "play") {
                         animBlocking = ["self"];
                     } else {
                         animBlocking = false;
@@ -542,7 +544,7 @@ function messyTargetToPretty(mess, curPage) {
                 break;
             case "navigate":
                 if (lowerType == "page" ||
-                        lowerType == "url") {
+                    lowerType == "url") {
                     // Nothing other than nav links
                     ret = {
                         blocking: "all",
@@ -553,7 +555,7 @@ function messyTargetToPretty(mess, curPage) {
                     if (lowerType == "page") {
                         ret.destination = "pubbly";
                         if (lowerDestination == "previous" ||
-                                lowerDestination == "next") {
+                            lowerDestination == "next") {
                             ret.attribute = "relative";
                             ret.value = lowerDestination;
                         } else if (typeof forceType("int")(lowerDestination) == "number") {
@@ -580,7 +582,7 @@ function messyTargetToPretty(mess, curPage) {
                         urlEncoded = urlEncoded[1].split(")");
                         urlEncoded = urlEncoded[0];
                         let urlDecoded = atob(urlEncoded);
-                        ret.attribute = translate({"newwindow": "popup", "newtab": "tab", "sametab": "window"}, "window")(lowerAction);
+                        ret.attribute = translate({ "newwindow": "popup", "newtab": "tab", "sametab": "window" }, "window")(lowerAction);
 
                         ret.value = urlDecoded;
                         // We have a [navigate] target. It will [navigate] the [browser]'s [window] to [zombo.com]
@@ -618,20 +620,20 @@ function messyTargetToPretty(mess, curPage) {
                     };
                 }
                 break;
-            case "send":{
+            case "send": {
                 // send drop|icon ball to OR send click to
                 let actionPhrase = lowerAction.split("|")[0];
                 let actionWord = actionPhrase.split(" ")[1]
                 if (lowerType == "object" && (
-                        actionWord == "click" ||
-                        actionWord == "drop"
-                        // TODO: line?
-                        )) {
+                    actionWord == "click" ||
+                    actionWord == "drop"
+                    // TODO: line?
+                )) {
                     ret = {
                         blocking: false,
                         hold: false,
                         type: "send",
-                        action: translate({"drop": "dragStop"}, "click")(actionWord),
+                        action: translate({ "drop": "dragStop" }, "click")(actionWord),
                         destination: mess.destination,
                         // We have a [send] target.
                         // It will [click] the [link 1]
@@ -682,7 +684,7 @@ function messyTargetToPretty(mess, curPage) {
                  We have a pageInfo target. It will set the navigation to false;
                  */
                 if (lowerAction == "disable page navigation" ||
-                        lowerAction == "enable page navigation") {
+                    lowerAction == "enable page navigation") {
                     ret = {
                         blocking: false,
                         hold: false,
@@ -703,8 +705,8 @@ function messyTargetToPretty(mess, curPage) {
         //  -- Should work for any destination in the ?choose(item,item,item)? shit
         if (lowerDestination.substring(0, 7) == "?choose") {
             let removeChoice = (lowerDestination.substring(1, 16) == "chooseandremove");
-                //    true :
-                //    false;
+            //    true :
+            //    false;
             let options = mess.destination.substring((removeChoice) ? 17 : 8);
             options = options.substring(0, options.length - 2);
             if (options.substring(options.length - 1) == ",") {
@@ -724,10 +726,10 @@ function messyTargetToPretty(mess, curPage) {
             ret.random = random;
         }
     } else {
-        if (typeof mess.type === "undefined" || 
-                typeof mess.action === "undefined" || 
-                typeof mess.destination === "undefined"
-                ) {
+        if (typeof mess.type === "undefined" ||
+            typeof mess.action === "undefined" ||
+            typeof mess.destination === "undefined"
+        ) {
             console.log("Blank mess probably, please check");
             console.log(mess);
         } else {
@@ -884,10 +886,10 @@ function pointNamesFormatter(pointNames) {
 }
 
 // Not used?
-function mod(operation1, value) {
+function mod(operation, value) {
     // (*10, 5) -> 50 | (!, true) -> false;
     // For quick flips and subtracts and ticks to minutes and whatever
-    var operation = operation1.toString();
+    operation = operation.toString();
     var ret;
     // TODO: one liner I know there's one but I can't figure it out and I'm TIRED
     var sign = operation.charAt(0);
@@ -927,7 +929,6 @@ function forceType(type) {
                 } else {
                     return false;
                 }
-                //break;
             case "int":
                 if (isNaN(parseInt(what))) {
                     if (what !== false) {
@@ -937,21 +938,18 @@ function forceType(type) {
                 } else {
                     return parseInt(what);
                 }
-                //break;
             case "commaSplit":
                 if (what.split(",").length > 1) {
                     return what.split(",");
                 } else {
                     return what;
                 }
-                //break;
             case "barSplit":
                 if (what.split("|").length > 1) {
                     return what.split("|");
                 } else {
                     return what;
                 }
-                //break;
             case "commaSplitNum":
                 if (what.split(",").length > 1) {
                     let tmp = what.split(",");
@@ -962,7 +960,6 @@ function forceType(type) {
                 } else {
                     return what;
                 }
-                //break;
             case "XSplitNum":
                 if (what.toLowerCase().split("x").length > 1) {
                     let tmp = what.toLowerCase().split("x");
@@ -973,12 +970,10 @@ function forceType(type) {
                 } else {
                     return what;
                 }
-                //break;
             default:
                 console.log(type);
                 error("log", "forceType", "Unknown type of " + type);
                 return what;
-                //break;
         }
     }
     return funcRet;
@@ -1044,8 +1039,8 @@ function fieldContentsFormatter(contents) {
 }
 
 function hex(x) {
-            return ("0" + parseInt(x).toString(16)).slice(-2);
-        }
+    return ("0" + parseInt(x).toString(16)).slice(-2);
+}
 
 function rgb2hex(rgb) {
     if (rgb) {
@@ -1090,7 +1085,7 @@ function parseObjAnims(partial) {
                         time: legTime * 1,
                     }
                     jsProps.angle = prevAngle;
-                    prevAngle = (typeof(leg[4] * 1) == "number") ? leg[4] * 1 : 0;
+                    prevAngle = (typeof (leg[4] * 1) == "number") ? leg[4] * 1 : 0;
                     jsAnim.totTime += legTime;
                     jsAnim.data.push(jsProps);
                 }

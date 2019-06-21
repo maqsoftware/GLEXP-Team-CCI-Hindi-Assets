@@ -1,6 +1,4 @@
 var mxVel = ["", "", "", "", "", ""];
-//var mxVelOverride = false;
-//var mxVelOverrideTimeout;
 var viewVelocity = false;
 var startX = 0;
 var origX = 0;
@@ -16,12 +14,12 @@ var mxStr, myStr;
 var lineStartPos = [];
 var lineFrom = false;
 var lastLinePage = false;
-var mMode = false;// nav, down, line, draw-pencil, draw-pen, draw-high, draw-erase
+var mMode = false;
 var absPos = [0, 0];
 var drawCTX = false;
 var lineCTX = false;
 var drawingPoints = [];
-var prevStr, nextStr;//var startTime, firstMoveTime = false, lastMoveTime, endTime;
+var prevStr, nextStr;
 var clickInCont = false;
 var buttonHoverName = false;
 
@@ -206,7 +204,6 @@ function addUserControl() {
                 pos = [event[mxStr] + scrollOffsets[1], event[myStr] + scrollOffsets[0] - vertCenteredOffset];
             }
             var page = selectFnc(event);
-            //var noDrop = false;
             var curInterruptTime = book[curPage - 1].interruptTime;
             if (!curInterruptTime) {
                 curInterruptTime = book.interruptTime;
@@ -428,8 +425,6 @@ function addUserControl() {
 
 
     }
-    // var closeGoto = function () {
-    // };
     $(window).blur(function () {
         if (curSequence) {
             curSequence.end();
@@ -498,9 +493,6 @@ function addUserControl() {
                     clickInCont = false;
                 }
             };
-            // var noExit = function () {
-            //     clickInCont = true;
-            // };
             document.body.addEventListener('mousedown', exitLogin);
             // book.drawingTools.selector.addEventListener("mouseup", book.drawingTools.toggleTool);
             bookC.addEventListener("mousedown", downFnc);
@@ -628,7 +620,6 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
         var hit = false;
         var actionArr = false;
         if (isDrag) {
-            //var dragThresh = 25;
             var dragThreshMet = dragThreshCheck(isDrag, pt);
             if (dragThreshMet) {
                 actionArr = page.drops;
@@ -719,10 +710,6 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
             }
         }
 
-        // if any click, and in sequence, clear sequence
-        // if (!isHover && curSequence) {
-        //     // curSequence.end();
-        // }
         if (book.drawingTools.curWorkspace && !isHover) {
             book.drawingTools.curWorkspace = false;
             book.drawingTools.lastPos = false;
@@ -912,8 +899,6 @@ function setCaretToPos(input, pos) {
 
 
 function keypadEvent(x, y, keypad, page, eventType) {
-    // var leftOffset = 15;
-    // var topOffset = 19;
     var hit = false;
     var dimMod = keypad.dimMod;
     for (var n in keypad.keys) {
@@ -1052,7 +1037,6 @@ function workspaceDraw(which, where) {
         if (tool == "chalk") {
             if (book.drawingTools.curColor.length == 4)
                 book.drawingTools.curColor.pop();
-            // var color = book.drawingTools.curColor.join(",");
             ctx.fillStyle = "rgba(" + book.drawingTools.curColor.join(",") + ",0.5)";
             ctx.strokeStyle = 'rgba(' + book.drawingTools.curColor.join(",") + ',' + (0.4 + Math.random() * 0.2) + ')';
             ctx.lineWidth = book.drawingTools.chalk.diameter;
@@ -1109,7 +1093,6 @@ function drawChalk(x, y, page) {
     book[page].redraw();
 }
 function drawPencil(x, y, page) {
-    // var brushDiameter = book.drawingTools.chalk.diameter;
     var last = book.drawingTools.lastPos;
     var ctx = book[page].DRAW.getContext('2d');
 
@@ -1173,7 +1156,6 @@ function checkLogicLinks() {
 
             var q = Number(action.split(comparitor)[1]);
 
-            // var pts = book[curPage - 1].points;
             for (var point in book[curPage - 1].points) {
                 if (p == book[curPage - 1].points[point].name) {
                     var pt = book[curPage - 1].points[point];
@@ -1369,11 +1351,6 @@ function dragCheck(page, mX, mY, create) {
                     var curLeft = lastDragPos[1];
                     // interval repeat time;
                     var animSpeed = 10;
-                    // var animTopDif = curTop - targTop;
-                    // var animLeftDif = curLeft - targLeft;
-                    // Time for animation to complete - interval time
-                    // var animLegCount = 20;
-                    // var animAt = 0;
                     if (curTop && curLeft) {
                         /*
                          objSelf.dragAnim = window.setInterval(function () {
@@ -1401,7 +1378,6 @@ function dragCheck(page, mX, mY, create) {
                          }, animSpeed);
                          */
                         console.log(animSpeed);
-                        // percentDone = 1;
                         objSelf.top = this.initTop;
                         objSelf.left = this.initLeft;
 
@@ -1429,8 +1405,7 @@ function dragCheck(page, mX, mY, create) {
         } else {
             curDrag = false;
         }
-    }// else {
-    //}
+    }
     return tmpReturn;
 }
 function dragObj(obj, startPos, curPos, page, offset) {
@@ -1443,7 +1418,6 @@ function dragObj(obj, startPos, curPos, page, offset) {
 }
 function dragEnd() {
     if (!(curDrag[0].initTop == curDrag[0].top && curDrag[0].initLeft == curDrag[0].left)) {
-    //} else {
         curDrag[0].dropped();
         lastDragPos = false;
     }
@@ -1467,8 +1441,7 @@ function leaveFnc() {
                 if (book[curPage]) {
                     book[curPage].redraw();
                 }
-            }// else if (pDisplay == 'BlockSpread') {
-            // }
+            }
             lineDeny();
         }
     }
@@ -1543,7 +1516,7 @@ function mxVelPop(mX) {
 function mxVelCalc() {
     var dif = 0;
     for (var i = 1; i < mxVel.length; i++) {
-        if (typeof(mxVel[i]) == "number" && typeof(mxVel[i - 1]) == "number") {
+        if (typeof (mxVel[i]) == "number" && typeof (mxVel[i - 1]) == "number") {
             dif += mxVel[i] - mxVel[i - 1];
         }
     }
@@ -1614,7 +1587,6 @@ function uDragStop() {
     var lastX = toBookPercent();
     if (!pageAnimInt) {
         var vel = mxVelCalc();
-        // var turnVelocityThreshold = 50;
         /* dealing mostly with location of last drag, not direction of drag
          if (origX > 0.5) {
          // started from right
@@ -1739,7 +1711,7 @@ function setPageAnimInt(lastX, start, end, speedNumMult) {
         if (speedNumMult) {
             speedNum /= speedNumMult
         }
-        var pageAnimTarg;// var curRevert, curPageManip;
+        var pageAnimTarg;
         pageAnimAt = parseInt(lastX * speedNum);
         if (start == "right" && curPage < bookLength + 1) {
             if (end == "left") {
@@ -2055,8 +2027,8 @@ function turnBlockSpread(direction, percent) {
 }
 function pointInPoly(poly, pt) {
     for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
-        ((poly[i].y <= pt.y && pt.y < poly[j].y) || (poly[j].y <= pt.y && pt.y < poly[i].y)) && 
-            (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x) && 
+        ((poly[i].y <= pt.y && pt.y < poly[j].y) || (poly[j].y <= pt.y && pt.y < poly[i].y)) &&
+            (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x) &&
             (c = !c);
     return c;
 }
@@ -2079,8 +2051,7 @@ function hoverMouse(type) {
             tmpStyle = "pointer";
         } else if (type == "drawingTool") {
             tmpStyle = "url('" + dependenciesLoc + "presets/icons/" + book.drawingTools.cur + "-cursor.png'), auto";
-        }// else if (type == false) {
-        //}
+        }
         $("body").css("cursor", tmpStyle);
     }
 }
@@ -2221,7 +2192,6 @@ function showNav() {
 }
 
 function vertCenterBook() {
-    // var workHeight = window.innerHeight;
     var middle = $('#screen-middle').offset().top;
     var workHeight = (middle * 2) - deviceTopBar;
     if (isPad && !isAndroid) {

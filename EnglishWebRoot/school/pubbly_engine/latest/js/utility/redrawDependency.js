@@ -31,7 +31,7 @@ class RedrawDependency {
             this.redrawCallback();
         }
     }
-    
+
     constructor(redrawCallback, options) {
         if (typeof redrawCallback !== "function") {
             console.error("RedrawDependency.constructor (fatal): redrawCallback argument is NOT a function...");
@@ -43,7 +43,7 @@ class RedrawDependency {
             // redrawCallback >> Bounded function to call on every framerate interval
             this.redrawCallback = redrawCallback;
             // options.frameRate >> the frameRate
-            this.options = Object.assign({frameRate: 1}, options);
+            this.options = Object.assign({ frameRate: 1 }, options);
 
             // List of stuff causing the whatever to need a redraw.
             this.depList = [];

@@ -24,7 +24,7 @@ class DomInteractionCover {
     constructor(container) {
         this.container = container;
         this.clicked = this.clicked.bind(this);
-        
+
         this.cb = false;
         this.available = [
             "Bee_exit2.gif",

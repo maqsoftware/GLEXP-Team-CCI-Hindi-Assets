@@ -38,7 +38,7 @@ function recorderAct() {
             }
         });
         var recording = false,
-          currCallback;
+            currCallback;
 
         this.node.onaudioprocess = function (e) {
             if (!recording)
@@ -69,12 +69,12 @@ function recorderAct() {
         }
 
         this.clear = function () {
-            worker.postMessage({command: 'clear'});
+            worker.postMessage({ command: 'clear' });
         }
 
         this.getBuffers = function (cb) {
             currCallback = cb || config.callback;
-            worker.postMessage({command: 'getBuffers'})
+            worker.postMessage({ command: 'getBuffers' })
         }
 
         this.exportWAV = function (cb, type) {

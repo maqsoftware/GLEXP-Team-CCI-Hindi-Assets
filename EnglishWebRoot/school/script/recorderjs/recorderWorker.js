@@ -18,9 +18,9 @@
  */
 
 var recLength = 0,
-  recBuffersL = [],
-  recBuffersR = [],
-  sampleRate;
+    recBuffersL = [],
+    recBuffersR = [],
+    sampleRate;
 
 this.onmessage = function (e) {
     switch (e.data.command) {
@@ -60,7 +60,7 @@ function exportWAV(type) {
     var bufferR = mergeBuffers(recBuffersR, recLength);
     var interleaved = interleave(bufferL, bufferR);
     var dataview = encodeWAV(interleaved);
-    var audioBlob = new Blob([dataview], {type: type});
+    var audioBlob = new Blob([dataview], { type: type });
 
     this.postMessage(audioBlob);
 }
@@ -68,7 +68,7 @@ function exportWAV(type) {
 function exportMonoWAV(type) {
     var bufferL = mergeBuffers(recBuffersL, recLength);
     var dataview = encodeWAV(bufferL, true);
-    var audioBlob = new Blob([dataview], {type: type});
+    var audioBlob = new Blob([dataview], { type: type });
 
     this.postMessage(audioBlob);
 }
@@ -101,7 +101,7 @@ function interleave(inputL, inputR) {
     var result = new Float32Array(length);
 
     var index = 0,
-      inputIndex = 0;
+        inputIndex = 0;
 
     while (index < length) {
         result[index++] = inputL[inputIndex];
@@ -112,7 +112,7 @@ function interleave(inputL, inputR) {
 }
 
 function floatTo16BitPCM(output, offset, input) {
-    for (var i = 0; i < input.length; i++, offset += 2) {
+    for (var i = 0; i < input.length; i++ , offset += 2) {
         var s = Math.max(-1, Math.min(1, input[i]));
         output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
     }

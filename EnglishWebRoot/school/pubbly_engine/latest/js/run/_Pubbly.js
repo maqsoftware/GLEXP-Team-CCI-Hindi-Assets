@@ -96,12 +96,12 @@ class Pubbly {
 			if (link.enabled && inside(loc, pinnedPoly || poly)) {
 				for (let w = 0; w < what.length; w++) {
 					let linkType = what[w];
-					if (linkType === "clicks" || 
-						linkType === "dragStops" || 
+					if (linkType === "clicks" ||
+						linkType === "dragStops" ||
 						linkType === "lineStops") {
 						for (let i = 0; i < link.triggers[linkType].length; i++) {
 							let accepts = link.triggers[linkType][i].condition;
-							if (accepts == condition || 
+							if (accepts == condition ||
 								accepts == "any" || // TODO: XML Any to any
 								linkType == "clicks") {
 								found.push({
@@ -133,9 +133,9 @@ class Pubbly {
 		if (checkDrag || checkDraw || checkEdit) {
 			for (let o = 0; o < this.data.pages[this.curPage].objs.length; o++) {
 				let obj = this.data.pages[this.curPage].objs[o];
-				if (checkDraw && 
-					obj.type === "workspace" && 
-					obj.vis && 
+				if (checkDraw &&
+					obj.type === "workspace" &&
+					obj.vis &&
 					inside(loc, obj.rect)) {
 					found.push({
 						link: obj,
@@ -145,7 +145,7 @@ class Pubbly {
 				}
 
 				if (
-					(checkDrag && obj.vis && 
+					(checkDrag && obj.vis &&
 						(obj.mobility === "clone" || obj.mobility === "drag")) ||
 					(checkEdit && obj.type === "field" && obj.editable)) {
 					// Why not account for offsets? Because we don't want kids "catching" a dropped object while it animates back to position
@@ -162,7 +162,7 @@ class Pubbly {
 					// TODO: This checks inside bounding rect. DOES NOT check for transparency in image.
 					// EXAMPLE: Three circles on top of eachother. You choose the one behind the one in front, but you're still in the transparent rect of the front most circle. Cursor on green, within the blue circle's bounding rect. Start dragging blue. Prob bob.
 					let action = (obj.mobility == "fixed") ? "editText" : obj.mobility;
-					if (inside(loc, rect) && 
+					if (inside(loc, rect) &&
 						// Invisible objects are not draggable
 						obj.vis === true) {
 						found.push({
@@ -478,7 +478,6 @@ class Pubbly {
 		}
 		if (searchStart && toSend) {
 			// searchStart is {a: 0, b:1, c:2, d:3}
-			//let origLayer = toSend.layer; // 1;
 			if (where === "top") {
 				toSend.layer = searchStart.length;
 			} else {
@@ -630,7 +629,7 @@ class Pubbly {
 				prog: this.progressGraph.calculate
 			});
 		}
-		this.analytics.add({type: "pt", page: this.curPage});
+		this.analytics.add({ type: "pt", page: this.curPage });
 	}
 
 	launch_dispatch(cbs) {
@@ -667,7 +666,7 @@ class Pubbly {
 	drawPage_dispatch(which = this.curPage) {
 		if (typeof which === "object" && which.length) {
 			which.map(page => this.drawPage_dispatch(page));
-		} else if (Math.abs(which - this.curPage) > 1 || 
+		} else if (Math.abs(which - this.curPage) > 1 ||
 			!this.data.pages[which]) {
 			let start = Math.max((this.curPage - 1), 0);
 			let end = this.data.pages[this.curPage + 1] ?
@@ -755,7 +754,6 @@ class Pubbly {
 			spreadClass = "SpreadRight";
 		}
 		// TODO: Save as props on turns, access quicker on draw
-		//let canCover = $("#canvases").find("div." + baseClass + spreadClass)[0];
 		let can = $("#canvases").find("canvas." + baseClass + spreadClass)[0];
 		let ctx = can.getContext("2d");
 		ctx.imageSmoothingEnabled = true;
@@ -934,11 +932,8 @@ class Pubbly {
 				if (fakeText) {
 					lines = [""];
 				}
-				let insert = {at: 0, line: 0, char: 0};
+				let insert = { at: 0, line: 0, char: 0 };
 				if (curObj.editing) {
-					// let top = curObj.loc[0];
-					// let left = curObj.loc[1] + curObj.calculated.leftMargin;
-					// let height = curObj.calculated.size;
 					insert = {
 						at: this.events.f.insertionPoint.at,
 						line: 0,
@@ -968,9 +963,6 @@ class Pubbly {
 						drawLeft += curObj.calculated.widestLine - width;
 					}
 					drawTops.push(drawTop);
-					// let realSize = isNaN(curObj.size * 1) ?
-					// 	curObj.calculated.size :
-					// 	curObj.size;
 					if (curObj.font === "Didact") {
 
 
@@ -1065,7 +1057,7 @@ class Pubbly {
 
 	constructor(data, runtimeProps) {
 		if ($("#pubbly_main")) {
-			$("#pubbly_main").css("opacity",1);
+			$("#pubbly_main").css("opacity", 1);
 		}
 		this.drawPage_dispatch = this.drawPage_dispatch.bind(this);
 		this.fatalError = this.fatalError.bind(this);
@@ -1213,36 +1205,3 @@ class Pubbly {
 	}
 }
 
-
-/*
-function cutLink(val) {
-	switch (typeof val) {
-		case "string":
-			return val + "";
-			//break;
-		case "number":
-			return val * 1;
-			//break;
-		case "undefined":
-			return "undefined";
-			//break;
-		case "null":
-			return null;
-			//break;
-		case "array":
-			return val.slice();
-			//break;
-		case "object":
-			// NOPE. Because typeof new Array is FUCKING OBJECT
-			if (Array.isArray(val)) {
-				return val.slice();
-			} else {
-				return jQuery.extend(true, {}, val);
-			}
-			//break;
-		case "boolean":
-			return val == true;
-			//break;
-	}
-}
-*/

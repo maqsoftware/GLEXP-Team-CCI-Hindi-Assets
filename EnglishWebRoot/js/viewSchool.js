@@ -21,7 +21,6 @@ document.addEventListener("deviceready", function () {
                             $("#avatar")[0].src = userPic + "?" + Math.random(); // prevent cache?
                             $("#avatar")[0].onload = function () {
                                 // set level width to picture width. Why not a set width for both? Different sized pictures on different sized tablets.
-                                // var imgWidth = $("#avatar").width();
                                 // $(".level").css("width", imgWidth + "px");
                                 // actually, forget all that, because 100% works just fine.
                             };
@@ -56,31 +55,21 @@ document.addEventListener("deviceready", function () {
         window.location.href = "login.html";
     })
 
-/*
-
-    function failXML(err, xhr) {
-        var errStr = JSON.stringify(err, null, 4);
-        console.log(errStr);
-        var xhrStr = JSON.stringify(xhr, null, 4);
-        console.log(xhrStr);
-    }
-*/
     function parseXml(xml) {
         if (xml) {
             var totCols = getValByTag(xml, "colCount");
             var totRows = getValByTag(xml, "rowCount");
             var bgSrc = getValByTag(xml, "schoolBG");
             if (bgSrc) {
-                $(".tabletBG").css({"background-image": "url(" + window.schoolLoc + "/icons/" + bgSrc + ")"});
+                $(".tabletBG").css({ "background-image": "url(" + window.schoolLoc + "/icons/" + bgSrc + ")" });
             }
             var tutorialXML = xml.getElementsByTagName("tutorial")[0];
-            //var tutorialActive = getValByTag(tutorialXML, "active");
-            $("#tutorialSchoolElem").css({"display": "block"});
+            $("#tutorialSchoolElem").css({ "display": "block" });
             $("#tutorialSchoolElem").find("img").attr("src", "img/openTutorials.png");
             $("#tutorialSchoolElem").addClass("picture");
             $("#tutorialSchoolElem").removeClass("text");
 
-            $("#booksElem").css({"display": "block"});
+            $("#booksElem").css({ "display": "block" });
             $("#booksElem").find("img").attr("src", "img/openBooks.png");
             $("#booksElem").addClass("picture");
             $("#booksElem").removeClass("text");
@@ -132,7 +121,7 @@ document.addEventListener("deviceready", function () {
                 var elem = $(document.querySelector('[view_id="grid_r' + cur.row + 'c' + cur.col + '"]')).find(".grid")[0];
                 $(elem).find("h2").html(cur.name);
                 $(elem).attr("subject", cur.name);
-				$(elem).attr("id", cur.name);
+                $(elem).attr("id", cur.name);
                 if (cur.icon) {
                     $(elem).find("img").attr("src", window.schoolLoc + "/" + cur.name + "/icons/" + cur.icon);
                     $(elem).addClass("picture");
@@ -144,13 +133,8 @@ document.addEventListener("deviceready", function () {
                     $(elem).addClass("text");
                 }
             }
-        }// else {
-
-//        }
+        }
     }
-
-//    var tabletBorderMarginRatioVert = 0.1;
-//    var tabletBorderMarginRatioHori = 0.07143;
 
     var gridTemplate = "<div class='grid' subject='' onClick=gotoSubject(this)><h2></h2><img /></div>";
     var subjectRowNum = 3; //TODO: get this from XML
@@ -199,8 +183,8 @@ document.addEventListener("deviceready", function () {
                 if (subjectColNum < 2) {
                     webix.message("You have to have at least one, guy");
                 } else {
-                    for (var r1 = 1; r1 <= subjectRowNum; r1++) {
-                        $$("subjectGridRow" + r1).removeView("grid_r" + r1 + "c" + subjectColNum);
+                    for (var iCount = 1; iCount <= subjectRowNum; iCount++) {
+                        $$("subjectGridRow" + iCount).removeView("grid_r" + iCount + "c" + subjectColNum);
                     }
                     subjectColNum--;
                 }
@@ -209,13 +193,13 @@ document.addEventListener("deviceready", function () {
 
         if (!noAjax) {
             $.ajax("../ajax/set/setSchoolRowAndColCount.php?school=" + window.schoolLoc + "&rows=" + subjectRowNum + "&cols=" + subjectColNum).done(
-              function (ret) {
-                  if (ret == "done") {
-                      webix.message("Rows modified");
-                  } else {
-                      // document.body.innerHTML = ret;
-                  }
-              });
+                function (ret) {
+                    if (ret == "done") {
+                        webix.message("Rows modified");
+                    } else {
+                        // document.body.innerHTML = ret;
+                    }
+                });
 
         }
     }
@@ -244,7 +228,7 @@ document.addEventListener("deviceready", function () {
                                                 gravity: 2,
                                                 template: "<img id='avatar' />"
                                             },
-                                            {height: 35, template: '<div class="levelCont" style="display:none"><div class="level" level="1.55"><div class="percentToNext" style="width:06%;"></div></div><h4 class="levelAt">1</h4><div class="levelCont">'},
+                                            { height: 35, template: '<div class="levelCont" style="display:none"><div class="level" level="1.55"><div class="percentToNext" style="width:06%;"></div></div><h4 class="levelAt">1</h4><div class="levelCont">' },
                                         ]
                                     },
                                     {
@@ -267,13 +251,13 @@ document.addEventListener("deviceready", function () {
                                                     }
                                                 }
                                             },
-                                            {id: "grid_r1c2", "template": gridTemplate},
+                                            { id: "grid_r1c2", "template": gridTemplate },
                                         ]
                                     },
                                     {
                                         id: "subjectGridRow2", css: "gridRow gridRow1", cols: [
-                                            {id: "grid_r2c1", "template": gridTemplate},
-                                            {id: "grid_r2c2", "template": gridTemplate},
+                                            { id: "grid_r2c1", "template": gridTemplate },
+                                            { id: "grid_r2c2", "template": gridTemplate },
                                         ]
                                     },
                                 ]
@@ -295,14 +279,14 @@ document.addEventListener("deviceready", function () {
             if (getValByTag(tutorials[t], "icon")) {
                 var tutName = getValByTag(tutorials[t], "name");
                 tutsHTML += "<div class=tutorial name='" + tutName + "'><img class=tutorialImg src='" +
-                  window.schoolLoc + "/tutorials/" + tutName + "/icons/icon.png'" +
-                  " ></img></div>";
+                    window.schoolLoc + "/tutorials/" + tutName + "/icons/icon.png'" +
+                    " ></img></div>";
                 totTuts++;
             }
         }
-        $("#tutorialSchoolElem img").css({"left": "0%", "top": "0%", "transform": "translateY(0%) translateX(0%)"});
+        $("#tutorialSchoolElem img").css({ "left": "0%", "top": "0%", "transform": "translateY(0%) translateX(0%)" });
         var maxWidth = Math.max(totTuts * 95, 1244);
-        $("#tutorialSchoolElem").find("#tutorials").css({"width": maxWidth, "padding": 10, "border-width": 3});
+        $("#tutorialSchoolElem").find("#tutorials").css({ "width": maxWidth, "padding": 10, "border-width": 3 });
         $("#tutorialSchoolElem").find("#tutorials").find("#slider").html(tutsHTML);
         $("#tutorialSchoolElem #cover").css("width", "100%");
         // Click events now handed in mouse events, integrated with slider thing stuff
@@ -315,7 +299,7 @@ document.addEventListener("deviceready", function () {
         $("#avatar").css("pointer-events", "none");
     }
     function closeTutorial() {
-        $("#tutorialSchoolElem img").css({"left": "50%", "top": "50%", "transform": "translateY(-50%) translateX(-50%)"});
+        $("#tutorialSchoolElem img").css({ "left": "50%", "top": "50%", "transform": "translateY(-50%) translateX(-50%)" });
         // $("#tutorialSchoolElem").find("#tutorials").css({"width": 0, "padding": 0, "border-width": 0});
         $("#tutorialSchoolElem #cover").css("width", "0%");
         // $("#avatar").css("opacity", 1);
@@ -373,19 +357,19 @@ function gotoSubject(elem) {
             var oldSrc = $(img).attr("src");
             $(img).attr("src", window.schoolLoc + "/" + sub + "/icons/" + iconDown);
         } else {
-            $(img).css({"max-height": "90%", "max-width": "90%"});
+            $(img).css({ "max-height": "90%", "max-width": "90%" });
         }
         window.setTimeout(function () {
             if (iconDown) {
                 $(img).attr("src", oldSrc);
             } else {
-                $(img).css({"max-height": "100%", "max-width": "100%"});
+                $(img).css({ "max-height": "100%", "max-width": "100%" });
             }
             if (sub === "Epic Quest") {
-				window.location.href = "school/Epic Quest/index.html";
-			} else {
-				window.location.href = "subject.html?" + sub;
-			}
+                window.location.href = "school/Epic Quest/index.html";
+            } else {
+                window.location.href = "subject.html?" + sub;
+            }
         }, 100);
     }
 }
@@ -468,37 +452,34 @@ function MouseEvent(itemSize) {
     this.up = function (e) {
         // Only needed for browser development;
         // if (e.type !== "mouseout" || e.target.classList[0] !== "tutorial") {
-        /////--/////////--/////if (true) {
-            THIS.mDown = false;
-            var clickedUnit = false;
-            var curX = THIS.latestLoc;
-            var curLeft = $(this).attr("left");
-            if (curX && !THIS.hasMoved) {
-                if (Math.abs(curX - (THIS.orig + parseFloat(curLeft))) < THIS.itemSize / 4 && THIS.dragTimeOffsetMet) {
-                    var marginOffset = 18;
-                    var unitNum = Math.abs(Math.floor((curLeft - curX + marginOffset) / THIS.itemSize)) - 1;
-                    clickedUnit = $(this)[0].getElementsByClassName("tutorial")[unitNum];
-                } else {
-                    // console.log("end drag");
-                }
+        THIS.mDown = false;
+        var clickedUnit = false;
+        var curX = THIS.latestLoc;
+        var curLeft = $(this).attr("left");
+        if (curX && !THIS.hasMoved) {
+            if (Math.abs(curX - (THIS.orig + parseFloat(curLeft))) < THIS.itemSize / 4 && THIS.dragTimeOffsetMet) {
+                var marginOffset = 18;
+                var unitNum = Math.abs(Math.floor((curLeft - curX + marginOffset) / THIS.itemSize)) - 1;
+                clickedUnit = $(this)[0].getElementsByClassName("tutorial")[unitNum];
+            } else {
+                // console.log("end drag");
             }
-            THIS.orig = false;
-            THIS.latestLoc = false;
-            THIS.dragDistOffsetMet = false;
-            window.clearTimeout(THIS.dragTimeOffsetMet);
-            THIS.dragTimeOffsetMet = false;
-            THIS.dragStarted = false;
-            THIS.hasMoved = false;
+        }
+        THIS.orig = false;
+        THIS.latestLoc = false;
+        THIS.dragDistOffsetMet = false;
+        window.clearTimeout(THIS.dragTimeOffsetMet);
+        THIS.dragTimeOffsetMet = false;
+        THIS.dragStarted = false;
+        THIS.hasMoved = false;
 
-            if (clickedUnit) {
-                gotoTutorial.call(clickedUnit);
-            }
-        //////--/////////--////}
+        if (clickedUnit) {
+            gotoTutorial.call(clickedUnit);
+        }
 
     }
     this.move = function (e) {
         if (!($(this).attr("ignoreMove"))) {
-        //////--////// } else {
             if (THIS.mDown) {
                 if (THIS.dragDistOffsetMet) {
                     THIS.hasMoved = true;

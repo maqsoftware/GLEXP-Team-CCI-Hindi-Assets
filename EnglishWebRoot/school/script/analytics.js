@@ -25,7 +25,7 @@ function Analytics() {
                 // var name = uid + "-" + window.location.pathname + "-analytics-" + self.retStamp() + "";
                 var name = uid + "-" + window.location.pathname + "-analytics-" + self.retStamp() + "";
                 self.fName = "users/" + btoa(name) + ".json";
-                var bookOpenLoc = {type: "bo", recordLoc: self.fName};
+                var bookOpenLoc = { type: "bo", recordLoc: self.fName };
                 var analyticsMain = JSON.parse(ret);
                 analyticsMain.records[self.retStamp()] = bookOpenLoc;
                 writeFile("users/" + uid + "/analytics.json", JSON.stringify(analyticsMain), function () {
@@ -95,7 +95,7 @@ function Analytics() {
 
 window.addEventListener("popstate", function (e) {
     e.preventDefault();
-    book.analytics.add({type: "bc"}, function () {
+    book.analytics.add({ type: "bc" }, function () {
         window.history.back();
     });
     window.setTimeout(function () {

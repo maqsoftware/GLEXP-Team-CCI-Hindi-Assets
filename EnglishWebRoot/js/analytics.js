@@ -29,9 +29,9 @@ function Analytics(credentials) {
     logToSD(THIS.logName, "Analytics object created");
 
     /**/
-     this.ip = "jasonhorsley.brickftp.com";
-     this.user = "Jason@JasonHorsley.tech";
-     this.pass = "pubblytesting123";
+    this.ip = "jasonhorsley.brickftp.com";
+    this.user = "Jason@JasonHorsley.tech";
+    this.pass = "pubblytesting123";
     /**/
 
     this.testConnection = function (cb) {
@@ -101,9 +101,9 @@ function Analytics(credentials) {
                     logToSD(THIS.logName, "Analytic master file found for UID " + id);
                     let analyticsMain = JSON.parse(ret);
                     let serial = (device && device.serial) ?
-                      device.serial.toString() :
-                      // Avoid naming conflicts (probs are in millions at this point = good nuff)
-                      "noserial_" + Math.random().toString().split(".")[1];
+                        device.serial.toString() :
+                        // Avoid naming conflicts (probs are in millions at this point = good nuff)
+                        "noserial_" + Math.random().toString().split(".")[1];
                     let recordCount = 0;
                     let entry;
                     for (entry in analyticsMain.records) {

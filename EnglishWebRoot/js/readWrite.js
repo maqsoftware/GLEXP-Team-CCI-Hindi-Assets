@@ -4,7 +4,7 @@ function createFile(name, callback) {
     var size = 5 * 1024 * 1024;
     window.requestFileSystem(type, size, successCallback, errorCallback)
     function successCallback(fs) {
-        fs.root.getFile(name, {create: true, exclusive: true}, function (fileEntry) {
+        fs.root.getFile(name, { create: true, exclusive: true }, function (fileEntry) {
             // console.log('File creation successfull!');
             callback();
         }, errorCallback);
@@ -51,7 +51,7 @@ function writeFile(name, what, callback) {
     }
     window.requestFileSystem(type, size, successCallback, errorCallback)
     function successCallback(fs) {
-        fs.root.getFile(name, {create: true}, function (fileEntry) {
+        fs.root.getFile(name, { create: true }, function (fileEntry) {
             fileEntry.createWriter(function (fileWriter) {
                 fileWriter.onwriteend = function (e) {
                     // console.log('Write completed.');
@@ -60,7 +60,7 @@ function writeFile(name, what, callback) {
                 fileWriter.onerror = function (e) {
                     console.error('Write failed: ' + e.toString());
                 };
-                var blob = new Blob([what], {type: 'text/plain'});
+                var blob = new Blob([what], { type: 'text/plain' });
                 fileWriter.write(blob);
             }, errorCallback);
         }, errorCallback);
@@ -125,7 +125,7 @@ function readFile(name, callback) {
 }
 function deleteFile(name, callback) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
-        fileSystem.root.getFile(name, {create: false}, function (fileEntry) {
+        fileSystem.root.getFile(name, { create: false }, function (fileEntry) {
             fileEntry.remove(function (file) {
                 callback("File removed!");
             }, function () {
@@ -161,15 +161,6 @@ function overwriteFileSafe(fileName, what, callback) {
         }
     });
 }
-/* function checkDirectory(folderPath, callback) {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
-        fileSystem.root.getDirectory(folderPath, {create: false}, function () {
-            callback(false);
-        }, function () {
-            callback(true);
-        });
-    });
-} */
 
 document.addEventListener("deviceready", function () {
     /*

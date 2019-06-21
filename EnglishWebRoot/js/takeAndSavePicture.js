@@ -13,7 +13,7 @@ document.addEventListener("deviceready", function () {
         function capturePhoto() {
             sessionStorage.removeItem('imagepath');
             // Take picture using device camera and retrieve image as base64-encoded string
-            navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 50, destinationType: Camera.DestinationType.FILE_URI, cameraDirection: 1});
+            navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI, cameraDirection: 1 });
             // Github says "Any cameraDirection value results in a back-facing photo". So fuck.
         }
 
@@ -42,13 +42,13 @@ document.addEventListener("deviceready", function () {
                 // console.log("request granted");
                 //The folder is created if doesn't exist
                 fileSys.root.getDirectory(myFolderApp,
-                  {create: true, exclusive: false},
-                  function (directory) {
-                      entry.moveTo(directory, newFileName, successMove, resOnError);
-                  },
-                  resOnError);
+                    { create: true, exclusive: false },
+                    function (directory) {
+                        entry.moveTo(directory, newFileName, successMove, resOnError);
+                    },
+                    resOnError);
             },
-              resOnError);
+                resOnError);
         }
 
         //Callback function when the file has been moved successfully - inserting the complete path

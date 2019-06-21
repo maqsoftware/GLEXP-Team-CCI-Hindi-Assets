@@ -1,5 +1,4 @@
 function NavigationUI(buildSpecs, container) {
-    // const _NavigationUI = this;
 
     /* buildSpecs: 
      *  display:[composite, single]
@@ -34,8 +33,8 @@ function NavigationUI(buildSpecs, container) {
             if (this.specs.display !== "composite") {
                 return updatePage;
             } else {
-                if (updatePage == this.specs.bookLength - 1 && 
-                        !this.specs.lastPageSpread) {
+                if (updatePage == this.specs.bookLength - 1 &&
+                    !this.specs.lastPageSpread) {
                     return (this.specs.bookLength - 1) * 2;
                 } else {
                     let firstNum = updatePage * 2;

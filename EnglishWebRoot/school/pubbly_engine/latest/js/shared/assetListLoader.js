@@ -108,16 +108,16 @@ class AssetListLoader {
                 let asset = assets[a];
                 window.setTimeout(function () {
                     this.load(asset,
-                            {
-                                done: function () {
-                                    found++;
-                                    checkList(asset);
-                                },
-                                fail: function () {
-                                    missing++;
-                                    checkList(asset);
-                                }
+                        {
+                            done: function () {
+                                found++;
+                                checkList(asset);
+                            },
+                            fail: function () {
+                                missing++;
+                                checkList(asset);
                             }
+                        }
                     );
                 }.bind(this), 1);
             }.bind(this);
@@ -163,12 +163,12 @@ class AssetListLoader {
             "gif": ["gif"],
         }
         if (typeof asset.type !== "undefined" &&
-                typeof supportedExts[asset.type] !== "undefined" &&
-                typeof asset.relPath !== "undefined") {
+            typeof supportedExts[asset.type] !== "undefined" &&
+            typeof asset.relPath !== "undefined") {
             // dog.justkidding.wav, asset.ext is wav
             // dog, asset.ext is false
             asset.ext = (asset.relPath.split(".").length > 1) ?
-                    getExtFromPath(asset.relPath) : false;
+                getExtFromPath(asset.relPath) : false;
             if (asset.ext === false) {
                 // ["wav", "ogg", "mp3"]
                 let possibleExts = supportedExts[asset.type].slice();
@@ -193,7 +193,7 @@ class AssetListLoader {
         this.byFileSource[getFileSourceFromPath(asset.relPath)] = this.keys[asset.relPath];
         this.byFileName[getFileNameFromPath(asset.relPath)] = this.keys[asset.relPath];
     }
-    
+
     download(asset, cbs) {
         let loadEvent = "load";
         if (asset.type === "image" || asset.type === "gif") {

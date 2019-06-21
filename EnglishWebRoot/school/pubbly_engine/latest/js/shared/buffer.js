@@ -34,22 +34,22 @@ class PubblyPageBuffer {
             let nextPage = pages.shift();
             if (typeof nextPage !== "undefined") {
                 this.loadPage(nextPage,
-                        {
-                            done: nextPageFunc,
-                            fail: cbs.fail,
-                            prog: function (decimal) {
-                                let at = decimal;
-                                let pagesLoaded = totalPages - pages.length;
-                                let pageAdjustment = (pagesLoaded - 1 + at) / totalPages;
-                                // Not an idea calculate, but does the job.
-                                /** Improvements:
-                                 * Page 0 has 2 assets, page 1 has 100.
-                                 * Progress will go 25%, 50%, 50.5%...
-                                 * FIX: Calculate based on total assets left vs total assets ON PAGE loaded
-                                 */
-                                cbs.prog(pageAdjustment);
-                            },
-                        });
+                    {
+                        done: nextPageFunc,
+                        fail: cbs.fail,
+                        prog: function (decimal) {
+                            let at = decimal;
+                            let pagesLoaded = totalPages - pages.length;
+                            let pageAdjustment = (pagesLoaded - 1 + at) / totalPages;
+                            // Not an idea calculate, but does the job.
+                            /** Improvements:
+                             * Page 0 has 2 assets, page 1 has 100.
+                             * Progress will go 25%, 50%, 50.5%...
+                             * FIX: Calculate based on total assets left vs total assets ON PAGE loaded
+                             */
+                            cbs.prog(pageAdjustment);
+                        },
+                    });
             } else {
                 cbs.done();
             }
@@ -97,9 +97,9 @@ class PubblyPageBuffer {
             let audLoads = data.pages[p].auds.map((aud) => {
                 if (aud.relPath) {
                     // Audio has been found by previous run
-                    return {type: "audio", relPath: aud.relPath};
+                    return { type: "audio", relPath: aud.relPath };
                 } else if (aud.relPathNoExt) {
-                    return {type: "audio", relPath: aud.relPathNoExt};
+                    return { type: "audio", relPath: aud.relPathNoExt };
                 } else {
                     console.error("PubblyPageBuffer.constructor: Cannot load audio, does not have relPath or relPathNoExt");
                 }
@@ -109,15 +109,15 @@ class PubblyPageBuffer {
             let vidLoads = [];
             data.pages[p].objs.forEach(function (obj) {
                 if (obj.type == "image") {
-                    imgLoads.push({type: "image", relPath: obj.relPath});
+                    imgLoads.push({ type: "image", relPath: obj.relPath });
                 } else if (obj.type == "sequence") {
                     obj.frames.forEach(function (frame) {
-                        imgLoads.push({type: "image", relPath: frame.relPath});
+                        imgLoads.push({ type: "image", relPath: frame.relPath });
                     });
                 } else if (obj.type == "video") {
-                    vidLoads.push({type: obj.type, relPath: obj.relPath});
+                    vidLoads.push({ type: obj.type, relPath: obj.relPath });
                 } else if (obj.type == "gif") {
-                    gifLoads.push({type: obj.type, relPath: obj.relPath});
+                    gifLoads.push({ type: obj.type, relPath: obj.relPath });
                 }
             });
             this.assetListLoaders[p] = new AssetListLoader();
