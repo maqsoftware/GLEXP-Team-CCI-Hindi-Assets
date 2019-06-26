@@ -25,6 +25,24 @@ var startTime, firstMoveTime = false, lastMoveTime, endTime, prevStr, nextStr;
 var clickInCont = false;
 var buttonHoverName = false;
 
+
+function settingPointOnScreen(position, screenAttribute, maxDimAttribute, pixelRatio) {
+    // Calculating the viewport
+    viewportScale = Math.min(screenHeight / maxDim[0], screen.width / maxDim[1]);
+    // Attribute of the screen after applying the viewport scale
+    var initialAttribute = viewportScale * maxDimAttribute;
+    // Position of point according to device pixel
+    var devicePointPosition = (position / pixelRatio)
+    // Now Calculating scale factor to strectch the point according to it's position
+    var scaling = devicePointPosition * (screenAttribute - initialAttribute) / screenAttribute;
+    // Calculating the shifting of the point relative to it's real position.
+    var pixeldiff = (pixelRatio) * scaling;
+    // Assigning the real position to the point
+    position = position - pixeldiff;
+    return position;
+}
+
+
 function animPlate(mod) {
     var animTime = 300;
     plateHeight = mod;
@@ -54,26 +72,26 @@ function animPlate(mod) {
                     "-o-transform": rightVal
                 });
                 if (dir == 'down') {
-                    $(".arrowStick").css({"background-color": "RGB(20," + (3 * step) + ",20)"});
+                    $(".arrowStick").css({ "background-color": "RGB(20," + (3 * step) + ",20)" });
                 } else {
-                    $(".arrowStick").css({"background-color": "RGB(20," + (135 - (3 * step)) + ",20)"});
+                    $(".arrowStick").css({ "background-color": "RGB(20," + (135 - (3 * step)) + ",20)" });
                 }
             }
         }, animTime / 45);
     };
     if (mod == 'half' || mod == 'full') {
         $("#bookDisabled").css("width", "100%");
-        $("#bookDisabled").animate({"opacity": 0.3}, animTime / 2);
+        $("#bookDisabled").animate({ "opacity": 0.3 }, animTime / 2);
         if (mod == 'half') {
             arrows('up');
-            $(plateCont).animate({"height": 150}, animTime);
+            $(plateCont).animate({ "height": 150 }, animTime);
         } else if (mod == 'full') {
-            $(plateCont).animate({"height": 300}, animTime);
+            $(plateCont).animate({ "height": 300 }, animTime);
         }
     } else if (mod == 'close') {
         arrows('down');
-        $(plateCont).animate({"height": 50}, animTime);
-        $("#bookDisabled").animate({"opacity": 0.3}, animTime);
+        $(plateCont).animate({ "height": 50 }, animTime);
+        $("#bookDisabled").animate({ "opacity": 0.3 }, animTime);
         window.setTimeout(function () {
             $("#bookDisabled").css("width", "0");
         }, animTime);
@@ -120,7 +138,7 @@ function debug() {
 
 function lineCheck(page, pos) {
     var lineHit = false;
-    var pt = {x: pos[0], y: pos[1]};
+    var pt = { x: pos[0], y: pos[1] };
     for (var i = 0; i < page.lineStarts.length; i++) {
         var curLineStart = page.lineStarts[i];
         var poly = curLineStart.pts;
@@ -133,7 +151,7 @@ function lineCheck(page, pos) {
 }
 function workspaceCheck(page, pos) {
     var ret = false;
-    var pt = {x: pos[0], y: pos[1]};
+    var pt = { x: pos[0], y: pos[1] };
     var workspaces = page.workspaces;
     for (var w = 0; w < workspaces.length; w++) {
         var cur = workspaces[w];
@@ -144,7 +162,7 @@ function workspaceCheck(page, pos) {
     return ret;
 }
 function addUserControl() {
-    book.analytics.add({type: "fl"});
+    book.analytics.add({ type: "fl" });
 
     mxStr = "clientX";
     myStr = "clientY";
@@ -205,6 +223,10 @@ function addUserControl() {
             } else {
                 pos = [event[mxStr] + scrollOffsets[1], event[myStr] + scrollOffsets[0] - vertCenteredOffset];
             }
+            if ((screenHeight / maxDim[0]) < (screen.width / maxDim[1]))
+                pos[0] = settingPointOnScreen(pos[0], screen.width, maxDim[1], document.body.clientWidth / screen.width)
+            else
+                pos[1] = settingPointOnScreen(pos[1], screen.height, maxDim[0], document.body.clientHeight / screen.height)
             var page = selectFnc(event);
             var noDrop = false;
             var curInterruptTime = book[curPage - 1].interruptTime;
@@ -221,10 +243,11 @@ function addUserControl() {
             }
             if (page) {
                 var absPos = offsetCalc(page, pos[0], pos[1]);
-                var pts = {x: Math.round(absPos[0]), y: Math.round(absPos[1])};
-                book.analytics.add({type: "ut", page: curPage, pt: pts});
+                var pts = { x: Math.round(absPos[0]), y: Math.round(absPos[1]) };
+                book.analytics.add({ type: "ut", page: curPage, pt: pts });
                 var lineRet = lineCheck(page, absPos);
                 var dragRet = dragCheck(page, pos[0], pos[1], true);
+
                 var workspaceRet = workspaceCheck(page, absPos);
                 if (dragRet) {
                     hoverMouse('grabbing');
@@ -247,6 +270,8 @@ function addUserControl() {
                     mMode = "line";
                 } else if (workspaceRet) {
                     if (!curSequence || curInterruptTime == 0) {
+                        // Try to fix drawline
+
                         hoverMouse("drawingTool");
                         book.drawingTools.curWorkspace = workspaceRet;
                         workspaceDraw(workspaceRet, pts);
@@ -264,10 +289,11 @@ function addUserControl() {
         }
         return false;
     };
-// working on ipads (slowly)
+    // working on ipads (slowly)
     var moveFnc = function (event) {
         // event.preventDefault();
         if (mMode) {
+
             var pos;
             if (isPad) {
                 pos = [event.touches[0][mxStr], event.touches[0][myStr]];
@@ -276,7 +302,21 @@ function addUserControl() {
             }
             var page = selectFnc(event);
             absPos = offsetCalc(page, pos[0], pos[1]);
-            var pts = {x: absPos[0], y: absPos[1]};
+            var pts = { x: absPos[0], y: absPos[1] };
+            var pts1 = { x: absPos[0], y: absPos[1] };
+
+            if ((screenHeight / maxDim[0]) < (screen.width / maxDim[1])) {
+                pts1.x = settingPointOnScreen(pts1.x, screen.width, maxDim[1], document.body.clientWidth / screen.width)
+                absPos[0] = pts1.x;
+            }
+            else {
+                pts1.y = settingPointOnScreen(pts1.y, screen.height, maxDim[0], document.body.clientHeight / screen.height)
+                absPos[1] = pts1.y;
+            }
+
+
+
+
             mxVelPop(pos[0]);
             if (!pageAnimInt && !curSequence) {
                 if (mMode == "down") {
@@ -324,14 +364,22 @@ function addUserControl() {
                     }
                 } else if (mMode == 'line') {
                     if (lastLinePage == page) {
+                        viewportScale = Math.min(screenHeight / maxDim[0], screenWidth / maxDim[1]);
+                        var u = viewportScale * 1000;
+                        var pixelratio = document.body.clientWidth / screenWidth;
+                        var o = (pos[0] / pixelratio)
+                        var scaling = o * (screenWidth - u) / screenWidth;
+                        var pixeldiff = (pixelratio) * scaling;
+                        pos[0] = pos[0] - pixeldiff;
                         drawLine(page, pos);
                         actionCheck(page, pos[0], pos[1], true); // hover
                     } else {
                         lineDeny(false);
                     }
                 } else if (mMode == 'draw') {
-                    if (pointInPoly(book.drawingTools.curWorkspace.pts, pts)) {
-                        workspaceDraw(book.drawingTools.curWorkspace, pts);
+                    if (pointInPoly(book.drawingTools.curWorkspace.pts, pts1)) {
+
+                        workspaceDraw(book.drawingTools.curWorkspace, pts1);
                     } else {
                         book.drawingTools.lastPos = false;
                         // Don't change mode, because you want the kid to be able to shade in the edges.
@@ -377,6 +425,11 @@ function addUserControl() {
                         var posX = event[mxStr];
                         var posY = event[myStr];
                     }
+
+                    if ((screenHeight / maxDim[0]) < (screen.width / maxDim[1]))
+                        posX = settingPointOnScreen(posX, screen.width, maxDim[1], document.body.clientWidth / screen.width)
+                    else
+                        posY = settingPointOnScreen(posY, screen.height, maxDim[0], document.body.clientHeight / screen.height)
                     if (page && !pageDir && !curSequence) {
                         actionCheck(page, posX + scrollOffsets[1], posY + scrollOffsets[0] - vertCenteredOffset, false, curDrag);
                     }
@@ -729,7 +782,7 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
             mMode = "nav";
         }
         if (actionArr[hit]) {
-            book.analytics.add({type: "lt", linkname: actionArr[hit].name});
+            book.analytics.add({ type: "lt", linkname: actionArr[hit].name });
 
             if (actionArr[hit].name !== "Keypad" && page.objs.Keypad) {
                 page.objs.Keypad.hover = false;
@@ -770,7 +823,7 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
                         mMode = "nav";
                         // linkName is the link accepting the line, NOT the link that started the line
                         lineAccept(page, lineStartPos, pos, lineFrom);
-                    } else if (isDrag && actionArr[hit].action.substr(0,4).toLowerCase() == "drop") {
+                    } else if (isDrag && actionArr[hit].action.substr(0, 4).toLowerCase() == "drop") {
                         // It's a mouse up, it's a drag.
                         if (!curSequence) {
                             hoverMouse(false);
@@ -923,7 +976,7 @@ function keypadEvent(x, y, keypad, page, eventType) {
         var height = cur.height * dimMod.height;
         var width = cur.width * dimMod.width;
         if (x > left && x < left + width &&
-                y > top && y < top + height) {
+            y > top && y < top + height) {
             hit = cur;
         }
     }
@@ -1105,7 +1158,7 @@ function drawChalk(x, y, page) {
         var yRandom = yCurrent + (Math.random() - 0.5) * brushDiameter * 1.2;
         ctx.clearRect(xRandom, yRandom, Math.random() * 2 + 2, Math.random() + 1);
     }
-    book.drawingTools.lastPos = {x: x, y: y};
+    book.drawingTools.lastPos = { x: x, y: y };
     book[page].redraw();
 }
 function drawPencil(x, y, page) {
@@ -1121,7 +1174,7 @@ function drawPencil(x, y, page) {
     ctx.moveTo(last.x, last.y);
     ctx.lineTo(x, y);
     ctx.stroke();
-    book.drawingTools.lastPos = {x: x, y: y};
+    book.drawingTools.lastPos = { x: x, y: y };
     book[page].redraw();
 }
 
@@ -1690,7 +1743,7 @@ function setPageAnimInt(lastX, start, end, speedNumMult) {
                 book[curPage - 1].reload();
             }
             curPage += pageManip;
-            book.analytics.add({type: "pt", page: curPage});
+            book.analytics.add({ type: "pt", page: curPage });
             if (curSequence) {
                 curSequence.end();
             }
@@ -1713,7 +1766,7 @@ function setPageAnimInt(lastX, start, end, speedNumMult) {
             if (pDisplay != 'Single') {
                 while (page < endPage) {
                     if (page !== curPage - 1 && page !== curPage - 2) {
-                        $(book[page].DIV).css({"z-index": 1, "width": 0});
+                        $(book[page].DIV).css({ "z-index": 1, "width": 0 });
                     }
                     page++;
                 }
@@ -1831,8 +1884,8 @@ function turnSingle(direction, percent) {
 
 
     var pUnitPlus = pUnit + 10;
-    $(book[curPage - 1 + pageSelectMod].DIV).css({"left": (pUnitPlus * percent) - pUnitPlus});
-    $(book[curPage + pageSelectMod].DIV).css({"left": ((pUnitPlus * percent) - pUnitPlus) + pUnitPlus});
+    $(book[curPage - 1 + pageSelectMod].DIV).css({ "left": (pUnitPlus * percent) - pUnitPlus });
+    $(book[curPage + pageSelectMod].DIV).css({ "left": ((pUnitPlus * percent) - pUnitPlus) + pUnitPlus });
 }
 function turnSingleSpread(direction, percent) {
     // set percent relative to start of click, NOT position on page.
@@ -1877,7 +1930,7 @@ function turnSingleSpread(direction, percent) {
             tmpWidth[1] = (1 - stretch) * pUnit;
         }
         for (i = 0; i < 3; i++) {
-            $(book[i].DIV).css({"width": parseInt(tmpWidth[i]), "left": tmpLeft[i], "z-index": tmpIndex[i]});
+            $(book[i].DIV).css({ "width": parseInt(tmpWidth[i]), "left": tmpLeft[i], "z-index": tmpIndex[i] });
         }
     } else if ((direction == "left" && curPage + 1 < bookLength) || (direction == "right" && curPage <= bookLength)) {
         // ANY other normal page turn.
@@ -1895,7 +1948,7 @@ function turnSingleSpread(direction, percent) {
         tmpWidth[2] = pUnit;
         for (i = -1; i < 3; i++) {
             var tmpPage = curPage + i + pageSelectMod;
-            $(book[tmpPage].DIV).css({"width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i]});
+            $(book[tmpPage].DIV).css({ "width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i] });
         }
     } else if ((direction == "left" && curPage + 1 == bookLength) || (direction == "right" && curPage == bookLength + 1)) {
         // LAST page turn anim-wrapper book center
@@ -1921,7 +1974,7 @@ function turnSingleSpread(direction, percent) {
         }
         for (i = -1; i < 2; i++) {
             var tmpPage = curPage + i + pageSelectMod;
-            $(book[tmpPage].DIV).css({"width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i]});
+            $(book[tmpPage].DIV).css({ "width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i] });
         }
     } else if (direction == "left" && !isEven(bookLength) && curPage == bookLength) {
         // odd number of pages in book, last page is a double, communicate that it is the last page
@@ -1936,7 +1989,7 @@ function turnSingleSpread(direction, percent) {
         tmpWidth[1] = pUnit;
         for (i = 0; i < 2; i++) {
             var tmpPage = bookLength - 2 + i;
-            $(book[tmpPage].DIV).css({"width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i]});
+            $(book[tmpPage].DIV).css({ "width": tmpWidth[i], "left": tmpLeft[i], "z-index": tmpIndex[i] });
         }
     }
 }
@@ -2056,8 +2109,8 @@ function turnBlockSpread(direction, percent) {
 function pointInPoly(poly, pt) {
     for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
         ((poly[i].y <= pt.y && pt.y < poly[j].y) || (poly[j].y <= pt.y && pt.y < poly[i].y))
-                && (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x)
-                && (c = !c);
+            && (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x)
+            && (c = !c);
     return c;
 }
 function hoverMouse(type) {
@@ -2180,8 +2233,8 @@ function gotoChange(page, ident) {
         window.location.href = "game.html";
     } else if (performanceSwitch) {
         urlVars["cur"];
-		var breakLoc = (typeof defaultPageLoadBreak == "undefined") ? 
-			8 : defaultPageLoadBreak
+        var breakLoc = (typeof defaultPageLoadBreak == "undefined") ?
+            8 : defaultPageLoadBreak
         var newVars = "";
         var newStart = 1;
         while (newStart + breakLoc <= gotoPage) {
@@ -2226,11 +2279,11 @@ function vertCenterBook() {
     var workHeight = (middle * 2) - deviceTopBar;
     if (isPad && !isAndroid) {
         if (window.orientation == 90 || window.orientation == -90) {
-//workHeight = (screenWidth - deviceTopBar) / viewportScale;
+            //workHeight = (screenWidth - deviceTopBar) / viewportScale;
         } else if (window.orientation != undefined) {
-//workHeight = (screenHeight - deviceTopBar) / viewportScale;
+            //workHeight = (screenHeight - deviceTopBar) / viewportScale;
         } else {
-//workHeight = 0;
+            //workHeight = 0;
         }
     }
     if (workHeight > bookHeight) {

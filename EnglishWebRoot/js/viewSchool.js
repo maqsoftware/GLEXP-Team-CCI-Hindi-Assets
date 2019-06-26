@@ -70,16 +70,16 @@ document.addEventListener("deviceready", function () {
             var totRows = getValByTag(xml, "rowCount");
             var bgSrc = getValByTag(xml, "schoolBG");
             if (bgSrc) {
-                $(".tabletBG").css({"background-image": "url(" + window.schoolLoc + "/icons/" + bgSrc + ")"});
+                $(".tabletBG").css({ "background-image": "url(" + window.schoolLoc + "/icons/" + bgSrc + ")" });
             }
             var tutorialXML = xml.getElementsByTagName("tutorial")[0];
             var tutorialActive = getValByTag(tutorialXML, "active");
-            $("#tutorialSchoolElem").css({"display": "block"});
+            $("#tutorialSchoolElem").css({ "display": "block" });
             $("#tutorialSchoolElem").find("img").attr("src", "img/openTutorials.png");
             $("#tutorialSchoolElem").addClass("picture");
             $("#tutorialSchoolElem").removeClass("text");
 
-            $("#booksElem").css({"display": "block"});
+            $("#booksElem").css({ "display": "block" });
             $("#booksElem").find("img").attr("src", "img/openBooks.png");
             $("#booksElem").addClass("picture");
             $("#booksElem").removeClass("text");
@@ -131,9 +131,18 @@ document.addEventListener("deviceready", function () {
                 var elem = $(document.querySelector('[view_id="grid_r' + cur.row + 'c' + cur.col + '"]')).find(".grid")[0];
                 $(elem).find("h2").html(cur.name);
                 $(elem).attr("subject", cur.name);
-				$(elem).attr("id", cur.name);
+                $(elem).attr("id", cur.name);
                 if (cur.icon) {
                     $(elem).find("img").attr("src", window.schoolLoc + "/" + cur.name + "/icons/" + cur.icon);
+
+                    var heightdiff = document.body.clientHeight - window.outerHeight;
+                    var ratio = (heightdiff / document.body.clientHeight) * 100;
+                    var originalposition = 50 - ratio;
+                    var img9 = $(elem).find("img");
+                    $(img9).css("top", originalposition + "%");
+
+
+
                     $(elem).addClass("picture");
                     $(elem).removeClass("text");
                     $(elem).attr("iconHover", cur.iconHover);
@@ -208,13 +217,13 @@ document.addEventListener("deviceready", function () {
 
         if (!noAjax) {
             $.ajax("../ajax/set/setSchoolRowAndColCount.php?school=" + window.schoolLoc + "&rows=" + subjectRowNum + "&cols=" + subjectColNum).done(
-              function (ret) {
-                  if (ret == "done") {
-                      webix.message("Rows modified");
-                  } else {
-                      // document.body.innerHTML = ret;
-                  }
-              });
+                function (ret) {
+                    if (ret == "done") {
+                        webix.message("Rows modified");
+                    } else {
+                        // document.body.innerHTML = ret;
+                    }
+                });
 
         }
     }
@@ -243,7 +252,7 @@ document.addEventListener("deviceready", function () {
                                                 gravity: 2,
                                                 template: "<img id='avatar' />"
                                             },
-                                            {height: 35, template: '<div class="levelCont" style="display:none"><div class="level" level="1.55"><div class="percentToNext" style="width:06%;"></div></div><h4 class="levelAt">1</h4><div class="levelCont">'},
+                                            { height: 35, template: '<div class="levelCont" style="display:none"><div class="level" level="1.55"><div class="percentToNext" style="width:06%;"></div></div><h4 class="levelAt">1</h4><div class="levelCont">' },
                                         ]
                                     },
                                     {
@@ -266,13 +275,13 @@ document.addEventListener("deviceready", function () {
                                                     }
                                                 }
                                             },
-                                            {id: "grid_r1c2", "template": gridTemplate},
+                                            { id: "grid_r1c2", "template": gridTemplate },
                                         ]
                                     },
                                     {
                                         id: "subjectGridRow2", css: "gridRow gridRow1", cols: [
-                                            {id: "grid_r2c1", "template": gridTemplate},
-                                            {id: "grid_r2c2", "template": gridTemplate},
+                                            { id: "grid_r2c1", "template": gridTemplate },
+                                            { id: "grid_r2c2", "template": gridTemplate },
                                         ]
                                     },
                                 ]
@@ -294,14 +303,14 @@ document.addEventListener("deviceready", function () {
             if (getValByTag(tutorials[t], "icon")) {
                 var tutName = getValByTag(tutorials[t], "name");
                 tutsHTML += "<div class=tutorial name='" + tutName + "'><img class=tutorialImg src='" +
-                  window.schoolLoc + "/tutorials/" + tutName + "/icons/icon.png'" +
-                  " ></img></div>";
+                    window.schoolLoc + "/tutorials/" + tutName + "/icons/icon.png'" +
+                    " ></img></div>";
                 totTuts++;
             }
         }
-        $("#tutorialSchoolElem img").css({"left": "0%", "top": "0%", "transform": "translateY(0%) translateX(0%)"});
+        $("#tutorialSchoolElem img").css({ "left": "0%", "top": "0%", "transform": "translateY(0%) translateX(0%)" });
         var maxWidth = Math.max(totTuts * 95, 1244);
-        $("#tutorialSchoolElem").find("#tutorials").css({"width": maxWidth, "padding": 10, "border-width": 3});
+        $("#tutorialSchoolElem").find("#tutorials").css({ "width": maxWidth, "padding": 10, "border-width": 3 });
         $("#tutorialSchoolElem").find("#tutorials").find("#slider").html(tutsHTML);
         $("#tutorialSchoolElem #cover").css("width", "100%");
         // Click events now handed in mouse events, integrated with slider thing stuff
@@ -314,7 +323,7 @@ document.addEventListener("deviceready", function () {
         $("#avatar").css("pointer-events", "none");
     }
     function closeTutorial() {
-        $("#tutorialSchoolElem img").css({"left": "50%", "top": "50%", "transform": "translateY(-50%) translateX(-50%)"});
+        $("#tutorialSchoolElem img").css({ "left": "50%", "top": "50%", "transform": "translateY(-50%) translateX(-50%)" });
         // $("#tutorialSchoolElem").find("#tutorials").css({"width": 0, "padding": 0, "border-width": 0});
         $("#tutorialSchoolElem #cover").css("width", "0%");
         // $("#avatar").css("opacity", 1);
@@ -371,19 +380,19 @@ function gotoSubject(elem) {
             var oldSrc = $(img).attr("src");
             $(img).attr("src", window.schoolLoc + "/" + sub + "/icons/" + iconDown);
         } else {
-            $(img).css({"max-height": "90%", "max-width": "90%"});
+            $(img).css({ "max-height": "90%", "max-width": "90%" });
         }
         window.setTimeout(function () {
             if (iconDown) {
                 $(img).attr("src", oldSrc);
             } else {
-                $(img).css({"max-height": "100%", "max-width": "100%"});
+                $(img).css({ "max-height": "100%", "max-width": "100%" });
             }
             if (sub === "Epic Quest") {
-				window.location.href = "school/Epic Quest/index.html";
-			}	else	{
-				 window.location.href = "subject.html?" + sub;
-			}
+                window.location.href = "school/Epic Quest/index.html";
+            } else {
+                window.location.href = "subject.html?" + sub;
+            }
         }, 100);
     }
 }

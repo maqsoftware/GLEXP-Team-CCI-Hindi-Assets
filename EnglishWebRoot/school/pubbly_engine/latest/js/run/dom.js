@@ -3,6 +3,8 @@ function PubblyDom(xml, environment) {
     this.build = function (environment) {
         let info = xml.info;
         let spreadWidth = (info.display == "composite") ? info.width * 2 : info.width;
+        let domHeight = 0;
+        let domWidth = 0;
 
         // Creates DOM skeleton. Also attaches sizing values via $().css({});
         $("#pubbly_main").append("<div id='header'></div>");
@@ -16,7 +18,7 @@ function PubblyDom(xml, environment) {
         //  -- Because no navigation, no UI
         //  Also because we disable/enable nav during loads and turns and such.
         // $("#pubbly_main #header").append(messyHTML("nav"));
-        $("#pubbly_main #header").css({"width": spreadWidth});
+        $("#pubbly_main #header").css({ "width": spreadWidth });
 
 
         // Place to append video elements so they actually redraw on canvas at frame
@@ -50,7 +52,7 @@ function PubblyDom(xml, environment) {
             "position": "absolute",
             "z-index": -1,
             "top": "50%",
-            "display":"none",
+            "display": "none",
         });
 
         // Why in two ident blocks? Easier than appendBefore
@@ -127,15 +129,21 @@ function PubblyDom(xml, environment) {
         $("#pubbly_main #footer").append("<div class='clearfix'></div>");
 
         // Styling
-        $("#pubbly_main #canvases #cancover").css({"height": info.height, "width": spreadWidth});
-        $("#pubbly_main #canvases").css({"height": info.height, "width": spreadWidth});
+        $("#pubbly_main #canvases #cancover").css({ "height": info.height, "width": spreadWidth });
+        $("#pubbly_main #canvases").css({ "height": info.height, "width": spreadWidth });
 
         // Viewport sizing for mobiles
         // TODO: Do this on every viewport size change.
-        let domHeight = info.height + 111; // margins, subject to change
-        let domWidth = spreadWidth + 30; // margins
+        domHeight = info.height + 111; // margins, subject to change
+        domWidth = spreadWidth + 30; // margins
         let viewportScale = Math.min(screen.height / domHeight, screen.width / domWidth);
         let viewportScaleNoMargins = Math.min(screen.height / info.height, screen.width / spreadWidth);
+
+
+
+
+
+
         if (environment === "app") {
             $("#viewport").attr("content", "initial-scale=" + viewportScaleNoMargins + ", width=device-width, user-scalable=no");
         } else {
@@ -148,10 +156,82 @@ function PubblyDom(xml, environment) {
             $("select.goto").append("<option class='page_" + p + "' val='" + pageName + "'>" + pageName + "</option>");
         }
 
-        // Center mode, TODO: make a full screen and some other modes
+
         $("#main").addClass("transformCenterCont");
         $("#main > div").addClass("transformCenter");
+        function scalingYCoordinated(screenAttributes) {
 
+            screenAttributes.style.height = '100%';
+            //  Converting 100% to pixel
+            var totalpixel = parseFloat(window.getComputedStyle(screenAttributes).height);
+            screenAttributes.style.height = domHeight;
+            //  Calculating Scale % to increase the width of the screen
+            return (totalpixel / info.height);
+
+
+
+
+        }
+
+        function scalingXCoordinated(screenAttributes) {
+
+            screenAttributes.style.width = '100%';
+            //  Converting 100% to pixel
+            var totalpixel = parseFloat(window.getComputedStyle(screenAttributes).width);
+            screenAttributes.style.width = domWidth;
+            //  Calculating Scale % to increase the width of the screen
+            return (totalpixel / info.width);
+
+
+
+
+        }
+        window.setTimeout(function (screenAttributes) {
+            var screenAttributes = document.getElementsByClassName('transformCenter')[0];
+            if (viewportScaleNoMargins > 1) {
+                screenAttributes.style.top = "-7%";
+                screenAttributes.style.left = "0%";
+                screenAttributes.style.transform = 'translate(-0%,-0%)'
+                if (!(document.body.clientWidth === screen.width && document.body.clientHeight === screen.height)) {
+                    if ((screen.height / info.height) > (screen.width / spreadWidth)) {
+
+                        var scalingFactor = scalingYCoordinated(screenAttributes);
+                        //  Calculating translate % for translating image to center and then scale it
+
+                        var translatingFactor = (scalingFactor - 1) * 50;
+                        screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
+
+                    }
+                    else {
+                        // 
+                        var scalingFactor = scalingXCoordinated(screenAttributes);
+                        //  Calculating translate % for translating image to center and then scale it
+
+                        var translatingFactor = (scalingFactor - 1) * 50;
+                        screenAttributes.style.transform = 'translateX(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
+                    }
+                }
+            }
+            else {
+                if (!(document.body.clientWidth === screen.width && document.body.clientHeight === screen.height)) {
+                    screenAttributes.style.top = "-7%";
+                    screenAttributes.style.left = "0%";
+                    screenAttributes.style.transform = 'translate(-0%,-0%)'
+                    if ((screen.height / info.height) > (screen.width / spreadWidth)) {
+                        var scalingFactor = scalingYCoordinated(screenAttributes);
+                        //  Calculating translate % for translating image to center and then scale it
+                        var translatingFactor = (scalingFactor - 1) * 50;
+                        screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
+                    }
+                    else {
+                        var scalingFactor = scalingXCoordinated(screenAttributes);
+                        var translatingFactor = (scalingFactor - 1) * 50;
+                        screenAttributes.style.transform = 'translateX(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
+                    }
+                }
+            }
+        }, 1);
+        // Center mode, TODO: make a full screen and some other modes
 
         // Buid the DOM elem to return
         this.dom = {
@@ -172,6 +252,7 @@ function PubblyDom(xml, environment) {
                 next: $("div.next.canPlacer"),
             }
         };
+
     }
 
     this.build(environment);
