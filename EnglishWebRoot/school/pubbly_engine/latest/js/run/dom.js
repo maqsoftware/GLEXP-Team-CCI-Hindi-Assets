@@ -177,7 +177,7 @@ function PubblyDom(xml, environment) {
             var scalingFactor = 0, translatingFactor = 0;
 
             screenAttributes = document.getElementsByClassName('transformCenter')[0];
-            if (viewportScaleNoMargins > 1) {
+            
                 screenAttributes.style.top = "-7%";
                 screenAttributes.style.left = "-1%";
                 screenAttributes.style.transform = 'translate(0%,0%)';
@@ -195,27 +195,7 @@ function PubblyDom(xml, environment) {
                         screenAttributes.style.transform = 'translateX(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
                     }
                 }
-            }
-            else {
-                if (!(document.body.clientWidth === screen.width && document.body.clientHeight === screen.height)) {
-                    screenAttributes.style.top = "-7%";
-                    screenAttributes.style.left = "-1%";
-                    screenAttributes.style.transform = 'translate(0%,0%)';
-                    if ((screen.height / info.height) > (screen.width / spreadWidth)) {
-                        scalingFactor = scalingYCoordinate(screenAttributes);
-                        //  Calculating translate % for translating image to center and then scale it
-                        translatingFactor = (scalingFactor - 1) * 50;
-                        screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
-                    }
-                    else {
-                        scalingFactor = scalingXCoordinate(screenAttributes);
-                        //  Calculating translate % for translating image to center and then scale it
-                        translatingFactor = (scalingFactor - 1) * 50;
-                        screenAttributes.style.transform = 'translateX(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
-                    }
-                }
-            }
-        }, 1);
+            }, 1);
 
         // Buid the DOM elem to return
         this.dom = {
