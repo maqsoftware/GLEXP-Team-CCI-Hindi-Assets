@@ -190,7 +190,7 @@ function PubblyDom(xml, environment) {
             var screenAttributes = document.getElementsByClassName('transformCenter')[0];
             if (viewportScaleNoMargins > 1) {
                 screenAttributes.style.top = "-7%";
-                screenAttributes.style.left = "0%";
+                screenAttributes.style.left = "-1%";
                 screenAttributes.style.transform = 'translate(-0%,-0%)'
                 if (!(document.body.clientWidth === screen.width && document.body.clientHeight === screen.height)) {
                     if ((screen.height / info.height) > (screen.width / spreadWidth)) {
@@ -215,7 +215,7 @@ function PubblyDom(xml, environment) {
             else {
                 if (!(document.body.clientWidth === screen.width && document.body.clientHeight === screen.height)) {
                     screenAttributes.style.top = "-7%";
-                    screenAttributes.style.left = "0%";
+                    screenAttributes.style.left = "-1%";
                     screenAttributes.style.transform = 'translate(-0%,-0%)'
                     if ((screen.height / info.height) > (screen.width / spreadWidth)) {
                         var scalingFactor = scalingYCoordinated(screenAttributes);
