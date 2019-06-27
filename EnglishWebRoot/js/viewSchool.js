@@ -134,15 +134,16 @@ document.addEventListener("deviceready", function () {
                 $(elem).attr("id", cur.name);
                 if (cur.icon) {
                     $(elem).find("img").attr("src", window.schoolLoc + "/" + cur.name + "/icons/" + cur.icon);
-
-                    var heightdiff = document.body.clientHeight - window.outerHeight;
-                    var ratio = (heightdiff / document.body.clientHeight) * 100;
-                    var originalposition = 50 - ratio;
-                    var img9 = $(elem).find("img");
-                    $(img9).css("top", originalposition + "%");
-
-
-
+                    // Difference between client height and outer height
+                    var heightDiff = document.body.clientHeight - window.outerHeight;
+                    // total difference percentage
+                    var ratio = (heightDiff / document.body.clientHeight) * 100;
+                    // Updating the original position from top 
+                    var originalPosition = 50 - ratio;
+                    // Getting the image from current element
+                    var currentImage = $(elem).find("img");
+                    // Aligning the image with respect to top
+                    $(currentImage).css("top", originalPosition + "%");
                     $(elem).addClass("picture");
                     $(elem).removeClass("text");
                     $(elem).attr("iconHover", cur.iconHover);

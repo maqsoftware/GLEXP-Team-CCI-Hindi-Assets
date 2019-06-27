@@ -270,8 +270,6 @@ function addUserControl() {
                     mMode = "line";
                 } else if (workspaceRet) {
                     if (!curSequence || curInterruptTime == 0) {
-                        // Try to fix drawline
-
                         hoverMouse("drawingTool");
                         book.drawingTools.curWorkspace = workspaceRet;
                         workspaceDraw(workspaceRet, pts);
@@ -302,21 +300,15 @@ function addUserControl() {
             }
             var page = selectFnc(event);
             absPos = offsetCalc(page, pos[0], pos[1]);
-            var pts = { x: absPos[0], y: absPos[1] };
-            var pts1 = { x: absPos[0], y: absPos[1] };
 
             if ((screenHeight / maxDim[0]) < (screen.width / maxDim[1])) {
-                pts1.x = settingPointOnScreen(pts1.x, screen.width, maxDim[1], document.body.clientWidth / screen.width)
-                absPos[0] = pts1.x;
+                absPos[0] = settingPointOnScreen(absPos[0], screen.width, maxDim[1], document.body.clientWidth / screen.width)
             }
             else {
-                pts1.y = settingPointOnScreen(pts1.y, screen.height, maxDim[0], document.body.clientHeight / screen.height)
-                absPos[1] = pts1.y;
+                absPos[1] = settingPointOnScreen(absPos[1], screen.height, maxDim[0], document.body.clientHeight / screen.height)
             }
 
-
-
-
+            var pts = { x: absPos[0], y: absPos[1] };
             mxVelPop(pos[0]);
             if (!pageAnimInt && !curSequence) {
                 if (mMode == "down") {
@@ -364,22 +356,20 @@ function addUserControl() {
                     }
                 } else if (mMode == 'line') {
                     if (lastLinePage == page) {
-                        viewportScale = Math.min(screenHeight / maxDim[0], screenWidth / maxDim[1]);
-                        var u = viewportScale * 1000;
-                        var pixelratio = document.body.clientWidth / screenWidth;
-                        var o = (pos[0] / pixelratio)
-                        var scaling = o * (screenWidth - u) / screenWidth;
-                        var pixeldiff = (pixelratio) * scaling;
-                        pos[0] = pos[0] - pixeldiff;
+                        if ((screenHeight / maxDim[0]) < (screen.width / maxDim[1])) {
+                            pos[0] = settingPointOnScreen(pos[0], screen.width, maxDim[1], document.body.clientWidth / screen.width)
+                        }
+                        else {
+                            pos[1] = settingPointOnScreen(pos[1], screen.height, maxDim[0], document.body.clientHeight / screen.height)
+                        }
                         drawLine(page, pos);
                         actionCheck(page, pos[0], pos[1], true); // hover
                     } else {
                         lineDeny(false);
                     }
                 } else if (mMode == 'draw') {
-                    if (pointInPoly(book.drawingTools.curWorkspace.pts, pts1)) {
-
-                        workspaceDraw(book.drawingTools.curWorkspace, pts1);
+                    if (pointInPoly(book.drawingTools.curWorkspace.pts, pts)) {
+                        workspaceDraw(book.drawingTools.curWorkspace, pts);
                     } else {
                         book.drawingTools.lastPos = false;
                         // Don't change mode, because you want the kid to be able to shade in the edges.

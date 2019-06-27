@@ -79,19 +79,15 @@ class Pubbly {
 			what = [what];
 		}
 		let found = [];
-
 		// Calculating the viewport scale 
 		var viewportScale = Math.min(screen.height / this.data.info.height, screen.width / this.data.info.width);
-		// Width of the screen after applying the viewport scale
 
-		function settingPointOnScreen(position, screenAttribute, maxDimAttribute, pixelRatio, screenHeight, screenWidth) {
-			// Calculating the viewport
-			viewportScale = Math.min(screen.height / screenHeight, screen.width / screenWidth);
+		function settingPointOnScreen(position, screenAttribute, maxDimAttribute, pixelRatio) {
 			// Attribute of the screen after applying the viewport scale
 			var initialAttribute = viewportScale * maxDimAttribute;
 			// Position of point according to device pixel
 			var devicePointPosition = (position / pixelRatio)
-			// Now Calculating scale factor to strectch the point according to it's position
+			// Now calculating scale factor to stretch the point according to it's position
 			var scaling = devicePointPosition * (screenAttribute - initialAttribute) / screenAttribute;
 			// Calculating the shifting of the point relative to it's real position.
 			var pixeldiff = (pixelRatio) * scaling;
@@ -100,11 +96,10 @@ class Pubbly {
 			return position;
 		}
 		if (screen.height / this.data.info.height < screen.width / this.data.info.width) {
-
-			loc[0] = settingPointOnScreen(loc[0], screen.width, this.data.info.width, document.body.clientWidth / screen.width, this.data.info.height, this.data.info.width);
+			loc[0] = settingPointOnScreen(loc[0], screen.width, this.data.info.width, document.body.clientWidth / screen.width);
 		}
 		else {
-			loc[1] = settingPointOnScreen(loc[1], screen.height, this.data.info.height, document.body.clientHeight / screen.height, this.data.info.height, this.data.info.width);
+			loc[1] = settingPointOnScreen(loc[1], screen.height, this.data.info.height, document.body.clientHeight / screen.height);
 		}
 		for (let l = 0; l < this.data.pages[this.curPage].links.length; l++) {
 			let link = this.data.pages[this.curPage].links[l];
