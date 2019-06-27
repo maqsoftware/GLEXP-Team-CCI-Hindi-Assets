@@ -64,6 +64,7 @@ class Pubbly {
 		}
 	}
 
+
 	checkLocFor(loc, what, condition) {
 		// Template for found arr
 		// found[0] = {
@@ -78,6 +79,28 @@ class Pubbly {
 			what = [what];
 		}
 		let found = [];
+		// Calculating the viewport scale 
+		var viewportScale = Math.min(screen.height / this.data.info.height, screen.width / this.data.info.width);
+
+		function settingPointOnScreen(position, screenAttribute, maxDimAttribute, pixelRatio) {
+			// Attribute of the screen after applying the viewport scale
+			var initialAttribute = viewportScale * maxDimAttribute;
+			// Position of point according to device pixel
+			var devicePointPosition = (position / pixelRatio)
+			// Now calculating scale factor to stretch the point according to it's position
+			var scaling = devicePointPosition * (screenAttribute - initialAttribute) / screenAttribute;
+			// Calculating the shifting of the point relative to it's real position.
+			var pixeldiff = (pixelRatio) * scaling;
+			// Assigning the real position to the point
+			position = position - pixeldiff;
+			return position;
+		}
+		if (screen.height / this.data.info.height < screen.width / this.data.info.width) {
+			loc[0] = settingPointOnScreen(loc[0], screen.width, this.data.info.width, document.body.clientWidth / screen.width);
+		}
+		else {
+			loc[1] = settingPointOnScreen(loc[1], screen.height, this.data.info.height, document.body.clientHeight / screen.height);
+		}
 		for (let l = 0; l < this.data.pages[this.curPage].links.length; l++) {
 			let link = this.data.pages[this.curPage].links[l];
 			let poly = link.poly;
@@ -145,7 +168,7 @@ class Pubbly {
 				}
 
 				if (
-					(checkDrag && obj.vis && 
+					(checkDrag && obj.vis &&
 						(obj.mobility === "clone" || obj.mobility === "drag")) ||
 					(checkEdit && obj.type === "field" && obj.editable)) {
 					// Why not account for offsets? Because we don't want kids "catching" a dropped object while it animates back to position
@@ -624,7 +647,7 @@ class Pubbly {
 				prog: this.progressGraph.calculate
 			});
 		}
-		this.analytics.add({type: "pt", page: this.curPage});
+		this.analytics.add({ type: "pt", page: this.curPage });
 	}
 	launch_dispatch(cbs) {
 		/**
@@ -923,7 +946,7 @@ class Pubbly {
 				if (fakeText) {
 					lines = [""];
 				}
-				let insert = {at: 0, line: 0, char: 0};
+				let insert = { at: 0, line: 0, char: 0 };
 				if (curObj.editing) {
 					let top = curObj.loc[0];
 					let left = curObj.loc[1] + curObj.calculated.leftMargin;
@@ -1050,7 +1073,7 @@ class Pubbly {
 
 	constructor(data, runtimeProps) {
 		if ($("#pubbly_main")) {
-			$("#pubbly_main").css("opacity",1);
+			$("#pubbly_main").css("opacity", 1);
 		}
 		this.drawPage_dispatch = this.drawPage_dispatch.bind(this);
 		this.fatalError = this.fatalError.bind(this);

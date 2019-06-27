@@ -40,7 +40,7 @@ function Analytics() {
             readFile("users/" + uid + "/analytics.json", function (ret) {
                 var name = uid + "-" + window.location.pathname + "-analytics-" + self.retStamp() + "";
                 self.fName = "users/" + btoa(name) + ".json";
-                var bookOpenLoc = {type: "bo", recordLoc: self.fName};
+                var bookOpenLoc = { type: "bo", recordLoc: self.fName };
                 var analyticsMain = JSON.parse(ret);
                 analyticsMain.records[self.retStamp()] = bookOpenLoc;
                 writeFile("users/" + uid + "/analytics.json", JSON.stringify(analyticsMain), function () {
@@ -110,7 +110,7 @@ function Analytics() {
 
 window.addEventListener("popstate", function (e) {
     e.preventDefault();
-    book.analytics.add({type: "bc"}, function () {
+    book.analytics.add({ type: "bc" }, function () {
         window.history.back();
     });
     window.setTimeout(function () {
@@ -152,7 +152,7 @@ if (window.testing) {
 }
 
 // Globals
-var maxDim = [0, 0], book = [], resMult = 1, bufArr = {length: 0}, curPage = 1, assetArr = {}, bufObjArr = [], bookOffsets, pUnit, bookC, navC, mDown = false, deviceTopBar = 0, pageNumberingStr = false, isChrome = navigator.userAgent.toLowerCase().indexOf("chrome") > -1, isFirefox = !(window.mozInnerScreenX == null);
+var maxDim = [0, 0], book = [], resMult = 1, bufArr = { length: 0 }, curPage = 1, assetArr = {}, bufObjArr = [], bookOffsets, pUnit, bookC, navC, mDown = false, deviceTopBar = 0, pageNumberingStr = false, isChrome = navigator.userAgent.toLowerCase().indexOf("chrome") > -1, isFirefox = !(window.mozInnerScreenX == null);
 // For each object, check to see if the object name matches this array. If it does, the img src is in the presets folder.
 var presetImages = ["Keypad"];
 
@@ -195,10 +195,10 @@ function noCacheExt() {
 function fatalError(mesg) {
     $("#mainC").css("display", "none");
     window.setTimeout(function () {
-        $("#main").css({"height": "304", "width": "433", "margin-top": "50"});
-        $("#mainC").css({"height": "286", "width": "420", "display": "block"});
-        $("#bookC").css({"height": "200", "width": "400"});
-        $("#shade").css({"display": "none"});
+        $("#main").css({ "height": "304", "width": "433", "margin-top": "50" });
+        $("#mainC").css({ "height": "286", "width": "420", "display": "block" });
+        $("#bookC").css({ "height": "200", "width": "400" });
+        $("#shade").css({ "display": "none" });
         $("#bookC").append("<div id=errorMesgCont></div>");
         $("#errorMesgCont").append("<h2>An error has occured!</h2>");
         window.mesgHTML = mesg;
@@ -232,7 +232,7 @@ if (isCordova) {
 $(document).ready(function () {
     if (typeof window.location.href.split("?")[1] == "undefined") {
         var breakLoc = (typeof defaultPageLoadBreak == "undefined") ?
-          8 : defaultPageLoadBreak
+            8 : defaultPageLoadBreak
         window.location.href = window.location.href + "?start=1&end=" + breakLoc + "&cur=1";
     } else {
         if (typeof Analytics == "undefined") {
@@ -279,12 +279,12 @@ $(document).ready(function () {
                         var id = window.location.pathname.split("/")[3];
                         var author = window.location.pathname.split("/")[2];
                         document.body.innerHTML = "<div class=fatalError>" +
-                          "<h2>Fatal error</h2>" +
-                          "<p>This book is missing the XML. Try reuploading.</p>" +
-                          "<p>If the problem persists, try reuploading, " +
-                          "<a href=http://" + window.location.hostname + "/phpscripts/Optimize.php?id=" + id + "&username=" + author + ">reoptimizing</a>" +
-                          " or contact support.</p>" +
-                          "</div>";
+                            "<h2>Fatal error</h2>" +
+                            "<p>This book is missing the XML. Try reuploading.</p>" +
+                            "<p>If the problem persists, try reuploading, " +
+                            "<a href=http://" + window.location.hostname + "/phpscripts/Optimize.php?id=" + id + "&username=" + author + ">reoptimizing</a>" +
+                            " or contact support.</p>" +
+                            "</div>";
                     }
                 });
             } else {
@@ -398,7 +398,7 @@ function xmlLoaded(curXML) {
         window.curPage = parseInt(urlVars["cur"]);
     }
 
-    book.analytics.add({type: "xl"});
+    book.analytics.add({ type: "xl" });
 
     if (typeof (spriteKey) == "undefined") {
         spriteKey = false;
@@ -518,7 +518,7 @@ function xmlLoaded(curXML) {
         book.drawingTools.cur = book.drawingTools.toolToggle[book.drawingTools.at];
         book.drawingTools.curColor = [255, 255, 255]; // default white
         book.drawingTools.update = function () {
-            $(book.drawingTools.selector).css({"background-image": "url('" + dependenciesLoc + "presets/icons/" + book.drawingTools.cur + "-cursor.png')"});
+            $(book.drawingTools.selector).css({ "background-image": "url('" + dependenciesLoc + "presets/icons/" + book.drawingTools.cur + "-cursor.png')" });
         };
         book.drawingTools.toggleTool = function () {
             if (book.drawingTools.at >= book.drawingTools.toolToggle.length - 1) {
@@ -1248,8 +1248,8 @@ function xmlLoaded(curXML) {
             vpf.style.zIndex = '-1';
 
 
-            $("#logoCont").css({'position': 'relative', 'float': 'right'});
-            $("#navC").css({'position': 'relative', 'float': 'right', 'left': '0', 'margin-right': '9px'});
+            $("#logoCont").css({ 'position': 'relative', 'float': 'right' });
+            $("#navC").css({ 'position': 'relative', 'float': 'right', 'left': '0', 'margin-right': '9px' });
 
             if (document.head.firstChild.name != 'viewport') {
                 var viewport = document.createElement('meta');
@@ -1265,12 +1265,12 @@ function xmlLoaded(curXML) {
         }
 
 
-        $("#main").css({"height": tmpMainCTotHeight + (15), "width": tmpMainCTotWidth + (20)});
-        $("#mainC").css({"height": tmpMainCTotHeight, "width": tmpMainCTotWidth, "left": 10});
-        $("#bookC").css({"height": maxDim[0], "width": bookCWidth * 2});
-        $("#spriteStart").css({"font-size": spriteStartFontSize, "margin-top": spriteStartMargins});
-        $("#titleC").css({"width": tmpTitleTotWidth});
-        $("#textC").css({"width": tmpTextCTotWidth});
+        $("#main").css({ "height": tmpMainCTotHeight + (15), "width": tmpMainCTotWidth + (20) });
+        $("#mainC").css({ "height": tmpMainCTotHeight, "width": tmpMainCTotWidth, "left": 10 });
+        $("#bookC").css({ "height": maxDim[0], "width": bookCWidth * 2 });
+        $("#spriteStart").css({ "font-size": spriteStartFontSize, "margin-top": spriteStartMargins });
+        $("#titleC").css({ "width": tmpTitleTotWidth });
+        $("#textC").css({ "width": tmpTextCTotWidth });
         bookOffsets = $('#bookC').offset();
     }
 
@@ -1279,7 +1279,7 @@ function xmlLoaded(curXML) {
     curInfo = "";
     curXML = "";
 
-    book.analytics.add({type: "xp", pageCount: book.length});
+    book.analytics.add({ type: "xp", pageCount: book.length });
 
     window.setTimeout(function () {
         // Should give enough time for the viewport meta to finally parse in the browser.
@@ -1444,10 +1444,10 @@ function Button(curXmlLnk, triggers, key) {
     this.height = Math.max(this.height, 22);
 
     this.pts = [];
-    this.pts.push({x: this.rect[1], y: this.rect[0]});
-    this.pts.push({x: this.rect[1] + 22, y: this.rect[0]});
-    this.pts.push({x: this.rect[1] + 22, y: this.rect[0] + 22});
-    this.pts.push({x: this.rect[1], y: this.rect[0] + 22});
+    this.pts.push({ x: this.rect[1], y: this.rect[0] });
+    this.pts.push({ x: this.rect[1] + 22, y: this.rect[0] });
+    this.pts.push({ x: this.rect[1] + 22, y: this.rect[0] + 22 });
+    this.pts.push({ x: this.rect[1], y: this.rect[0] + 22 });
     this.origPts = this.pts;
 
     this.pinnedTo = '';
@@ -1809,7 +1809,7 @@ function drawAbsName(p) {
 }
 
 window.setTimeout(function () {
-//   console.clear();
+    //   console.clear();
 }, 1000);
 function Page(key, curXmlPage) {
     var divElem = document.createElement("div");
@@ -1861,12 +1861,12 @@ function Page(key, curXmlPage) {
         dupElem.style.width = maxDim[1];
         this.DUP = dupDiv;
         this.DUPCAN = dupElem;
-        $(this.DUP).css({"height": maxDim[0], "width": maxDim[1]});
-        $(this.DUPCAN).css({"left": -maxDim[1] / 2, "position": "absolute"});
+        $(this.DUP).css({ "height": maxDim[0], "width": maxDim[1] });
+        $(this.DUPCAN).css({ "left": -maxDim[1] / 2, "position": "absolute" });
     }
 
     this.DIV = divElem;
-    $(this.DIV).css({"height": maxDim[0], "width": maxDim[1]});
+    $(this.DIV).css({ "height": maxDim[0], "width": maxDim[1] });
     this.CAN = canElem;
     this.BUF = bufElem;
     this.DRAW = drawingElem;
@@ -2112,12 +2112,12 @@ function Page(key, curXmlPage) {
 
                         try {
                             btx.drawImage(
-                              curElem,
-                              -1 * (curData.width / 2),
-                              -1 * (curData.height / 2),
-                              curData.width,
-                              curData.height
-                              );
+                                curElem,
+                                -1 * (curData.width / 2),
+                                -1 * (curData.height / 2),
+                                curData.width,
+                                curData.height
+                            );
                         } catch (e) {
                         }
                         btx.rotate(-1 * curData.rot);
@@ -2171,11 +2171,11 @@ function Page(key, curXmlPage) {
 
                         try {
                             btx.drawImage(
-                              curElem,
-                              (-1 * (curObj.width / 2)),
-                              (-1 * (curObj.height / 2)),
-                              width,
-                              height);
+                                curElem,
+                                (-1 * (curObj.width / 2)),
+                                (-1 * (curObj.height / 2)),
+                                width,
+                                height);
                         } catch (e) {
                         }
 
@@ -2183,11 +2183,11 @@ function Page(key, curXmlPage) {
                     } else {
                         try {
                             btx.drawImage(
-                              curElem,
-                              left,
-                              top,
-                              width,
-                              height);
+                                curElem,
+                                left,
+                                top,
+                                width,
+                                height);
                         } catch (e) {
                         }
                     }
@@ -2248,7 +2248,7 @@ function Page(key, curXmlPage) {
                     }
                     maxRowFontSizeWidth = Math.max(1, (maxRowFontSizeWidth) ? maxRowFontSizeWidth : curWidth);
                     maxRowFontSizeHeight = Math.max(1, (maxRowFontSizeHeight) ? maxRowFontSizeHeight : curWidth);
-                    ret.push({content: row, maxWidth: maxRowFontSizeWidth, maxHeight: maxRowFontSizeHeight});
+                    ret.push({ content: row, maxWidth: maxRowFontSizeWidth, maxHeight: maxRowFontSizeHeight });
                 }
                 var size = 1000;
                 var which = false;
@@ -2995,30 +2995,30 @@ function PObject(curXmlObj, key) {
                     this.enabled = this.vis == "show";
                     this.hover = false;
                     this.pts = [];
-                    this.pts.push({y: this.initTop, x: this.initLeft});
-                    this.pts.push({y: this.initTop + this.initHeight, x: this.initLeft});
-                    this.pts.push({y: this.initTop + this.initHeight, x: this.initLeft + this.initWidth});
-                    this.pts.push({y: this.initTop, x: this.initLeft + this.initWidth});
+                    this.pts.push({ y: this.initTop, x: this.initLeft });
+                    this.pts.push({ y: this.initTop + this.initHeight, x: this.initLeft });
+                    this.pts.push({ y: this.initTop + this.initHeight, x: this.initLeft + this.initWidth });
+                    this.pts.push({ y: this.initTop, x: this.initLeft + this.initWidth });
 
                     var keys = [];
-                    keys.push({val: 1, left: 15, top: 19, width: 37, height: 36});
-                    keys.push({val: 2, left: 53, top: 19, width: 37, height: 36});
-                    keys.push({val: 3, left: 91, top: 19, width: 35, height: 36});
+                    keys.push({ val: 1, left: 15, top: 19, width: 37, height: 36 });
+                    keys.push({ val: 2, left: 53, top: 19, width: 37, height: 36 });
+                    keys.push({ val: 3, left: 91, top: 19, width: 35, height: 36 });
 
-                    keys.push({val: 4, left: 15, top: 56, width: 37, height: 33});
-                    keys.push({val: 5, left: 53, top: 56, width: 37, height: 33});
-                    keys.push({val: 6, left: 91, top: 56, width: 35, height: 33});
+                    keys.push({ val: 4, left: 15, top: 56, width: 37, height: 33 });
+                    keys.push({ val: 5, left: 53, top: 56, width: 37, height: 33 });
+                    keys.push({ val: 6, left: 91, top: 56, width: 35, height: 33 });
 
-                    keys.push({val: 7, left: 15, top: 90, width: 37, height: 33});
-                    keys.push({val: 8, left: 53, top: 90, width: 37, height: 33});
-                    keys.push({val: 9, left: 91, top: 90, width: 35, height: 33});
+                    keys.push({ val: 7, left: 15, top: 90, width: 37, height: 33 });
+                    keys.push({ val: 8, left: 53, top: 90, width: 37, height: 33 });
+                    keys.push({ val: 9, left: 91, top: 90, width: 35, height: 33 });
 
-                    keys.push({val: ".", left: 15, top: 124, width: 37, height: 33});
-                    keys.push({val: 0, left: 53, top: 124, width: 37, height: 33});
-                    keys.push({val: "-", left: 91, top: 124, width: 35, height: 33});
+                    keys.push({ val: ".", left: 15, top: 124, width: 37, height: 33 });
+                    keys.push({ val: 0, left: 53, top: 124, width: 37, height: 33 });
+                    keys.push({ val: "-", left: 91, top: 124, width: 35, height: 33 });
 
-                    keys.push({val: "back", left: 15, top: 158, width: 37, height: 33});
-                    keys.push({val: "submit", left: 91, top: 158, width: 35, height: 33});
+                    keys.push({ val: "back", left: 15, top: 158, width: 37, height: 33 });
+                    keys.push({ val: "submit", left: 91, top: 158, width: 35, height: 33 });
                     this.keys = keys;
                     this.dimMod = {};
                     this.dimMod.height = this.height / 216;
@@ -3195,8 +3195,8 @@ function PObject(curXmlObj, key) {
             this.alignment = (this.alignment) ? this.alignment : "center";
             this.fontFile = getValue(curXmlObj, "TextFontFile");
             this.fontName = getValue(curXmlObj, "TextFont");
-			this.fontFile = "DidactGothic"
-			this.fontName = "Didact Gothic";
+            this.fontFile = "DidactGothic"
+            this.fontName = "Didact Gothic";
             if (this.fontFile && this.fontName) {
                 this.font = book.fonts.add(this.fontFile, this.fontName);
             }
@@ -3220,10 +3220,10 @@ function PObject(curXmlObj, key) {
 
                 this.enabled = true;
                 this.pts = [];
-                this.pts.push({x: this.initLeft, y: this.initTop});
-                this.pts.push({x: this.initLeft, y: this.initTop + this.initHeight});
-                this.pts.push({x: this.initLeft + this.initWidth, y: this.initTop + this.initHeight});
-                this.pts.push({x: this.initLeft + this.initWidth, y: this.initTop});
+                this.pts.push({ x: this.initLeft, y: this.initTop });
+                this.pts.push({ x: this.initLeft, y: this.initTop + this.initHeight });
+                this.pts.push({ x: this.initLeft + this.initWidth, y: this.initTop + this.initHeight });
+                this.pts.push({ x: this.initLeft + this.initWidth, y: this.initTop });
             } else {
                 this.display = getValue(curXmlObj, "FieldDisplay");
                 this.color = rgb2hex(getValue(curXmlObj, "TextColor"));
@@ -3497,22 +3497,42 @@ function getValue(parent, nodeName, silentError) {
     return tmpReturn;
 }
 
-
 function rescale() {
-    $("#main").css({"height": 0, "width": 0});
+    $("#main").css({ "height": 0, "width": 0 });
     document.head.firstChild.content = 'width=device-width, initial-scale=1';
     var middle = $('#screen-middle').offset().left;
     window.setTimeout(function () {
         viewportScale = Math.min(screenHeight / maxDim[0], screenWidth / maxDim[1]);
         document.head.firstChild.content = 'width=device-width, initial-scale=' + viewportScale + ', maximum-scale=' + viewportScale + ', minimum-scale=' + viewportScale + ', user-scalable=no';
-//	vertCenterBook(curScreenHeight);
-        /*
-         $("#background").css({"height":0,"width":0});
-         $("#background").css({"height":"100%","width":"100%"});
-         */
+        // Fitting images to all the device according to their screen width and screen height 
+        window.setTimeout(function () {
+            var screenAttributes = document.getElementById('bookC');
+            if ((screenHeight / maxDim[0]) < (screenWidth / maxDim[1])) {
+                screenAttributes.style.width = '100%';
+                //  Converting 100% to pixel
+                var totalPixel = parseFloat(window.getComputedStyle(screenAttributes).width);
+                screenAttributes.style.width = maxDim[1];
+                //  Calculating Scale % to increase the width of the screen //
+                var scalingFactor = totalPixel / maxDim[1];
+                //  Calculating translate % for translating image to center and then scale it//
+                var translatingFactor = (scalingFactor - 1) * 50;
+                screenAttributes.style.transform = 'translate(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
+            }
+            else {
+                screenAttributes.style.height = '100%';
+                //  Converting 100% to pixel
+                var totalPixel = parseFloat(window.getComputedStyle(screenAttributes).height);
+                screenAttributes.style.height = maxDim[0];
+                //  Calculating Scale % to increase the width of the screen //
+                var scalingFactor = totalPixel / maxDim[0];
+                //  Calculating translate % for translating image to center and then scale it//
+                var translatingFactor = (scalingFactor - 1) * 50;
+                screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
+
+            }
+        }, 2);
     }, 1);
 }
-
 
 function swapExt(src, newExt) {
     var extSplt = src.split(".");
