@@ -28,7 +28,7 @@ var buttonHoverName = false;
 
 function settingPointOnScreen(position, screenAttribute, maxDimAttribute, pixelRatio) {
     // Calculating the viewport
-    viewportScale = Math.min(screenHeight / maxDim[0], screen.width / maxDim[1]);
+    var viewportScale = Math.min(screen.height / maxDim[0], screen.width / maxDim[1]);
     // Attribute of the screen after applying the viewport scale
     var initialAttribute = viewportScale * maxDimAttribute;
     // Position of point according to device pixel
@@ -71,7 +71,7 @@ function animPlate(mod) {
                     "-moz-transform": rightVal,
                     "-o-transform": rightVal
                 });
-                if (dir == 'down') {
+                if (dir === 'down') {
                     $(".arrowStick").css({ "background-color": "RGB(20," + (3 * step) + ",20)" });
                 } else {
                     $(".arrowStick").css({ "background-color": "RGB(20," + (135 - (3 * step)) + ",20)" });
@@ -223,10 +223,12 @@ function addUserControl() {
             } else {
                 pos = [event[mxStr] + scrollOffsets[1], event[myStr] + scrollOffsets[0] - vertCenteredOffset];
             }
-            if ((screenHeight / maxDim[0]) < (screen.width / maxDim[1]))
+            if ((screen.height / maxDim[0]) < (screen.width / maxDim[1])) {
                 pos[0] = settingPointOnScreen(pos[0], screen.width, maxDim[1], document.body.clientWidth / screen.width)
-            else
+            }
+            else {
                 pos[1] = settingPointOnScreen(pos[1], screen.height, maxDim[0], document.body.clientHeight / screen.height)
+            }
             var page = selectFnc(event);
             var noDrop = false;
             var curInterruptTime = book[curPage - 1].interruptTime;
@@ -301,7 +303,7 @@ function addUserControl() {
             var page = selectFnc(event);
             absPos = offsetCalc(page, pos[0], pos[1]);
 
-            if ((screenHeight / maxDim[0]) < (screen.width / maxDim[1])) {
+            if ((screen.height / maxDim[0]) < (screen.width / maxDim[1])) {
                 absPos[0] = settingPointOnScreen(absPos[0], screen.width, maxDim[1], document.body.clientWidth / screen.width)
             }
             else {
@@ -356,7 +358,7 @@ function addUserControl() {
                     }
                 } else if (mMode == 'line') {
                     if (lastLinePage == page) {
-                        if ((screenHeight / maxDim[0]) < (screen.width / maxDim[1])) {
+                        if ((screen.height / maxDim[0]) < (screen.width / maxDim[1])) {
                             pos[0] = settingPointOnScreen(pos[0], screen.width, maxDim[1], document.body.clientWidth / screen.width)
                         }
                         else {
@@ -416,7 +418,7 @@ function addUserControl() {
                         var posY = event[myStr];
                     }
 
-                    if ((screenHeight / maxDim[0]) < (screen.width / maxDim[1]))
+                    if ((screen.height / maxDim[0]) < (screen.width / maxDim[1]))
                         posX = settingPointOnScreen(posX, screen.width, maxDim[1], document.body.clientWidth / screen.width)
                     else
                         posY = settingPointOnScreen(posY, screen.height, maxDim[0], document.body.clientHeight / screen.height)

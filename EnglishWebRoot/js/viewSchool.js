@@ -219,7 +219,7 @@ document.addEventListener("deviceready", function () {
         if (!noAjax) {
             $.ajax("../ajax/set/setSchoolRowAndColCount.php?school=" + window.schoolLoc + "&rows=" + subjectRowNum + "&cols=" + subjectColNum).done(
                 function (ret) {
-                    if (ret == "done") {
+                    if (ret === "done") {
                         webix.message("Rows modified");
                     } else {
                         // document.body.innerHTML = ret;

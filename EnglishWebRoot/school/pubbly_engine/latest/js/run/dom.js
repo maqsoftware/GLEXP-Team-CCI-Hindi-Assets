@@ -174,22 +174,24 @@ function PubblyDom(xml, environment) {
         }
 
         window.setTimeout(function (screenAttributes) {
-            var screenAttributes = document.getElementsByClassName('transformCenter')[0];
+            var scalingFactor = 0, translatingFactor = 0;
+
+            screenAttributes = document.getElementsByClassName('transformCenter')[0];
             if (viewportScaleNoMargins > 1) {
                 screenAttributes.style.top = "-7%";
                 screenAttributes.style.left = "-1%";
                 screenAttributes.style.transform = 'translate(0%,0%)';
                 if (!(document.body.clientWidth === screen.width && document.body.clientHeight === screen.height)) {
                     if ((screen.height / info.height) > (screen.width / spreadWidth)) {
-                        var scalingFactor = scalingYCoordinate(screenAttributes);
+                        scalingFactor = scalingYCoordinate(screenAttributes);
                         //  Calculating translate % for translating image to center and then scale it
-                        var translatingFactor = (scalingFactor - 1) * 50;
+                        translatingFactor = (scalingFactor - 1) * 50;
                         screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
                     }
                     else {
-                        var scalingFactor = scalingXCoordinate(screenAttributes);
+                        scalingFactor = scalingXCoordinate(screenAttributes);
                         //  Calculating translate % for translating image to center and then scale it
-                        var translatingFactor = (scalingFactor - 1) * 50;
+                        translatingFactor = (scalingFactor - 1) * 50;
                         screenAttributes.style.transform = 'translateX(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
                     }
                 }
@@ -200,15 +202,15 @@ function PubblyDom(xml, environment) {
                     screenAttributes.style.left = "-1%";
                     screenAttributes.style.transform = 'translate(0%,0%)';
                     if ((screen.height / info.height) > (screen.width / spreadWidth)) {
-                        var scalingFactor = scalingYCoordinate(screenAttributes);
+                        scalingFactor = scalingYCoordinate(screenAttributes);
                         //  Calculating translate % for translating image to center and then scale it
-                        var translatingFactor = (scalingFactor - 1) * 50;
+                        translatingFactor = (scalingFactor - 1) * 50;
                         screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
                     }
                     else {
-                        var scalingFactor = scalingXCoordinate(screenAttributes);
+                        scalingFactor = scalingXCoordinate(screenAttributes);
                         //  Calculating translate % for translating image to center and then scale it
-                        var translatingFactor = (scalingFactor - 1) * 50;
+                        translatingFactor = (scalingFactor - 1) * 50;
                         screenAttributes.style.transform = 'translateX(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
                     }
                 }
