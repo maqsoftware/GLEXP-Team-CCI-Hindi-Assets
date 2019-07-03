@@ -122,8 +122,8 @@ document.addEventListener("deviceready", function () {
     }
     function unitHTML(level) {
         // ToDo: Add Hindi content tag in school.xml
-        var levelNamesEnglish = ["Level 1","Level 2","Level 3","Level 4"];
-        var levelNamesHindi = ["पड़ाव १","पड़ाव २","पड़ाव ३","पड़ाव ४"];
+        var levelNamesEnglish = ["Level 1", "Level 2", "Level 3", "Level 4"];
+        var levelNamesHindi = ["पड़ाव १", "पड़ाव २", "पड़ाव ३", "पड़ाव ४"];
         var levelName = "";
 
         var isNext = true;
@@ -153,9 +153,9 @@ document.addEventListener("deviceready", function () {
             unitHTML += "</div>";
 
             unitHTML += "<img class=middle src=" + blankSrc + " />" +
-              "<span>" + (u + 1) + "</span>" +
-              "<img class=middle src=" + blankSrc + " />" +
-              "</div>";
+                "<span>" + (u + 1) + "</span>" +
+                "<img class=middle src=" + blankSrc + " />" +
+                "</div>";
         }
         var windowWidth = ($(document).width() - 100) * 0.75; // good
         var scrollWidth = (unitSize + 8) * nextUnitNum; // good
@@ -167,15 +167,20 @@ document.addEventListener("deviceready", function () {
 
         // Considering the English content from the EnglishWebRoot, overiding the content to the Hindi language
         // Note: We have not updated content in school.xml file as the property is referenced elsewhere.
-        for(var iCount = 0; iCount < levelNamesEnglish.length; iCount++){
-            if(levelNamesEnglish[iCount] === level.name){
+        // Creating level name in English and Hindi
+        var levelNameE;
+        for (var iCount = 0; iCount < levelNamesEnglish.length; iCount++) {
+            if (levelNamesEnglish[iCount] === level.name) {
                 levelName = levelNamesHindi[iCount];
+                levelNameE = levelNamesEnglish[iCount];
             }
         }
         var ret = "<div class='blueBox " + classes + "' >";
         ret += "<div class=levelNameCont>";
         ret += "<img class='middle' src='" + blankSrc + "' />";
-        if(levelName !== ""){
+        if (levelName !== "") {
+            // Adding both English and Hindi name 
+            ret += "<h3>" + levelNameE + "</h3>";
             ret += "<h3>" + levelName + "</h3>";
         }
         else {
@@ -183,7 +188,7 @@ document.addEventListener("deviceready", function () {
         }
         ret += "<img class='lock' src='img/lock.png' />";
         ret += "</div>";
-        ret += "<div class='unitCont'><div class='window'><div class='scrollCont' left=0 style='width:" + (level.units.length * (unitSize + 8)) + "px;' ><img class=middle />";
+        ret += "<div class='unitCont'><div class='window'><div class='scrollCont' left=0 style='width:" + (level.units.length * (unitSize + 8)) + "px; overflow:hidden' ><img class=middle />";
         ret += unitHTML;
         ret += "</div></div></div>";
         ret += "</div>";
@@ -209,15 +214,15 @@ document.addEventListener("deviceready", function () {
             ret += "<span class=middle ></span>";
             var gd = -1;
             for (var g = 0; g < gamesToMake.length; g++) {
-				// Fixed 2019, jesus, for centered single game in row
+                // Fixed 2019, jesus, for centered single game in row
                 if (level.games[g] && gamesToMake[g]) {
                     gd += gamesToMake[g];
                     var curGame = level.games[gd];
                     ret += "<img difficulties='" + gamesToMake[g] + "' class='gameIcon totGames" + totGames +
-                      "' src='" + window.schoolLoc + "/" + window.curSubject + "/icons/" + curGame.icon + "'" +
-                      " game='" + (g + 1) + "'" +
-                      " level='" + level.name + "'" +
-                      " loc='" + window.schoolLoc + "/" + window.curSubject + "/" + level.name + "/Game " + (g + 1) + "' />"
+                        "' src='" + window.schoolLoc + "/" + window.curSubject + "/icons/" + curGame.icon + "'" +
+                        " game='" + (g + 1) + "'" +
+                        " level='" + level.name + "'" +
+                        " loc='" + window.schoolLoc + "/" + window.curSubject + "/" + level.name + "/Game " + (g + 1) + "' />"
                 } else {
                     // no game
                 }
@@ -239,23 +244,28 @@ document.addEventListener("deviceready", function () {
         }
         var ret = {};
         ret.cols = [];
-        ret.cols.push({gravity: 0.05});
+        ret.cols.push({ gravity: 0.05 });
         var attrs = "";
         // ToDo: Add Hindi content tag in school.xml
-        var subjectName = ["पढ़ाई और लिखाई","गणित"];
+        var subjectName = ["पढ़ाई और लिखाई", "गणित"];
         // Considering the English content from the EnglishWebRoot, overiding the content to the Hindi language
         // Note: We have not updated content in school.xml file as the property is referenced elsewhere.
         for (var a = 0; a < additionalAttributes.length; a++) {
             attrs += " " + additionalAttributes[a][0] + "='" + additionalAttributes[a][1] + "'";
         }
-        if (name === "Reading and Writing"){
+        var engName;
+        if (name === "Reading and Writing") {
+            engName = name;
             name = subjectName[0];
         }
         else if (name === "Math") {
+            engName = name;
             name = subjectName[1];
         }
-        ret.cols.push({height: window.barHeight, template: "<div class='blueBox " + locked + "' id=subjectHeader " + attrs + "><span></span><img src='img/Button_Play.png' /><h2>" + name + "</h2></div>"});
-        ret.cols.push({gravity: 0.05});
+        // Setting the subject name in Hindi and English
+        ret.cols.push({ height: window.barHeight, template: "<div class='blueBox " + locked + "' id=subjectHeader " + attrs + "><span></span><img src='img/Button_Play.png' style='height:120%'/><h2 style='margin-top:-6% ; font-size:200%'>" + engName + "</h2><h2 style='display: block ; transform: translate(6%,0); margin-top:-6% ; font-size:200%'>" + name + "</h2></div>" });
+
+        ret.cols.push({ gravity: 0.05 });
         return ret;
     }
     function subjectObj(subject) {
@@ -271,13 +281,14 @@ document.addEventListener("deviceready", function () {
         for (var l = 0; l < subject.levels.length; l++) {
             var level = subject.levels[l];
             var lvl = {};
-            lvl.height = window.barHeight + 2;
+            // Increasing the size of the blue box. 
+            lvl.height = window.barHeight + 30;
             lvl.cols = [];
-            lvl.cols.push({gravity: 0.075}); // left margin
-            lvl.cols.push({height: window.barHeight, gravity: 3, template: unitHTML(level)}); // Lessons
-            lvl.cols.push({width: 50, template: "<img class=middle /><div class='unitsToGamesLine'></div>"}); // Connecter
-            lvl.cols.push({height: window.barHeight, gravity: 1.45, template: gameHTML(level)}); // Games
-            lvl.cols.push({gravity: 0.075}); // right margin
+            lvl.cols.push({ gravity: 0.075 }); // left margin
+            lvl.cols.push({ height: window.barHeight, gravity: 3, template: unitHTML(level) }); // Lessons
+            lvl.cols.push({ width: 50, template: "<img class=middle /><div class='unitsToGamesLine'></div>" }); // Connecter
+            lvl.cols.push({ height: window.barHeight + 26, gravity: 1.45, template: gameHTML(level) }); // Games
+            lvl.cols.push({ gravity: 0.075 }); // right margin
             sub.rows.push(lvl);
             sub.rows.push({});
         }
@@ -322,10 +333,11 @@ document.addEventListener("deviceready", function () {
          */
 
 
-        $(".unit").css({"height": unitSize, "width": unitSize});
+        $(".unit").css({ "height": unitSize, "width": unitSize });
 
         //here
         var unitConts = $(".unitCont");
+        $(".unitCont").height($(".unitCont").height() - 30);
         for (var u = 0; u < unitConts.length; u++) {
             var scrollWindow = $(unitConts[u]);
             var windowWidth = scrollWindow.width();
@@ -346,10 +358,10 @@ document.addEventListener("deviceready", function () {
             var nextAtRight = Math.min(0, nextAtLeft + windowWidth - unitWidth);
             // Fixes bug 6 list april 6th
             if (unitWidth < windowWidth) {
-                scrollCont.css({"margin-left": 0});
+                scrollCont.css({ "margin-left": 0 });
                 scrollCont.attr("left", 0);
             } else {
-                scrollCont.css({"margin-left": nextAtRight});
+                scrollCont.css({ "margin-left": nextAtRight });
                 scrollCont.attr("left", nextAtRight);
             }
         }
@@ -391,7 +403,7 @@ function MouseEvent(itemSize) {
         THIS.orig -= parseFloat($(this).attr("left"));
         THIS.mDown = true;
         THIS.scrollWidth = $(this).width();
-		// No right scroll left bump fix, 2019 jesus
+        // No right scroll left bump fix, 2019 jesus
         THIS.overflow = Math.min((-1 * (THIS.scrollWidth - THIS.windowWidth)), 0);
         THIS.dragTimeOffsetMet = window.setTimeout(function () {
             window.clearTimeout(THIS.dragTimeOffsetMet);
@@ -530,15 +542,15 @@ function gameClick(elem) {
         head: {
             view: "toolbar", margin: -4, css: "white", cols: [
                 {},
-                {view: "icon", icon: "times-circle", css: "exitBtn", click: "$$('downloadWindow').close()", align: "right", },
+                { view: "icon", icon: "times-circle", css: "exitBtn", click: "$$('downloadWindow').close()", align: "right", },
             ]
         },
         body: {
             height: 350,
             width: 350,
             template: "<div id='gameSelector'>" +
-              starHTML +
-              "</div>"
+                starHTML +
+                "</div>"
         },
     }).show();
     var eventName = "touchend";
@@ -602,18 +614,18 @@ function addAccentStyle(color) {
 
     // ugly, but I'll be damned if I use sass for one stupid thing.
     $('head').append(
-      "<style>" +
-      ".blueBox, .unit.complete, .unit.next {" +
-      "\r\t border-color:" + color + ";" +
-      "\r}\r" +
-      ".blueBox, .unitsToGamesLine, .unit.complete, #starCont {" +
-      "\r\t background-color:" + color + ";" +
-      "\r}\r" +
-      ".blueBox h1, .blueBox.unlocked h2, .blueBox.unlocked h3, .unit.next span {" +
-      "\r\t color:" + color + ";" +
-      "\r}\r" +
-      "</style>"
-      )
+        "<style>" +
+        ".blueBox, .unit.complete, .unit.next {" +
+        "\r\t border-color:" + color + ";" +
+        "\r}\r" +
+        ".blueBox, .unitsToGamesLine, .unit.complete, #starCont {" +
+        "\r\t background-color:" + color + ";" +
+        "\r}\r" +
+        ".blueBox h1, .blueBox.unlocked h2, .blueBox.unlocked h3, .unit.next span {" +
+        "\r\t color:" + color + ";" +
+        "\r}\r" +
+        "</style>"
+    )
 }
 
 
