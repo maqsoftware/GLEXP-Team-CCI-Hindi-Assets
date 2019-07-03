@@ -166,11 +166,11 @@ document.addEventListener("deviceready", function () {
         // Considering the English content from the EnglishWebRoot, overiding the content to the Hindi language
         // Note: We have not updated content in school.xml file as the property is referenced elsewhere.
         // Creating level name in English and Hindi
-        var levelNameE;
+        var levelNameEnglish;
         for (var iCount = 0; iCount < levelNamesEnglish.length; iCount++) {
             if (levelNamesEnglish[iCount] === level.name) {
                 levelName = levelNamesHindi[iCount];
-                levelNameE = levelNamesEnglish[iCount];
+                levelNameEnglish = levelNamesEnglish[iCount];
             }
         }
         var ret = "<div class='blueBox " + classes + "' >";
@@ -178,7 +178,7 @@ document.addEventListener("deviceready", function () {
         ret += "<img class='middle' src='" + blankSrc + "' />";
         if (levelName !== "") {
             // Adding both English and Hindi name 
-            ret += "<h3>" + levelNameE + "</h3>";
+            ret += "<h3>" + levelNameEnglish + "</h3>";
             ret += "<h3>" + levelName + "</h3>";
         }
         else {
@@ -251,17 +251,17 @@ document.addEventListener("deviceready", function () {
         for (var a = 0; a < additionalAttributes.length; a++) {
             attrs += " " + additionalAttributes[a][0] + "='" + additionalAttributes[a][1] + "'";
         }
-        var engName;
+        var englishName;
         if (name === "Reading and Writing") {
-            engName = name;
+            englishName = name;
             name = subjectName[0];
         }
         else if (name === "Math") {
-            engName = name;
+            englishName = name;
             name = subjectName[1];
         }
         // Setting the subject name in Hindi and English
-        ret.cols.push({ height: window.barHeight, template: "<div class='blueBox " + locked + "' id=subjectHeader " + attrs + "><span></span><img src='img/Button_Play.png' style='height:120%'/><h2 style='margin-top:-6% ; font-size:200%'>" + engName + "</h2><h2 style='display: block ; transform: translate(6%,0); margin-top:-6% ; font-size:200%'>" + name + "</h2></div>" });
+        ret.cols.push({ height: window.barHeight, template: "<div class='blueBox " + locked + "' id=subjectHeader " + attrs + "><span></span><img src='img/Button_Play.png' style='height:120%'/><h2 style='margin-top:-6% ; font-size:200%'>" + englishName + "</h2><h2 style='display: block ; transform: translate(6%,0); margin-top:-6% ; font-size:200%'>" + name + "</h2></div>" });
 
         ret.cols.push({ gravity: 0.05 });
         return ret;
