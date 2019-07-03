@@ -125,7 +125,6 @@ document.addEventListener("deviceready", function () {
         var levelNamesEnglish = ["Level 1", "Level 2", "Level 3", "Level 4"];
         var levelNamesHindi = ["पड़ाव १", "पड़ाव २", "पड़ाव ३", "पड़ाव ४"];
         var levelName = "";
-
         var isNext = true;
         var blankSrc = "img/empty.png";
         var unitHTML = "";
@@ -151,7 +150,6 @@ document.addEventListener("deviceready", function () {
             unitHTML += "<img class=smallStar src='img/smallStar.png' />";
             unitHTML += "<img class=bigStar src='img/bigStar.png' />";
             unitHTML += "</div>";
-
             unitHTML += "<img class=middle src=" + blankSrc + " />" +
                 "<span>" + (u + 1) + "</span>" +
                 "<img class=middle src=" + blankSrc + " />" +
@@ -331,10 +329,7 @@ document.addEventListener("deviceready", function () {
          }
          }
          */
-
-
         $(".unit").css({ "height": unitSize, "width": unitSize });
-
         //here
         var unitConts = $(".unitCont");
         $(".unitCont").height($(".unitCont").height() - 30);
