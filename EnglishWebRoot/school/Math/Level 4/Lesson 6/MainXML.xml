@@ -5460,6 +5460,11 @@ MobileCover	32</InitialLayers>
                   <Action>disable</Action>
                   <Destination>Next</Destination>
                 </Target>
+	              <Target>		               
+                  <Type>Wait</Type>		
+                  <Action>time</Action>		
+                  <Destination>Silence</Destination>		
+                </Target>
                 <Target>
                   <Type>Object</Type>
                   <Action>Show</Action>
