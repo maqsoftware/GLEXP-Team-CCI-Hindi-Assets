@@ -1286,7 +1286,6 @@ function xmlLoaded(curXML) {
         $("body").css("display", "block");
         loadAssets();
         // Fitting images to all the device according to their screen width and screen height 
-
         var screenAttributes = document.getElementById('bookC');
         if ((screenHeight / maxDim[0]) < (screenWidth / maxDim[1])) {
             screenAttributes.style.width = '100%';

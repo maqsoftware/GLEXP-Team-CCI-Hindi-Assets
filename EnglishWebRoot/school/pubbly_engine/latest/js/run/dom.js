@@ -156,12 +156,14 @@ function PubblyDom(xml, environment) {
         $("#main > div").addClass("transformCenter");
 
         function scalingYCoordinate() {
+            // Height of display after applying viewportscale
             var totalpixel = info.height * viewportScaleNoMargins;
             //  Calculating Scale % to increase the width of the screen
             return (screen.height / totalpixel);
         }
 
         function scalingXCoordinate() {
+            // Width of display after applying viewportscale
             var totalpixel = domWidth * viewportScaleNoMargins;
             //  Calculating Scale % to increase the width of the screen
             return (screen.width / totalpixel);
