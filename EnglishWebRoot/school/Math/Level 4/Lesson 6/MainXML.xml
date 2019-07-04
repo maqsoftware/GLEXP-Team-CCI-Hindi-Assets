@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+ <?xml version="1.0"?>
 <Project>
   <Info>
     <PrjName>Lesson 6</PrjName>
@@ -1498,7 +1498,7 @@ MobileCover	32</InitialLayers>
           <ObjImageSequenceFolder>P_</ObjImageSequenceFolder>
           <ObjLayer>35</ObjLayer>
           <ObjInitVis>hide</ObjInitVis>
-          <ObjInitTopLeft>456,668</ObjInitTopLeft>
+          <ObjInitTopLeft>456,678</ObjInitTopLeft>
           <ObjInitWidth>144</ObjInitWidth>
           <ObjInitHeight>77</ObjInitHeight>
           <ObjMoveForwardAfterDragging/>
@@ -5209,50 +5209,6 @@ MobileCover	32</InitialLayers>
         </Object>
       </Objects>
       <Links>
-          <Link>
-          <Name>V Link 1</Name>
-          <LinkType>graphic</LinkType>
-          <LineDrawing/>
-          <Points>-80,0.-10,0.-10,70.-80,70</Points>
-          <CurrentRect>-80,0,-10,70</CurrentRect>
-          <GraphicStyle>rectangle</GraphicStyle>
-          <PinnedTo/>
-          <InitialStatus>enabled</InitialStatus>
-          <AutoHighlightLink/>
-          <Triggers>
-            <Trigger>
-              <TriggerType>click</TriggerType>
-              <Targets>
-                <Target>
-                  <Type>Audio</Type>
-                  <Action>play</Action>
-                  <Destination>P_C_M_ENG_L4_AU_LS06_74</Destination>
-                  <ParentSource>P_C_M_ENG_L4_AU_LS06_74</ParentSource>
-                </Target>
-                <Target>
-                  <Type>Object</Type>
-                  <Action>disable</Action>
-                  <Destination>Next</Destination>
-                </Target>
-                <Target>
-                  <Type>Object</Type>
-                  <Action>Show</Action>
-                  <Destination>button_3_whiteDrag</Destination>
-                </Target>
-                <Target>
-                  <Type>Object</Type>
-                  <Action>Show</Action>
-                  <Destination>button_4_whiteDrag</Destination>
-                </Target>
-                <Target>
-                  <Type>Object</Type>
-                  <Action>Show</Action>
-                  <Destination>button_9_whiteDrag</Destination>
-                </Target>
-              </Targets>
-            </Trigger>
-          </Triggers>
-        </Link>
         <Link>
           <Name>Reset</Name>
           <LinkType>graphic</LinkType>
@@ -5479,6 +5435,50 @@ MobileCover	32</InitialLayers>
             </Trigger>
           </Triggers>
         </Link>
+        <Link>
+          <Name>V Link 1</Name>
+          <LinkType>graphic</LinkType>
+          <LineDrawing>none</LineDrawing>
+          <Points>-80,0.-10,0.-10,70.-80,70</Points>
+          <CurrentRect>-80,0,-10,70</CurrentRect>
+          <GraphicStyle>rectangle</GraphicStyle>
+          <PinnedTo/>
+          <InitialStatus>enabled</InitialStatus>
+          <AutoHighlightLink/>
+          <Triggers>
+            <Trigger>
+              <TriggerType>click</TriggerType>
+              <Targets>
+                <Target>
+                  <Type>Audio</Type>
+                  <Action>play</Action>
+                  <Destination>P_C_M_ENG_L4_AU_LS06_74</Destination>
+                  <ParentSource>P_C_M_ENG_L4_AU_LS06_74</ParentSource>
+                </Target>
+                <Target>
+                  <Type>Object</Type>
+                  <Action>disable</Action>
+                  <Destination>Next</Destination>
+                </Target>
+                <Target>
+                  <Type>Object</Type>
+                  <Action>Show</Action>
+                  <Destination>button_3_whiteDrag</Destination>
+                </Target>
+                <Target>
+                  <Type>Object</Type>
+                  <Action>Show</Action>
+                  <Destination>button_4_whiteDrag</Destination>
+                </Target>
+                <Target>
+                  <Type>Object</Type>
+                  <Action>Show</Action>
+                  <Destination>button_9_whiteDrag</Destination>
+                </Target>
+              </Targets>
+            </Trigger>
+          </Triggers>
+        </Link>        
         <Link>
           <Name>Page</Name>
           <LinkType>page</LinkType>
