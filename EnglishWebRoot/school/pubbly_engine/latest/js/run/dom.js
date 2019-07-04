@@ -155,19 +155,14 @@ function PubblyDom(xml, environment) {
         $("#main").addClass("transformCenterCont");
         $("#main > div").addClass("transformCenter");
 
-        function scalingYCoordinate(screenAttributes) {
-
+        function scalingYCoordinate() {
             var totalpixel = info.height * viewportScaleNoMargins;
-
-
             //  Calculating Scale % to increase the width of the screen
             return (screen.height / totalpixel);
         }
 
-        function scalingXCoordinate(screenAttributes) {
+        function scalingXCoordinate() {
             var totalpixel = domWidth * viewportScaleNoMargins;
-
-
             //  Calculating Scale % to increase the width of the screen
             return (screen.width / totalpixel);
         }
@@ -179,13 +174,13 @@ function PubblyDom(xml, environment) {
         screenAttributes.style.transform = 'translate(0%,0%)';
         if (!(document.body.clientWidth === screen.width && document.body.clientHeight === screen.height) || ((screen.height / info.height) > (screen.width / spreadWidth) && (screen.width > info.width))) {
             if ((screen.height / info.height) > (screen.width / spreadWidth)) {
-                scalingFactor = scalingYCoordinate(screenAttributes);
+                scalingFactor = scalingYCoordinate();
                 //  Calculating translate % for translating image to center and then scale it
                 translatingFactor = (scalingFactor - 1) * 50;
                 screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
             }
             else {
-                scalingFactor = scalingXCoordinate(screenAttributes);
+                scalingFactor = scalingXCoordinate();
                 //  Calculating translate % for translating image to center and then scale it
                 translatingFactor = (scalingFactor - 1) * 50;
                 screenAttributes.style.transform = 'translateX(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
