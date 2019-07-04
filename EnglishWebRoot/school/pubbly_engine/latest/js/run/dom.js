@@ -155,47 +155,39 @@ function PubblyDom(xml, environment) {
         $("#main").addClass("transformCenterCont");
         $("#main > div").addClass("transformCenter");
 
-        function scalingYCoordinate(screenAttributes) {
-            screenAttributes.style.height = '100%';
-            //  Converting 100% to pixel
-            var totalpixel = parseFloat(window.getComputedStyle(screenAttributes).height);
-            screenAttributes.style.height = domHeight;
+        function scalingYCoordinate() {
+            // Height of display after applying viewportscale
+            var totalpixel = info.height * viewportScaleNoMargins;
             //  Calculating Scale % to increase the width of the screen
-            return (totalpixel / info.height);
+            return (screen.height / totalpixel);
         }
 
-        function scalingXCoordinate(screenAttributes) {
-            screenAttributes.style.width = '100%';
-            //  Converting 100% to pixel
-            var totalpixel = parseFloat(window.getComputedStyle(screenAttributes).width);
-            screenAttributes.style.width = domWidth;
+        function scalingXCoordinate() {
+            // Width of display after applying viewportscale
+            var totalpixel = domWidth * viewportScaleNoMargins;
             //  Calculating Scale % to increase the width of the screen
-            return (totalpixel / info.width);
+            return (screen.width / totalpixel);
         }
 
-        window.setTimeout(function (screenAttributes) {
-            var scalingFactor = 0, translatingFactor = 0;
-
-            screenAttributes = document.getElementsByClassName('transformCenter')[0];
-            
-                screenAttributes.style.top = "-7%";
-                screenAttributes.style.left = "-1%";
-                screenAttributes.style.transform = 'translate(0%,0%)';
-                if (!(document.body.clientWidth === screen.width && document.body.clientHeight === screen.height)) {
-                    if ((screen.height / info.height) > (screen.width / spreadWidth)) {
-                        scalingFactor = scalingYCoordinate(screenAttributes);
-                        //  Calculating translate % for translating image to center and then scale it
-                        translatingFactor = (scalingFactor - 1) * 50;
-                        screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
-                    }
-                    else {
-                        scalingFactor = scalingXCoordinate(screenAttributes);
-                        //  Calculating translate % for translating image to center and then scale it
-                        translatingFactor = (scalingFactor - 1) * 50;
-                        screenAttributes.style.transform = 'translateX(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
-                    }
-                }
-            }, 1);
+        var scalingFactor = 0, translatingFactor = 0;
+        screenAttributes = document.getElementsByClassName('transformCenter')[0];
+        screenAttributes.style.top = "-7%";
+        screenAttributes.style.left = "0%";
+        screenAttributes.style.transform = 'translate(0%,0%)';
+        if (!(document.body.clientWidth === screen.width && document.body.clientHeight === screen.height) || ((screen.height / info.height) > (screen.width / spreadWidth) && (screen.width > info.width))) {
+            if ((screen.height / info.height) > (screen.width / spreadWidth)) {
+                scalingFactor = scalingYCoordinate();
+                //  Calculating translate % for translating image to center and then scale it
+                translatingFactor = (scalingFactor - 1) * 50;
+                screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
+            }
+            else {
+                scalingFactor = scalingXCoordinate();
+                //  Calculating translate % for translating image to center and then scale it
+                translatingFactor = (scalingFactor - 1) * 50;
+                screenAttributes.style.transform = 'translateX(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
+            }
+        }
 
         // Buid the DOM elem to return
         this.dom = {

@@ -1285,6 +1285,31 @@ function xmlLoaded(curXML) {
         // Should give enough time for the viewport meta to finally parse in the browser.
         $("body").css("display", "block");
         loadAssets();
+        // Fitting images to all the device according to their screen width and screen height 
+        var screenAttributes = document.getElementById('bookC');
+        if ((screenHeight / maxDim[0]) < (screenWidth / maxDim[1])) {
+            screenAttributes.style.width = '100%';
+            //  Converting 100% to pixel
+            var totalPixel = parseFloat(window.getComputedStyle(screenAttributes).width);
+            screenAttributes.style.width = maxDim[1];
+            //  Calculating Scale % to increase the width of the screen //
+            var scalingFactor = totalPixel / maxDim[1];
+            //  Calculating translate % for translating image to center and then scale it//
+            var translatingFactor = (scalingFactor - 1) * 50;
+            screenAttributes.style.transform = 'translate(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
+        }
+        else {
+            screenAttributes.style.height = '100%';
+            //  Converting 100% to pixel
+            var totalPixel = parseFloat(window.getComputedStyle(screenAttributes).height);
+            screenAttributes.style.height = maxDim[0];
+            //  Calculating Scale % to increase the width of the screen //
+            var scalingFactor = totalPixel / maxDim[0];
+            //  Calculating translate % for translating image to center and then scale it//
+            var translatingFactor = (scalingFactor - 1) * 50;
+            screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
+
+        }
     }, 1);
 
     //tester();
@@ -3504,33 +3529,7 @@ function rescale() {
     window.setTimeout(function () {
         viewportScale = Math.min(screenHeight / maxDim[0], screenWidth / maxDim[1]);
         document.head.firstChild.content = 'width=device-width, initial-scale=' + viewportScale + ', maximum-scale=' + viewportScale + ', minimum-scale=' + viewportScale + ', user-scalable=no';
-        // Fitting images to all the device according to their screen width and screen height 
-        window.setTimeout(function () {
-            var screenAttributes = document.getElementById('bookC');
-            if ((screenHeight / maxDim[0]) < (screenWidth / maxDim[1])) {
-                screenAttributes.style.width = '100%';
-                //  Converting 100% to pixel
-                var totalPixel = parseFloat(window.getComputedStyle(screenAttributes).width);
-                screenAttributes.style.width = maxDim[1];
-                //  Calculating Scale % to increase the width of the screen //
-                var scalingFactor = totalPixel / maxDim[1];
-                //  Calculating translate % for translating image to center and then scale it//
-                var translatingFactor = (scalingFactor - 1) * 50;
-                screenAttributes.style.transform = 'translate(' + translatingFactor + '%) scaleX(' + scalingFactor + ')';
-            }
-            else {
-                screenAttributes.style.height = '100%';
-                //  Converting 100% to pixel
-                var totalPixel = parseFloat(window.getComputedStyle(screenAttributes).height);
-                screenAttributes.style.height = maxDim[0];
-                //  Calculating Scale % to increase the width of the screen //
-                var scalingFactor = totalPixel / maxDim[0];
-                //  Calculating translate % for translating image to center and then scale it//
-                var translatingFactor = (scalingFactor - 1) * 50;
-                screenAttributes.style.transform = 'translateY(' + translatingFactor + '%) scaleY(' + scalingFactor + ')';
 
-            }
-        }, 2);
     }, 1);
 }
 
