@@ -332,7 +332,6 @@ document.addEventListener("deviceready", function () {
         $(".unit").css({ "height": unitSize, "width": unitSize });
         //here
         var unitConts = $(".unitCont");
-        $(".unitCont").height($(".unitCont").height() - 30);
         for (var u = 0; u < unitConts.length; u++) {
             var scrollWindow = $(unitConts[u]);
             var windowWidth = scrollWindow.width();

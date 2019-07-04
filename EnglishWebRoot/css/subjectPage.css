@@ -188,7 +188,7 @@ blueBox.unlocked .levelNameCont {
 }
 .blueBox.unlocked .unitCont {
     display:block;
-    height:calc(100% - 27px);
+    height:calc(100% - 57px);
     position:relative;
 }
 
