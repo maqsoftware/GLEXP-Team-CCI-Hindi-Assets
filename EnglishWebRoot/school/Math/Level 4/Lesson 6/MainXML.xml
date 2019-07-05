@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+ <?xml version="1.0"?>
 <Project>
   <Info>
     <PrjName>Lesson 6</PrjName>
@@ -1452,7 +1452,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_0_Drag</ObjName>
           <ObjFileName>P_button_0_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -1471,7 +1471,7 @@ MobileCover	32</InitialLayers>
           <ObjName>button_7_Drag</ObjName>
           <ObjFileName>P_button_7_white</ObjFileName>
           <ObjMobility>static</ObjMobility>
-          <ObjInitialMobility>static</ObjInitialMobility>
+          <ObjInitialMobility>draggable</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
           <ObjFileLeaf>button_7_white.png</ObjFileLeaf>
@@ -1488,7 +1488,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_11_Drag</ObjName>
           <ObjFileName>P_button_white_11</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -1502,11 +1502,11 @@ MobileCover	32</InitialLayers>
           <ObjInitWidth>144</ObjInitWidth>
           <ObjInitHeight>77</ObjInitHeight>
           <ObjMoveForwardAfterDragging/>
-        </Object>
+        </Object>  
         <Object>
           <ObjName>button_4_Drag</ObjName>
           <ObjFileName>P_button_4_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -1692,6 +1692,21 @@ MobileCover	32</InitialLayers>
                   <Type>Object</Type>
                   <Action>show</Action>
                   <Destination>button_11_Drag</Destination>
+                </Target>
+                <Target>
+                  <Type>Object</Type>
+                  <Action>disable</Action>
+                  <Destination>Answer0</Destination>
+                </Target>
+                <Target>
+                  <Type>Object</Type>
+                  <Action>disable</Action>
+                  <Destination>Answer4</Destination>
+                </Target>
+                <Target>
+                  <Type>Object</Type>
+                  <Action>disable</Action>
+                  <Destination>Answer11</Destination>
                 </Target>
               </Targets>
             </Trigger>
@@ -2501,7 +2516,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_3_whiteDrag</ObjName>
           <ObjFileName>P_button_3_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -2519,7 +2534,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_5_whiteDrag</ObjName>
           <ObjFileName>P_button_5_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -2537,7 +2552,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_7_whiteDrag</ObjName>
           <ObjFileName>P_button_7_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -3463,7 +3478,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_7_whiteDrag</ObjName>
           <ObjFileName>P_button_7_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -3481,7 +3496,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_8_whiteDrag</ObjName>
           <ObjFileName>P_button_8_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -3499,7 +3514,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_9_whiteDrag</ObjName>
           <ObjFileName>P_button_9_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -4323,7 +4338,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_white_13Drag</ObjName>
           <ObjFileName>P_button_white_13</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -4341,7 +4356,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_white_14Drag</ObjName>
           <ObjFileName>P_button_white_14</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -4359,7 +4374,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_white_15Drag</ObjName>
           <ObjFileName>P_button_white_15</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -5123,7 +5138,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_3_whiteDrag</ObjName>
           <ObjFileName>P_button_3_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -5141,7 +5156,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_4_whiteDrag</ObjName>
           <ObjFileName>P_button_4_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -5159,7 +5174,7 @@ MobileCover	32</InitialLayers>
         <Object>
           <ObjName>button_9_whiteDrag</ObjName>
           <ObjFileName>P_button_9_white</ObjFileName>
-          <ObjMobility>static</ObjMobility>
+          <ObjMobility>draggable</ObjMobility>
           <ObjInitialMobility>static</ObjInitialMobility>
           <InitialStatus>enabled</InitialStatus>
           <ObjType>image</ObjType>
@@ -5445,10 +5460,10 @@ MobileCover	32</InitialLayers>
                   <Action>disable</Action>
                   <Destination>Next</Destination>
                 </Target>
-                <Target>
-                  <Type>Wait</Type>
-                  <Action>time</Action>
-                  <Destination>Silence</Destination>
+	              <Target>		               
+                  <Type>Wait</Type>		
+                  <Action>time</Action>		
+                  <Destination>Silence</Destination>		
                 </Target>
                 <Target>
                   <Type>Object</Type>
@@ -5468,7 +5483,7 @@ MobileCover	32</InitialLayers>
               </Targets>
             </Trigger>
           </Triggers>
-        </Link>
+        </Link>        
         <Link>
           <Name>Page</Name>
           <LinkType>page</LinkType>
