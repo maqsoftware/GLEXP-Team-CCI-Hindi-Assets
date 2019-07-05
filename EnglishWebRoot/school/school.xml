@@ -4,6 +4,7 @@
    <subjects>
       <subject>
          <name>Reading and Writing</name>
+         <hindiname>पढ़ाई और लिखाई</hindiname>
          <row>2</row>
          <col>2</col>
          <icon>readingicon.png</icon>
@@ -11,6 +12,7 @@
          <levels>
             <level>
                <name>Level 1</name>
+               <hindiname>पड़ाव १</hindiname>
                <status>unlocked</status>
                <units>
                   <unit>
@@ -87,6 +89,7 @@
             </level>
             <level>
                <name>Level 2</name>
+               <hindiname>पड़ाव २</hindiname>
                <status>unlocked</status>
                <units>
                   <unit>
@@ -167,6 +170,7 @@
             </level>
             <level>
                <name>Level 3</name>
+               <hindiname>पड़ाव ३</hindiname>
                <status>unlocked</status>
                <units>
                   <unit>
@@ -253,6 +257,7 @@
       </subject>
       <subject>
          <name>Math</name>
+         <hindiname>गणित</hindiname>
          <row>2</row>
          <col>4</col>
          <icon>mathicon.png</icon>
@@ -260,6 +265,7 @@
          <levels>
             <level>
                <name>Level 1</name>
+               <hindiname>पड़ाव १</hindiname>
                <status>unlocked</status>
                <units>
                   <unit>
@@ -328,6 +334,7 @@
             </level>
             <level>
                <name>Level 2</name>
+               <hindiname>पड़ाव २</hindiname>
                <status>unlocked</status>
                <units>
                   <unit>
@@ -388,6 +395,7 @@
             </level>
             <level>
                <name>Level 3</name>
+               <hindiname>पड़ाव ३</hindiname>
                <status>unlocked</status>
                <units>
                   <unit>
@@ -448,6 +456,8 @@
             </level>
             <level>
                <name>Level 4</name>
+               <hindiname>पड़ाव ४</hindiname>
+
                <status>unlocked</status>
                <units>
                   <unit>
