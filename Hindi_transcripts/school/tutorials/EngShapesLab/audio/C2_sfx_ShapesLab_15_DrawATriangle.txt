@@ -1,1 +1,1 @@
-एक triangle ड्रा करें
+एक triangle draw करें.

@@ -1,1 +1,1 @@
-A Rectangle looks like an streched out square. All four corners are the same but not all the sides are of the same length. Opposite sides are of equal length
+A rectangle looks like a streched out square. All four corners are the same but not all the sides are of the same length. Opposite sides are of equal length.

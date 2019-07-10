@@ -1,1 +1,1 @@
-Draw an oval
+Draw an oval.

@@ -1,1 +1,1 @@
-एक rectangle ड्रा करें
+एक rectangle draw करें.

@@ -1,1 +1,1 @@
-Draw a triangle
+Draw a triangle.

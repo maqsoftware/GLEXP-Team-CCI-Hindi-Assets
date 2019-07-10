@@ -1,1 +1,1 @@
-Draw a rectangle
+Draw a rectangle.
