@@ -1,0 +1,1 @@
+﻿Add 's' to the words to make them name more than one. Drag the s to end of each word.

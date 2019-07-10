@@ -1,0 +1,1 @@
+﻿Drag a 's' to each word to add it as a action word.
