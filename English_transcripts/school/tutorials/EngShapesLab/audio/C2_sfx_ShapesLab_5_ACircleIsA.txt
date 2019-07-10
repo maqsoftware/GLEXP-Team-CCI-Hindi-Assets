@@ -1,0 +1,1 @@
+Circle is a shape that is made by drawing a curve around a center point. Every point on a circle is the exact same distance from the center point
