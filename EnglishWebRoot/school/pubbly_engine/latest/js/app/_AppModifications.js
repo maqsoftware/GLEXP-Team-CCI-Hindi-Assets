@@ -24,7 +24,7 @@ function calculateTime() {
     document.addEventListener("deviceready", function () {
         window.FirebasePlugin.setAnalyticsCollectionEnabled(true);
         window.FirebasePlugin.setScreenName("Module_Play_Status");
-        // Log only the module name for the epic Quest section
+        // Log only the module name for the Epic Quest section
         if (lessonName == "Epic    Quest") {
             moduleName = lessonName;
             window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'business', moduleName, elapsedTime });
