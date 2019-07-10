@@ -18,36 +18,37 @@ window.addEventListener("popstate", function (e) {
 function retStamp() {
     return parseInt(Date.now()).toString();
 }
-function Calculate_time() {
+function calculateTime() {
 
     var url = window.location.pathname.split("/");
     url.pop(); // index.html
     var book = url.pop();
     var subject = url.pop();
-    var Module_name = url.pop();
+    var moduleName = url.pop();
 
+    // remove the special characters found in the URL string
     function removeSpecialChars(str) {
         return str.replace(/%20/g, "    ");
     }
-    var Module_Name = removeSpecialChars(Module_name);
-    var Level_Name = removeSpecialChars(subject);
-    var Lesson_Name = removeSpecialChars(book);
+    var moduleName = removeSpecialChars(moduleName);
+    var levelName = removeSpecialChars(subject);
+    var lessonName = removeSpecialChars(book);
 
     endTime = new Date();
     var timeDiff = endTime - startTime; //in seconds
     timeDiff /= 1000;
-    var Elapsed_Time = Math.round(timeDiff);
-    console.log(Elapsed_Time + " Elapsed_Time");
+    var elapsedTime = Math.round(timeDiff);
 
     document.addEventListener("deviceready", function () {
         window.FirebasePlugin.setAnalyticsCollectionEnabled(true);
         window.FirebasePlugin.setScreenName("Module_Play_Status");
-        if (Level_Name == "tutorials") {
-            Module_Name = Level_Name;
-            window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'business', Module_Name, Elapsed_Time });
+        // Log only the module name for the tutorial section
+        if (levelName == "tutorials") {
+            moduleName = levelName;
+            window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'business', moduleName, elapsedTime });
         }
         else {
-            window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'business', Module_Name, Level_Name, Lesson_Name, Elapsed_Time });
+            window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'business', moduleName, levelName, lessonName, elapsedTime });
         }
 
     }, false);
@@ -152,7 +153,7 @@ window.addEventListener("popstate", function (e) {
     window.setTimeout(function () {
         window.history.back();
     }, 2000);
-    Calculate_time();
+    calculateTime();
 });
 
 
