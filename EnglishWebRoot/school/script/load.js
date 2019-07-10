@@ -28,7 +28,7 @@ function calculateTime() {
 
     // remove the special characters found in the URL string
     function removeSpecialChars(str) {
-        return str.replace(/%20/g, "    ");
+        return str.replace(/%20/g, " ");
     }
     var moduleName = removeSpecialChars(moduleName);
     var levelName = removeSpecialChars(subject);
@@ -43,7 +43,7 @@ function calculateTime() {
         window.FirebasePlugin.setAnalyticsCollectionEnabled(true);
         window.FirebasePlugin.setScreenName("Module_Play_Status");
         // Log only the module name for the tutorial section
-        if (levelName == "tutorials") {
+        if (levelName === "tutorials") {
             moduleName = levelName;
             window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'business', moduleName, elapsedTime });
         }
