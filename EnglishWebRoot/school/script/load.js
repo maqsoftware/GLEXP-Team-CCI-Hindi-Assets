@@ -1,5 +1,6 @@
 // last last minute adding a nav handler for games only so they go back to shelf and not the previous book.
-
+var endTime;
+var startTime;
 // ideally, add this in game.html
 window.history.pushState('popstateListener', null, window.location.href);
 window.addEventListener("popstate", function (e) {
@@ -17,11 +18,47 @@ window.addEventListener("popstate", function (e) {
 function retStamp() {
     return parseInt(Date.now()).toString();
 }
+function calculateTime() {
+
+    var url = window.location.pathname.split("/");
+    url.pop(); // index.html
+    var book = url.pop();
+    var subject = url.pop();
+    var moduleName = url.pop();
+
+    // remove the special characters found in the URL string
+    function removeSpecialChars(str) {
+        return str.replace(/%20/g, " ");
+    }
+    var moduleName = removeSpecialChars(moduleName);
+    var levelName = removeSpecialChars(subject);
+    var lessonName = removeSpecialChars(book);
+
+    endTime = new Date();
+    var timeDiff = endTime - startTime; //in seconds
+    timeDiff /= 1000;
+    var elapsedTime = Math.round(timeDiff);
+
+    document.addEventListener("deviceready", function () {
+        window.FirebasePlugin.setAnalyticsCollectionEnabled(true);
+        window.FirebasePlugin.setScreenName("Module_Play_Status");
+        // Log only the module name for the tutorial section
+        if (levelName === "tutorials") {
+            moduleName = levelName;
+            window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'business', moduleName, elapsedTime });
+        }
+        else {
+            window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'business', moduleName, levelName, lessonName, elapsedTime });
+        }
+
+    }, false);
+}
 
 function Analytics() {
     var self = this;
     this.fName = false;
     this.fullObj = {};
+    startTime = new Date();
 
     this.retStamp = function () {
         var now = parseInt(Date.now()).toString();
@@ -116,10 +153,8 @@ window.addEventListener("popstate", function (e) {
     window.setTimeout(function () {
         window.history.back();
     }, 2000);
+    calculateTime();
 });
-
-
-
 
 
 // end analytics
