@@ -1,0 +1,1 @@
+Look at this ten frame, the top row is filled it has 5 counters, the bottom row has one counter. Count all of the counter starting with one. How many counters are there.
