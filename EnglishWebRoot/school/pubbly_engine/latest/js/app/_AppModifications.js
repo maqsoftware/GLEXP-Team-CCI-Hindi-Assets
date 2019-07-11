@@ -27,10 +27,10 @@ function calculateTime() {
         // Log only the module name for the Epic Quest section
         if (lessonName.toLowerCase() === "epic quest") {
             moduleName = lessonName;
-            window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'business', moduleName, elapsedTime });
+            window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'Section_Open', moduleName, elapsedTime });
         }
         else {
-            window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'business', moduleName, levelName, lessonName, elapsedTime });
+            window.FirebasePlugin.logEvent("Module_Play_Status", { action: 'add', type: 'Section_Open', moduleName, levelName, lessonName, elapsedTime });
         }
     }, false);
 }
