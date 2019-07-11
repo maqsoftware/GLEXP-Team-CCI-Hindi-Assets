@@ -1,0 +1,4 @@
+<break time="1000ms"/><prosody rate="1.2"> चित्र से मिलते हुए मिट्टी के बर्तनों को चुनें.</prosody> <break time="1800ms"/>
+<prosody rate="1.1">इसे रंगने के लिए बर्तन पर सही रंग खींचें.</prosody> <break time="5500ms"/>
+<prosody rate="1.1">नए रंग बनाने के लिए मिक्सिंग पॉट में रंग मिलाएं.</prosody>  <break time="5800ms"/>
+<prosody rate="1.1">क्या आप सभी बर्तनों को पेंट कर सकते हैं?</prosody> <break time="2000ms"/>

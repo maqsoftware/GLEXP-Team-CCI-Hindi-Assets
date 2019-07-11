@@ -1,0 +1,1 @@
+The number with most tens is always greater, you dont need to compare the ones. Which number is greater?
