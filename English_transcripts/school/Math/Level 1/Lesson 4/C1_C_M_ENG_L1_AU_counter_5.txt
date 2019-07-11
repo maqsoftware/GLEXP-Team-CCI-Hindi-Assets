@@ -1,0 +1,1 @@
+There are five counters in the top row. When the top is completed, that row always shows the five.

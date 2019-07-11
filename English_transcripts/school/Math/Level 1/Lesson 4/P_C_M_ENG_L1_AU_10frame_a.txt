@@ -1,0 +1,1 @@
+This is a 10 frame. It has two rows with 5 squares in each row. You can use counters to fill a 10 frames
