@@ -2,7 +2,7 @@ function navHandler() {
     var road = {
         welcome: "exit",
         login: "welcome", // change to index if you ever want that front end bullshit back.
-        school: "login",
+        school: "welcome",
         subject: "school",
         books: "school"
     };

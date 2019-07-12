@@ -6,26 +6,19 @@ document.addEventListener("deviceready", function () {
             THIS.folder = folder; // MyAppFolder
             THIS.fileName = fileName; // pic
             THIS.callback = callback;
-            capturePhoto();
+            onPhotoDataSuccess();
         }
 
-        // A button will call this function
-        function capturePhoto() {
-            sessionStorage.removeItem('imagepath');
-            // Take picture using device camera and retrieve image as base64-encoded string
-            navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 50, destinationType: Camera.DestinationType.FILE_URI, cameraDirection: 1});
-            // Github says "Any cameraDirection value results in a back-facing photo". So fuck.
-        }
-
-        function onPhotoDataSuccess(imageURI) {
+        function onPhotoDataSuccess() {
             if (sessionStorage.isprofileimage == 1) {
                 getLocation();
             }
-            movePic(imageURI);
-        }
-
-        // Called if something bad happens.
-        function onFail(message) {
+            // Taking the URL of image of avatar 
+            var imageURL = "file://" + window.location.pathname;
+            var lastIndex = imageURL.lastIndexOf("/");
+            // Manipulating the URL 
+            imageURL = imageURL.substr(0, lastIndex + 1) + "img/tabletpic.png";
+            movePic(imageURL);
         }
 
         function movePic(file) {
@@ -42,13 +35,13 @@ document.addEventListener("deviceready", function () {
                 // console.log("request granted");
                 //The folder is created if doesn't exist
                 fileSys.root.getDirectory(myFolderApp,
-                  {create: true, exclusive: false},
-                  function (directory) {
-                      entry.moveTo(directory, newFileName, successMove, resOnError);
-                  },
-                  resOnError);
+                    { create: true, exclusive: false },
+                    function (directory) {
+                        entry.moveTo(directory, newFileName, successMove, resOnError);
+                    },
+                    resOnError);
             },
-              resOnError);
+                resOnError);
         }
 
         //Callback function when the file has been moved successfully - inserting the complete path
