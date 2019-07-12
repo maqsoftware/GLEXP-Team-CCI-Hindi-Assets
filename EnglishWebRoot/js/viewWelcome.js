@@ -42,8 +42,6 @@ document.addEventListener("deviceready", function () {
         dataType: "xml",
         success: function (xml) {
             window.schoolXML = xml;
-
-
             var initTutorial = "";
             var tuts = schoolXML.getElementsByTagName("tutorial");
             for (var t = 0; t < tuts.length; t++) {
@@ -142,6 +140,7 @@ document.addEventListener("deviceready", function () {
             });
         })
     }
+    
     function clickAttributes(userList) {
         $("#tutorial").click(function () {
             gotoTutorial();
