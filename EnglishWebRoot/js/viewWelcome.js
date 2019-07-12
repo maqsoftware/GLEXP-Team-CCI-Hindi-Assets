@@ -60,20 +60,6 @@ document.addEventListener("deviceready", function () {
         var userList = [];
         xml = $.parseXML(xml);
         window.xml = xml;
-        if (xml.getElementsByTagName) {
-            var users = xml.getElementsByTagName("user");
-            for (var u = 0; u < users.length; u++) {
-                var curXML = users[u];
-                var curUser = {};
-                curUser.id = getValByTag(curXML, "id");
-                curUser.name = getValByTag(curXML, "name");
-                curUser.level = getValByTag(curXML, "level");
-                // curUser.picture = curUser.id + "_cover_.jpg";
-                curUser.picture = getValByTag(curXML, "picture");
-                userList.push(curUser);
-            }
-        }
-        clickAttributes(userList);
     }
     function addUser() {
         var users = xml.getElementsByTagName("user");
@@ -140,29 +126,29 @@ document.addEventListener("deviceready", function () {
             });
         })
     }
-    
-    function clickAttributes(userList) {
-        $("#tutorial").click(function () {
-            gotoTutorial();
-        });
-        $("#promptLeft").click(function () {
-            gotoTutorial();
-        });
-        $("#login").click(function () {
-            var users = xml.getElementsByTagName("user");
-            if (users.length === 0)
-                addUser();
-            else
-                login(users.length);
-        });
-        $("#promptRight").click(function () {
-            var users = xml.getElementsByTagName("user");
-            if (users.length === 0)
-                addUser();
-            else
-                login(users.length);
-        });
-    }
+
+
+    $("#tutorial").click(function () {
+        gotoTutorial();
+    });
+    $("#promptLeft").click(function () {
+        gotoTutorial();
+    });
+    $("#login").click(function () {
+        var users = xml.getElementsByTagName("user");
+        if (users.length === 0)
+            addUser();
+        else
+            login(users.length);
+    });
+    $("#promptRight").click(function () {
+        var users = xml.getElementsByTagName("user");
+        if (users.length === 0)
+            addUser();
+        else
+            login(users.length);
+    });
+
 
     function gotoTutorial() {
         $.ajax({
